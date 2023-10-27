@@ -1,0 +1,63 @@
+Parameter
+	SeqName==SEQ_MERGE_CDR
+	SeqFormat==0000
+	MaxFileSize==50000
+	InputDirName==./cdr/input
+	InputDirStructure==Directly
+	ProcessDate==24/12/2020
+	Wildcard==*.*
+	OutputDirName==./cdr/out
+	OutputDirStructure==Daily
+	OutputFileFormat==glpay_$Time_$Sequence
+	BackupDirName==./cdr/backup
+	BackupDirStructure==Daily
+	RejectedDirName==./cdr/reject
+	RejectedDirStructure==Daily
+	TempDirName==./cdr/temp
+	DateFormat==yyyyMMdd
+	LogDir==log/cdr_merge_logger
+	Alert==N
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	Header==COMMAND,CLIENT_TYPE,SERVER_TYPE,REQTIME,RESTIME,STATUS,ERROR_DESC,USERNAME,IPADDRESS
+	AdditionHeader
+	ExportType==CSV
+	Seperator==,
+	EORSymbol==\\n
+	TransactionLogDir==./cdr/
+	TransactionLogStyle==Daily
+	TransactionLogFormat==mobifone_$Time_$Sequence.txt
+	MinSeqVal==0
+	MaxSeqVal==999999999
+	ExpectedSeq==1307993
+	CompressMethod==GZip
+	TempDir==./cdr/temp/
+	ReleaseInterval==120
+	MaxRecordNumber==10000
+	WriteBufferSize==1000000
+	BufferSize==8192
+	ThreadSize==5
+	RecourdNumberPerSession
+	StorageLevel==0
+	CheckEmptyFrom==00:00:00
+	CheckEmptyUntil==23:59:59
+	EmptyDuration==1800
+	FailureAction==Attach record to next level storage
+	SuccessAction==Attach record to next level storage
+	DisplayStackTrace==Y
+	ReloadCommand==1,3,103,123,251,252
+	LoggerClasses
+	LogDefinition
+	FileName==mobifone_20201105105613_001307993.txt
+	NextRelease==1604548601095
+	RecordCount==0
+	SuccessCount==0
+ThreadName==Merge CDR
+ClassName==com.telsoft.cbs.cdr.MergeCDR
+StartupType==2
+Status==0
+Schedule

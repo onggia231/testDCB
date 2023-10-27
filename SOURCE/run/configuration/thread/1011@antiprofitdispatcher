@@ -1,0 +1,41 @@
+ThreadName==Anti Profit Dispatcher
+ClassName==com.telsoft.cbs.modules.cps_anti_profit.AntiProfitDispatcher
+StartupType==1
+Parameter
+	Host==http://mpay.mobifone.vn
+	Port
+	URI==/checktrucloiapi/services/check
+	Username==globalpay
+	Password==3246dfbc0053bb5c5befac430696ea08
+	Game List Id==0
+	Partner Id==000042
+	Sub Id==0
+	Timeout==30
+	http-retry-count==3
+	ServerName==ANTI_PROFIT
+	SplitNumber==1
+	ChannelSpeed==0
+	IdleInterval==5
+	Attribute
+	ExtParameters
+	Translator=^
+		0=^
+			0==com.telsoft.cbs.modules.cps_anti_profit.AntiProfitTranslator
+			1
+	KeepAliveInterval==60
+	KeepAliveCommand==<cp_request>\n    <session>$Session</session>\n    <command>keepalive</command>\n</cp_request>
+	SuccessfulSignal
+	ExceptionFilter
+	LogDir==log/antiprofit
+	Alert==Y
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	logging-command-process==y
+	MaxDelay==60
+	LogDefinition
+Status==1
+Schedule

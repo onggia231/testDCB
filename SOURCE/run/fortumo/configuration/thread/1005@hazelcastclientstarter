@@ -1,0 +1,19 @@
+ThreadName==Hazelcast Client Starter
+ClassName==com.telsoft.cbs.module.fortumo.hazelcast.HazelcastClientStarter
+StartupType==1
+Parameter
+	Hazelcast Config File==configuration/hazelcast-client.xml
+	Hazelcast Cluster Name==dev
+	Hazelcast MapName==test-map
+	Time-to-Live==15
+	Connection Timeout==100
+	LogDir==log/hazelcast-client
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==3
+	NotificationInterval
+	NotificationString
+Status==1
+Schedule

@@ -1,0 +1,15 @@
+ThreadName==Analyze Revenue Daily
+ClassName==com.telsoft.thread.basic.SQLCommander
+StartupType==2
+Parameter
+	LogDir==log/analyze/revenuedaily
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==3600
+	NotificationInterval
+	NotificationString
+	LogDefinition
+Status==2
+Schedule

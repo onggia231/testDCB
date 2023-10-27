@@ -1,0 +1,16 @@
+ThreadName==Aggregate Revenue Daily
+ClassName==com.telsoft.thread.basic.SQLCommander
+StartupType==1
+Parameter
+	SQLCommand==call AGGREGATE_REVENUE.AGGREGATE_REVENUE_DAILY_PROC(7,0)
+	LogDir==log/aggregaterevenuedaily
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==3600
+	NotificationInterval
+	NotificationString
+	LogDefinition
+Status==1
+Schedule

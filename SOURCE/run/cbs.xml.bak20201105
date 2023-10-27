@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route customId="true" id="GET_PROFILE">
+        <from customId="false" uri="direct:GET_PROFILE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO"
+             message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <choice customId="false">
+            <when>
+                <simple>${body.get("type")} == "DB"</simple>
+                <to customId="false" uri="cbs-get-profile"/>
+                <to customId="false" uri="cbs-result:?code=OK"/>
+            </when>
+            <when>
+                <simple>${body.get("type")} == "IN"</simple>
+                <setBody customId="false">
+                    <simple>&lt;cp_request&gt;
+                        &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                        &lt;application&gt;7&lt;/application&gt;
+                        &lt;action&gt;0&lt;/action&gt;
+                        &lt;/cp_request&gt;
+                    </simple>
+                </setBody>
+                <to customId="false" uri="queue:?id=CPS_RTEC"/>
+                <choice customId="false">
+                    <when customId="false">
+                        <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                        <to customId="false" uri="cbs-result-account-profile:?code=OK"/>
+                    </when>
+                    <otherwise customId="false">
+                        <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+                    </otherwise>
+                </choice>
+            </when>
+            <otherwise>
+                <to customId="false" uri="cbs-result:?code=PARAMETER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="REGISTER_PROFILE">
+        <from customId="false" uri="direct:REGISTER_PROFILE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO"
+             message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to customId="false" uri="cbs-register-profile"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} contains "OK"</simple>
+                <to customId="false" uri="cbs-result:?code=OK"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="UNREGISTER_PROFILE">
+        <from customId="false" uri="direct:UNREGISTER_PROFILE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO"
+             message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to customId="false" uri="cbs-unregister-profile"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} == "OK"</simple>
+                <to customId="false" uri="cbs-result:?code=OK"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+</routes>

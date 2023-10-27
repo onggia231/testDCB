@@ -1,0 +1,29 @@
+ThreadName==Encryptor
+ClassName==com.telsoft.cbs.encryption.EncryptThread
+StartupType==2
+Parameter
+	Passphrase==mobifone
+	publicKeyFilename==../key/pgp/mobifone-pub-sub.asc
+	InputDirName==./encryption/input
+	InputDirStructure==Directly
+	ProcessDate==20191001
+	Wildcard==*.txt
+	OutputDirName==./encryption/output
+	OutputDirStructure==Daily
+	OutputFileFormat==$BaseFileName.pgp
+	BackupDirName==./encryption/backup
+	BackupDirStructure==Daily
+	RejectedDirName==./encryption/reject
+	RejectedDirStructure==Daily
+	TempDirName==./encryption/temp
+	DateFormat==yyyyMMdd
+	LogDir==log/encrypt
+	Alert
+	Debug==Y
+	SingleSession==N
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+Status==2
+Schedule

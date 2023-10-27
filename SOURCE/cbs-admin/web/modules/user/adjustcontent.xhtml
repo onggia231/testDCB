@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="listName" value="#{PP_ADJUSTCONTENT.listName}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu
+                                        id="listName"
+                                        required="true"
+                                        value="#{cbAdjustContentController.listId}"
+                                        requiredMessage="#{PP_ADJUSTCONTENT.listName}: #{PP_ADJUSTCONTENT.notEmpty}"
+                                        filter="true" filterMatchMode="contains">
+                                    <f:selectItem itemLabel="#{PP_ADJUSTCONTENT.choose}" itemValue=""/>
+                                    <f:selectItems value="#{cbAdjustContentController.mCbList}" var="item"
+                                                   itemValue="#{item.listId}" itemLabel="#{item.listName}"/>
+                                </p:selectOneMenu>
+                                <p:message for="listName"/>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
+                <p:tabView id="tabMain" styleClass="no-padding">
+                    <p:ajax event="tabChange" listener="#{cbAdjustContentController.onTabChange}"
+                            process=":form_main:tabMain"
+                    />
+                    <p:tab id="tab1" title="#{PP_ADJUSTCONTENT.searchContent}">
+                        <h:panelGroup id="tab_search">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="keyword" value="#{PP_ADJUSTCONTENT.keyWord}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-8">
+                                    <div class="material">
+                                        <p:inputText id="keyword"
+                                                     value="#{cbAdjustContentController.keyword}"/>
+                                        <p:message for="keyword"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:commandButton id="btn_search"
+                                                     actionListener="#{cbAdjustContentController.search(cbAdjustContentController.listId)}"
+                                                     process="@this :form_main:tabMain:keyword :form_main:listName"
+                                                     icon="fa fa-search"
+                                                     styleClass="btn-primary" value="#{PP_COMMONS.search}"
+                                                     oncomplete="PF('tbl_cbItemContentExt').clearFilters();"
+                                                     update=":form_main:panel_center :form_main:tabMain"/>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                        <p:panel header="#{PP_ADJUSTCONTENT.listContent}" styleClass="box-primary">
+                            <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                         id="tbl_cbItemContentExt"
+                                         widgetVar="tbl_cbItemContentExt"
+                                         value="#{cbAdjustContentController.mCbItemContentExtList}"
+                                         filteredValue="#{cbAdjustContentController.mCbItemContentExtListFilter}"
+                                         var="cbItemContentExt"
+                                         selectionMode="single"
+                                         rowKey="#{cbItemContentExt.cbItemContent.contentId}_#{cbItemContentExt.cbItemContent.listId}"
+                                         emptyMessage="#{PP_COMMONS.empty_message}"
+                                         selection="#{cbAdjustContentController.mselectedCbItemContentExt}"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,#{cbAdjustContentController.mCbItemContentExtList.size()}"
+                                         paginator="true" rows="10"
+                                         styleClass="no-border">
+                                <p:ajax global="false" event="filter"
+                                        listener="#{cbAdjustContentController.onFilterChange}" ignoreAutoUpdate="true"/>
+                                <p:ajax global="false" event="sort"/>
+                                <p:ajax global="false" event="page"/>
+                                <p:column headerText="#{PP_ADJUSTCONTENT.description}"
+                                          sortBy="#{cbItemContentExt.contentDescription}"
+                                          filterValue="#{cbAdjustContentController.filterState.get('contentDescription')}"
+                                          filterBy="#{cbItemContentExt.contentDescription}" filterMatchMode="contains">
+                                    <h:outputText value="#{cbItemContentExt.contentDescription}"/>
+                                </p:column>
+                                <p:column headerText="#{PP_ADJUSTCONTENT.reason}"
+                                          sortBy="#{cbItemContentExt.cbItemContent.reason}"
+                                          filterValue="#{cbAdjustContentController.filterState.get('cbItemContent.reason')}"
+                                          filterBy="#{cbItemContentExt.cbItemContent.reason}"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{cbItemContentExt.cbItemContent.reason}"/>
+                                </p:column>
+                                <p:column headerText="#{PP_ADJUSTCONTENT.appStore}"
+                                          sortBy="#{cbItemContentExt.nameStore}"
+                                          filterValue="#{cbAdjustContentController.filterState.get('nameStore')}"
+                                          filterBy="#{cbItemContentExt.nameStore}"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{cbItemContentExt.nameStore}"/>
+                                </p:column>
+                                <p:column headerText="#{PP_ADJUSTCONTENT.timeAdd}"
+                                          filterValue="#{cbAdjustContentController.filterState.get('getDateToStr(cbItemContentExt.cbItemContent.issueTime)')}"
+                                          sortBy="#{cbAdjustContentController.getDateToStr(cbItemContentExt.cbItemContent.issueTime)}"
+                                          filterBy="#{cbAdjustContentController.getDateToStr(cbItemContentExt.cbItemContent.issueTime)}"
+                                          filterMatchMode="contains">
+                                    <h:outputText
+                                            value="#{cbAdjustContentController.getDateToStr(cbItemContentExt.cbItemContent.issueTime)}"/>
+                                </p:column>
+                                <p:column headerText="#{PP_ADJUSTCONTENT.action}" width="90"
+                                          style="text-align: center !important;">
+                                    <p:commandButton id="btn_del" rendered="#{cbAdjustContentController.isAllowDelete}"
+                                                     styleClass="btn-danger btn-xs" icon="fa fa-trash"
+                                                     actionListener="#{cbAdjustContentController.delete(cbItemContentExt)}"
+                                                     process="@this" value="#{PP_COMMONS.del}"
+                                                     update=":form_main:panel_center">
+                                        <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                   message="#{PP_COMMONS.confirm_delete}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="tab2" title="#{PP_ADJUSTCONTENT.addContent}">
+                        <p:panel header="#{PP_ADJUSTCONTENT.addContent}" id="pnlCbItemContentExt"
+                                 styleClass="box-primary">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="dlgContent" value="#{PP_ADJUSTCONTENT.content}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <div class="material">
+                                        <p:inputText readonly="true" id="dlgContent" required="true"
+                                                     value="#{cbAdjustContentController.mCbItemContentExt.cbItemContent.contentId}"
+                                                     requiredMessage="#{PP_ADJUSTCONTENT.content}#{PP_COMMONS.can_not_be_empty}">
+                                        </p:inputText>
+                                        <p:message for="dlgContent"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="material">
+                                        <p:inputText readonly="true" id="dlgContentName"
+                                                     value="#{cbAdjustContentController.content}">
+                                        </p:inputText>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:commandButton id="btn_search_content" icon="fa fa-search"
+                                                     actionListener="#{cbAdjustContentController.preSearchContent}"
+                                                     process="@this"
+                                                     oncomplete="PF('dlgLookupContent').show(); PF('tableLazyContent').clearFilters();"
+                                                     styleClass="btn-primary" value="#{PP_COMMONS.search}"
+                                                     update=":form_main:dlgLookupContent"
+                                    />
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="dlgReason" value="#{PP_ADJUSTCONTENT.reason}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-10">
+                                    <div class="material">
+                                        <p:inputTextarea id="dlgReason" maxlength="500"
+                                                     value="#{cbAdjustContentController.mCbItemContentExt.cbItemContent.reason}"/>
+                                        <p:message for="dlgReason"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="dlgStore" value="#{PP_ADJUSTCONTENT.appStore}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-10">
+                                    <div class="material">
+                                        <p:selectOneMenu
+                                                id="dlgStore"
+                                                value="#{cbAdjustContentController.mCbItemContentExt.cbItemContent.storeId}"
+                                                filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{PP_ADJUSTCONTENT.allStore}" itemValue=""/>
+                                            <f:selectItems value="#{cbAdjustContentController.mCbStoreList}" var="item"
+                                                           itemValue="#{item.id}" itemLabel="#{item.storeCode} - #{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="dlgStore"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                    <p:commandButton id="btn_ok" rendered="#{cbAdjustContentController.isAllowInsert}"
+                                                     actionListener="#{cbAdjustContentController.addCbItemContent}"
+                                                     disabled="#{cbAdjustContentController.mCbItemContentExt.cbItemContent.contentId eq null}"
+                                                     process="@this :form_main:listName :form_main:tabMain"
+                                                     styleClass="btn-success" value="#{PP_COMMONS.ok}"
+                                                     update=":form_main:tabMain :form_main:panel_center"
+                                                     icon="fa fa-check-circle"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                            </div>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+            </h:panelGroup>
+        </div>
+
+        <p:dialog header="#{PP_ADJUSTCONTENT.lookupContent}" id="dlgLookupContent"
+                  widgetVar="dlgLookupContent" modal="true" appendTo=":form_main"
+                  maximizable="true" closable="false"
+                  draggable="true" resizable="false" width="60%"
+                  closeOnEscape="true" styleClass="box-info">
+            <div class="ui-fluid">
+                <p:panel id="pnlLookup">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="dlgLkContent" value="#{PP_ADJUSTCONTENT.content}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-7">
+                            <div class="material">
+                                <p:inputText id="dlgLkContent" required="true"
+                                             requiredMessage="#{PP_ADJUSTCONTENT.content}#{PP_COMMONS.can_not_be_empty}"
+                                             value="#{cbAdjustContentController.lookupContent}">
+                                    <f:validateLength minimum="3"/>
+                                </p:inputText>
+                                <p:message for="dlgLkContent"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                            <p:commandButton id="btn_search_lookup"
+                                             process="@this pnlLookup" icon="fa fa-search"
+                                             actionListener="#{cbAdjustContentController.searchContent(cbAdjustContentController.lookupContent)}"
+                                             oncomplete="PF('tableLazyContent').clearFilters();"
+                                             styleClass="btn-primary" value="#{PP_COMMONS.search}"
+                                             update="btn_select pnlLookup :form_main:tableLazyContent"
+                            />
+                        </div>
+                    </div>
+                </p:panel>
+                <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="tableLazyContent"
+                             widgetVar="tableLazyContent" lazy="true"
+                             value="#{cbAdjustContentController.mlistContentLazy}" var="contentLazyItem"
+                             emptyMessage="#{PP_COMMONS.empty_message}" rowKey="#{contentLazyItem.contentId}"
+                             filteredValue="#{cbAdjustContentController.mlistContentFilterLazy}"
+                             selection="#{cbAdjustContentController.mselectedContentLazy}"
+                             selectionMode="single" filterDelay="1000"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20" paginator="true" rows="5" styleClass="no-border"
+                >
+                    <p:ajax process="@this" global="false" event="rowSelect" update=":form_main:btn_select"
+                            listener="#{cbAdjustContentController.onSelectedContent}"/>
+                    <p:ajax process="@this" global="false" event="rowUnselect" update=":form_main:btn_select"/>
+                    <p:ajax process="@this" global="false" event="toggleSelect"
+                            listener="#{cbAdjustContentController.onSelectedContent}"/>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+                    <f:facet name="header">
+                    </f:facet>
+
+                    <p:column headerText="#{PP_ADJUSTCONTENT.id}" filterBy="#{contentLazyItem.contentId}"
+                              sortBy="#{contentLazyItem.contentId}"
+                              filterMatchMode="contains">
+                        #{contentLazyItem.contentId}
+                    </p:column>
+                    <p:column headerText="#{PP_ADJUSTCONTENT.description}"
+                              sortBy="#{contentLazyItem.contentDescription}"
+                              filterBy="#{contentLazyItem.contentDescription}"
+                              filterMatchMode="contains">
+                        #{contentLazyItem.contentDescription}
+                    </p:column>
+                </p:dataTable>
+                <div class="ui-g-12 ui-md-12 ui-lg-12 no-pad-y">
+                    <div class="ui-g-6 ui-md-3 ui-lg-3"></div>
+                    <div class="ui-g-6 ui-md-3 ui-lg-3">
+                        <p:commandButton process="@this :form_main:tableLazyContent" value="#{PP_ADJUSTCONTENT.select}"
+                                         id="btn_select"
+                                         disabled="#{cbAdjustContentController.mselectedContentLazy eq null}"
+                                         actionListener="#{cbAdjustContentController.selectContentLazy}"
+                                         styleClass="btn btn-success"
+                                         update=":form_main:tabMain:dlgContent :form_main:tabMain:dlgContentName :form_main:tabMain:btn_ok :form_main:dlgLookupContent"
+                                         oncomplete="PF('tableLazyContent').clearFilters(); PF('dlgLookupContent').hide();"
+                                         icon="fa fa-check-circle" resetValues="true"
+                        />
+                    </div>
+                    <div class="ui-g-6 ui-md-3 ui-lg-3">
+                        <p:commandButton process="@this"
+                                         id="btn_return" styleClass="btn" value="#{PP_COMMONS.back}"
+                                         actionListener="#{cbAdjustContentController.preSearchContent}"
+                                         oncomplete="PF('dlgLookupContent').hide();"
+                                         update=":form_main:dlgLookupContent" resetValues="true"
+                                         icon="fa fa-undo"/>
+                    </div>
+                    <div class="ui-g-6 ui-md-3 ui-lg-3"></div>
+                </div>
+            </div>
+        </p:dialog>
+    </ui:composition>
+</h:body>
+
+</html>

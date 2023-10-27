@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jersey-all-2.22.2">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/jersey-all-2.22.2" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/jersey-all-2.22.2" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jersey-all-2.22.2" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jersey-all-2.22.2" recursive="false" type="SOURCES" />
+  </library>
+</component>

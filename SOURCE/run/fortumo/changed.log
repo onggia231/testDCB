@@ -1,0 +1,44 @@
+	<changedlog>
+		<time>26/10/2023 14:53:40</time>
+		<logid>1698306765665</logid>
+		<user>system</user>
+		<threadid>1001</threadid>
+		<class>com.telsoft.cbs.module.fortumo.service.FortumoStarter</class>
+		<name>Fortumo</name>
+		<param_name>Jetty-MaxQueueSize</param_name>
+		<param_old_value></param_old_value>
+		<param_new_value>50</param_new_value>
+	</changedlog>
+	<changedlog>
+		<time>26/10/2023 14:56:04</time>
+		<logid>1698306765666</logid>
+		<user>system</user>
+		<threadid>1001</threadid>
+		<class>com.telsoft.cbs.module.fortumo.service.FortumoStarter</class>
+		<name>Fortumo</name>
+		<param_name>StoreCode</param_name>
+		<param_old_value>ITUNE</param_old_value>
+		<param_new_value>GPLAY</param_new_value>
+	</changedlog>
+	<changedlog>
+		<time>26/10/2023 15:48:53</time>
+		<logid>1698306765667</logid>
+		<user>system</user>
+		<threadid>1001</threadid>
+		<class>com.telsoft.cbs.module.fortumo.service.FortumoStarter</class>
+		<name>Fortumo</name>
+		<param_name>Port</param_name>
+		<param_old_value>6969</param_old_value>
+		<param_new_value>6970</param_new_value>
+	</changedlog>
+	<changedlog>
+		<time>26/10/2023 15:49:06</time>
+		<logid>1698306765668</logid>
+		<user>system</user>
+		<threadid>1001</threadid>
+		<class>com.telsoft.cbs.module.fortumo.service.FortumoStarter</class>
+		<name>Fortumo</name>
+		<param_name>Port</param_name>
+		<param_old_value>6970</param_old_value>
+		<param_new_value>6969</param_new_value>
+	</changedlog>

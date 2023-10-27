@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+
+        <style type="text/css">
+            .columndefault {
+                width: 160px;
+            }
+        </style>
+
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:sticky target="pnl_control"/>
+                <p:panel header="#{PP_APPARAM.header}" styleClass="box-primary">
+                    <p:focus context=":form_main:panel_add"/>
+                    <h:panelGroup id="panel_add">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel for="par_group" value="#{PP_APPARAM.par_group}"/>
+                                    <p:inputText maxlength="250" id="par_group" required="true"
+                                                 requiredMessage="#{PP_APPARAM.par_group}#{PP_COMMONS.can_not_be_empty}"
+                                                 value="#{apParamController.apParam.parGroup}"
+                                                 disabled="#{apParamController.isDISABLE or apParamController.isEDIT}"/>
+                                    <p:message for="par_group"/>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel for="par_name" value="#{PP_APPARAM.par_name}"/>
+                                    <p:inputText maxlength="250" id="par_name" required="true"
+                                                 requiredMessage="#{PP_APPARAM.par_name}#{PP_COMMONS.can_not_be_empty}"
+                                                 value="#{apParamController.apParam.parName}"
+                                                 disabled="#{apParamController.isDISABLE or apParamController.isEDIT}"/>
+                                    <p:message for="par_name"/>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel for="par_type" value="#{PP_APPARAM.par_type}"/>
+                                    <p:inputText maxlength="50" required="true"
+                                                 requiredMessage="#{PP_APPARAM.par_type}#{PP_COMMONS.can_not_be_empty}"
+                                                 id="par_type"
+                                                 value="#{apParamController.apParam.parType}"
+                                                 disabled="#{apParamController.isDISABLE}"/>
+                                    <p:message for="par_type"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel for="par_value" value="#{PP_APPARAM.par_value}"/>
+                                    <p:inputTextarea maxlength="250" required="true"
+                                                     requiredMessage="#{PP_APPARAM.par_value}#{PP_COMMONS.can_not_be_empty}"
+                                                     id="par_value" value="#{apParamController.apParam.parValue}"
+                                                     disabled="#{apParamController.isDISABLE}"/>
+                                    <p:message for="par_value"/>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel for="des" value="#{PP_APPARAM.des}"/>
+                                    <p:inputTextarea maxlength="200"
+                                                     id="des" value="#{apParamController.apParam.description}"
+                                                     disabled="#{apParamController.isDISABLE}"/>
+                                    <p:message for="des"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </p:panel>
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not apParamController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_add1" rendered="#{apParamController.isAllowInsert}"
+                                                 actionListener="#{apParamController.changeStateAdd()}"
+                                                 process="@this" styleClass="btn-info" value="#{PP_COMMONS.add}"
+                                                 update="panel_center" icon="fa fa-plus"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{apParamController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel" rendered="#{apParamController.isDisplayBtnConfirm}"
+                                                 actionListener="#{apParamController.handleCancel()}" process="@this"
+                                                 value="#{PP_COMMONS.back}" update="panel_center :form_main:table_sms"
+                                                 icon="fa fa-undo">
+                                    <p:resetInput target="panel_add"/>
+                                </p:commandButton>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok" rendered="#{apParamController.isDisplayBtnConfirm}"
+                                                 actionListener="#{apParamController.handleOK()}"
+                                                 process="@this :form_main:panel_add" styleClass=" btn-success"
+                                                 value="#{PP_COMMONS.ok}"
+                                                 update=":form_main:panel_center :form_main:table_sms"
+                                                 icon="fa fa-check-circle"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="grid-padding">
+                    <p:panel header="#{PP_APPARAM.header1}" styleClass="box-primary">
+                        <p:dataTable id="table_sms" widgetVar="table_sms" value="#{apParamController.listApParam}"
+                                     var="ss"
+                                     emptyMessage="#{PP_COMMONS.empty_message}"
+                                     disabledSelection="#{apParamController.isDisplayBtnConfirm}"
+                                     rowKey="#{ss.parName}"
+                                     selection="#{apParamController.mselectapParam}" selectionMode="single"
+                                     styleClass="no-border"
+                                     paginator="true" rows="10"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,50,#{apParamController.listApParam.size()}"
+                                     filterDelay="500"
+                                     filteredValue="#{apParamController.listApParamFiltered}">
+
+                            <p:ajax event="rowSelect"
+                                    disabled="#{not apParamController.isDISABLE}"
+                                    listener="#{apParamController.onRowSelected}"
+                                    update=":form_main:panel_add,:form_main:pnl_control"/>
+                            <p:ajax event="rowUnselect"
+                                    disabled="#{not apParamController.isDISABLE}"
+                                    listener="#{apParamController.onRowUnSelected}"
+                                    update=":form_main:panel_add,:form_main:pnl_control"/>
+
+                            <p:column headerText="#{PP_APPARAM.par_group}" sortBy="#{ss.parGroup}"
+                                      filterBy="#{ss.parGroup}" filterMatchMode="contains" styleClass="columndefault">
+                                #{ss.parGroup}
+                            </p:column>
+                            <p:column headerText="#{PP_APPARAM.par_name}" sortBy="#{ss.parName}"
+                                      filterBy="#{ss.parName}" filterMatchMode="contains" styleClass="columndefault">
+                                #{ss.parName}
+                            </p:column>
+                            <p:column headerText="#{PP_APPARAM.par_type}" sortBy="#{ss.parType}"
+                                      filterBy="#{ss.parType}" filterMatchMode="contains" styleClass="columndefault">
+                                #{ss.parType}
+                            </p:column>
+                            <p:column headerText="#{PP_APPARAM.par_value}" sortBy="#{ss.parValue}"
+                                      filterBy="#{ss.parValue}" filterMatchMode="contains" styleClass="columndefault">
+                                #{ss.parValue}
+                            </p:column>
+                            <p:column headerText="#{PP_APPARAM.des}" sortBy="#{ss.description}"
+                                      filterBy="#{ss.description}" filterMatchMode="contains"
+                                      styleClass="columndefault">
+                                #{ss.description}
+                            </p:column>
+                            <p:column width="80" style="text-align: center !important;">
+                                <p:commandLink id="btn_edit" rendered="#{apParamController.isAllowUpdate}"
+                                               actionListener="#{apParamController.changeStateEdit(ss)}"
+                                               process="@this" styleClass="fa fa-pencil"
+                                               disabled="#{apParamController.isDisplayBtnConfirm}"
+                                               update=":form_main:panel_center"/>&nbsp;&nbsp;
+                                <p:tooltip for="btn_edit" value="#{PP_COMMONS.edit}"/>
+
+                                <p:commandLink id="btn_del"
+                                               rendered="#{apParamController.isAllowDelete and not apParamController.isDisplayBtnConfirm}"
+                                               actionListener="#{apParamController.handleDelete(ss)}"
+                                               process="@this" styleClass="fa fa-trash"
+                                               update=":form_main:panel_center">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                               message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandLink>
+                                <p:tooltip for="btn_del" value="#{PP_COMMONS.del}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

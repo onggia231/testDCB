@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid material">
+            <p:panel id="free_module" styleClass="box-primary" header="#{PP_MNGMMODULE.free_module}">
+                <div class="ui-g" >
+                    <div class="ui-g-12 ui-md-6 ui-lg-3" >
+                        <p:selectOneMenu id="app" value="#{mobileModuleController.mselectedAppId}">
+                            <f:selectItems value="#{mobileModuleController.mlistApp}" var="appItem" itemValue="#{appItem.appId}" itemLabel="#{appItem.name}"/>
+                            <p:ajax event="change" process="app" listener="#{mobileModuleController.onChangeApp()}" update="free_module, mobile_module"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="ui-lg-6" ></div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-3" >
+                        <p:commandButton value="#{PP_COMMONS.save}" actionListener="#{mobileModuleController.handUpdateMobileModule()}" styleClass="right btn-success" icon="fa fa-check"/>
+                    </div>
+                </div>
+                <hr/>
+
+                <p:dataTable id="table_free_module" widgetVar="tableFreeModule" value="#{mobileModuleController.mlistModule}"
+                             filteredValue="#{mobileModuleController.mlistModuleFiltered}" var="freeModuleItem" emptyMessage="#{PP_COMMONS.empty_message}"
+                             paginatorPosition="bottom" paginatorAlwaysVisible="true" rowsPerPageTemplate="5,10,15" paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             >
+
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column style="width: 50px; text-align: center;">
+                        <p:commandLink value="#{PP_COMMONS.add}" process="@this" actionListener="#{mobileModuleController.onAddMobileModule(freeModuleItem)}" update=":form_main:mobile_module, :form_main:free_module "/>
+                    </p:column>
+
+                    <p:column headerText="#{PP_MNGMMODULE.module_name}" filterBy="#{freeModuleItem.name}" sortBy="#{freeModuleItem.name}" filterMatchMode="contains">
+                        <h:outputText value="#{freeModuleItem.name}"/>
+                    </p:column>
+
+                    <p:column headerText="#{PP_MNGMMODULE.module_path}" sortBy="#{freeModuleItem.path}" filterBy="#{freeModuleItem.path}" filterMatchMode="contains">
+                        <h:outputText value="#{freeModuleItem.path}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <p:spacer height="10"/>
+            <p:panel id="mobile_module" styleClass="box-info" header="#{PP_MNGMMODULE.mobile_module}">
+                <p:dataTable id="table_mobile_module" value="#{mobileModuleController.mlistMobileModule}" widgetVar="tableMobileModule" var="mobileModuleItem"
+                             paginatorPosition="bottom" paginatorAlwaysVisible="true" rowsPerPageTemplate="5,10,15" paginator="true" rows="10" draggableRows="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column style="width: 50px; text-align: center;">
+                        <p:commandLink value="#{PP_COMMONS.del}" process="@this" actionListener="#{mobileModuleController.onRemoveMobileModule(mobileModuleItem)}" update=":form_main:mobile_module, :form_main:free_module "/>
+                    </p:column>
+
+                    <p:column headerText="#{PP_MNGMMODULE.module_name}">
+                        <h:outputText value="#{mobileModuleItem.name}"/>
+                    </p:column>
+
+                    <p:column headerText="#{PP_MNGMMODULE.module_path}">
+                        <h:outputText value="#{mobileModuleItem.path}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_MNGMMODULE.is_only_mobile}" style="text-align: center;">
+                        <p:selectBooleanCheckbox value="#{mobileModuleItem.isOnlyMobile}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

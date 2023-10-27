@@ -1,0 +1,260 @@
+### Test service is available
+GET http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/test
+Content-Type: application/xml; charset=UTF-8
+
+###84936190293
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CHARGE</name>
+    <!--    <isdn>84931040219</isdn>-->
+    <!--    <isdn>84936190293</isdn>-->
+    <isdn>84940000575</isdn>
+    <store_code>GPLAY</store_code>
+    <transaction_id>vinhdhq20230314_019</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">vinhdhq20230314_019</parameter>
+    <parameter key="client_request_id">vinhdhq20230314_019</parameter>
+    <parameter key="purchase_time">20230313000000</parameter>
+    <!--    <parameter key="msisdn">84931040219</parameter>-->
+    <!--    <parameter key="msisdn">84936190293</parameter>-->
+    <parameter key="msisdn">84940000575</parameter>
+    <parameter key="content">Google - Test timeout</parameter>
+    <parameter key="amount">1600</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CAPTURE</name>
+    <store_code>GPLAY</store_code>
+    <transaction_id>g165168151320619322823739636979416102144</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">g165168151320619322823739636979416102144</parameter>
+    <parameter key="client_request_id">g165168151320619322823739636979416102144</parameter>
+    <parameter key="purchase_time">20210924000000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>REVERSE</name>
+    <store_code>GPLAY</store_code>
+    <transaction_id>vinhdhq20221227_005</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">vinhdhq20221227_005</parameter>
+    <parameter key="client_request_id">vinhdhq20221227_005</parameter>
+    <parameter key="purchase_time">20221227000000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>REFUND</name>
+    <store_code>GPLAY</store_code>
+    <transaction_id>vinhdhq20221227_006</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">vinhdhq20221227_006</parameter>
+    <parameter key="client_request_id">vinhdhq20221227_006</parameter>
+    <parameter key="purchase_time">20221227000000</parameter>
+    <parameter key="channel_type">API</parameter>
+    <parameter key="refund_reason">Test refund</parameter>
+</request>
+
+### Account Profile
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>ACCOUNT_PROFILE</name>
+    <store_code>ITUNE</store_code>
+    <source>google-api-01</source>
+    <parameter key="msisdn">84936190293</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+### Account Profile user unknown
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>ACCOUNT_PROFILE</name>
+    <store_code>ITUNE</store_code>
+    <source>google-api-01</source>
+    <parameter key="msisdn">84904123456</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+### Subscriber Lookup
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+<name>SUBSCRIBER_LOOKUP</name>
+<store_code>ITUNE</store_code>
+<source>google-api-01</source>
+<parameter key="msisdn">84936190293</parameter>
+<parameter key="channel_type">API</parameter>
+</request>
+
+###
+### Subscriber Lookup false
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>SUBSCRIBER_LOOKUP</name>
+    <store_code>GPLAY</store_code>
+    <source>google-api-01</source>
+    <parameter key="msisdn">84898612182</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+###
+### Check Eligibility request
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CHECK_ELIGIBILITY</name>
+    <store_code>ITUNE</store_code>
+    <source>google-api-01</source>
+    <parameter key="msisdn">84936190293</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+### Check Eligibility request false
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CHECK_ELIGIBILITY</name>
+    <store_code>ITUNE</store_code>
+    <source>google-api-01</source>
+    <parameter key="msisdn">84904123456</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+### CHARGE V2
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CHARGE</name>
+    <isdn>84936190293</isdn>
+    <store_code>ITUNE</store_code>
+    <transaction_id>i065168151320619322823739636979416101957</transaction_id>
+    <source>boku-api-01</source>
+    <parameter key="store_transaction_id">i065168151320619322823739636979416101957</parameter>
+    <parameter key="client_request_id">i065168151320619322823739636979416101957</parameter>
+    <parameter key="purchase_time">20210114000000</parameter>
+    <parameter key="msisdn">84936190293</parameter>
+    <parameter key="content">ITUNE - Test content</parameter>
+    <parameter key="amount">3000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>REFUND</name>
+    <store_code>ITUNE</store_code>
+    <transaction_id>g065168151320619322823739636979416101953</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">g065168151320619322823739636979416101953</parameter>
+    <parameter key="client_request_id">g065168151320619322823739636979416101953</parameter>
+    <parameter key="purchase_time">20210112000000</parameter>
+    <parameter key="amount">1000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+### PAYMENT STATUS
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>PAYMENT_STATUS</name>
+    <store_code>GPLAY</store_code>
+    <transaction_id>g165168151320619322823739636979416102131</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">g165168151320619322823739636979416102131</parameter>
+    <parameter key="client_request_id">g165168151320619322823739636979416102131</parameter>
+    <parameter key="purchase_time">20210527000000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###
+
+
+### REFUND STATUS
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>REFUND_STATUS</name>
+    <store_code>GPLAY</store_code>
+    <transaction_id>test_2021_0112_01</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">test_2021_0112_01</parameter>
+    <parameter key="client_request_id">test_2021_0112_01</parameter>
+    <parameter key="purchase_time">20210111000000</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###

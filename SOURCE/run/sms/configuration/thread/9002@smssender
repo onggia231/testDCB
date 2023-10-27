@@ -1,0 +1,36 @@
+ThreadName==SMSSender
+ClassName==com.telsoft.cbs.sms.SMSSender
+StartupType==2
+Parameter
+	ServiceCode==SMS
+	src-address-range
+		addr-ton==1
+		addr-npi==1
+		address-range==1983
+	dest-address-range
+		addr-ton==1
+		addr-npi==1
+		address-range==2983
+	ip-address==10.11.10.144
+	port==6200
+	system-type
+	username==pavel
+	password==wpsd
+	sync-mode==a
+	enquire-interval==60
+	address-range
+		addr-ton==1
+		addr-npi==1
+		address-range==1983
+	LogDir==log/SMSSender
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==2
+Schedule

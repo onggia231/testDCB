@@ -1,0 +1,46 @@
+# Global config
+EncryptAlgorithm==SHA
+AuthenticationCacheDuration==7200
+DateFormat==dd/MM/yyyy
+ReloadTime==30
+TimeZone
+	Offset==25200000
+	Description==Viet Nam/Ha Noi
+SystemProperties
+	mail.smtp.auth==true
+	com.telsoft.database.Database==1
+# Thread config
+ErrorLog==log/general/error.log
+ActionLog==log/general/action.log
+AlertLog==log/general/alert.log
+MaxLoggingSize==10000
+MaxConnectionAllowed==5
+# DB config
+DefaultDatabase==INGW_MAIN
+PortID==9010
+ConnectionPoolSize==20
+ConnectionPoolInitial==2
+Connection
+	HOME
+		Url==jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.212.6.150)(PORT=1515))(ADDRESS=(PROTOCOL=TCP)(HOST=10.212.6.151)(PORT=1515))(CONNECT_DATA=(SERVICE_NAME=EOCS)))
+		Driver==oracle.jdbc.driver.OracleDriver
+		UserName==ngw
+		Password==/SvgobZZdOA=
+	INGW_MAIN
+		Url==jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.10.141) (PORT=1521))(CONNECT_DATA=(SERVICE_NAME=DEV)))
+		Driver==oracle.jdbc.driver.OracleDriver
+		UserName==CBS
+		Password==cbs
+		Validate==1
+		Priority==99
+		Group==DEFAULT,CACHED
+	TEST
+		Url==jdbc:oracle:thin:@10.212.9.119:1521:eocs
+		Driver==oracle.jdbc.driver.OracleDriver
+		UserName==ngw
+		Password==/SvgobZZdOA=
+	MYSQL
+		Url==jdbc:mysql://10.10.10.70:3306/notif_gw
+		Driver==com.mysql.jdbc.Driver
+		UserName==vnpt_ng
+		Password==62M6LqNqCE4=

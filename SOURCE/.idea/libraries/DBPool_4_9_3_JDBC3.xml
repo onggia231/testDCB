@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DBPool-4.9.3-JDBC3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/DBPool-4.9.3-JDBC3-patched.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

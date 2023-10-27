@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+    <ui:define name="metadata">
+        <!-- Automatic create breadCrumb and page title when param 'title' is provided. -->
+        <ui:param name="title" value="#{empty mainController.moduleName ? '' : mainController.moduleName}"/>
+    </ui:define>
+
+    <ui:define name="description">
+        #{empty mainController.moduleDescription ? '' : mainController.moduleDescription}
+    </ui:define>
+
+    <ui:define name="body">
+        <f:view locale="#{mainController.locale}">
+            <script type="text/javascript">
+                var sessionTime;
+                var countDownTime;
+                var minuteCount = 2;
+                var secondCount = 0;
+                var sessionTimeInit = 20; //in minutes
+                var showAdditionalTimeDialogBefore = 10; //in second
+                var isAutoLogin = $.cookie("_comeback") != null;
+                ////////////////////////////////////////////////////////////////////////////////////
+                var whenToShowAdditionalTimeDialog;
+                var countDownStarted = false;
+                var minute;
+                var second;
+
+                $().ready(function () {
+                    countDownInit();
+                });
+
+                function countDownInit() {
+                    countDownTime = (new Date()).getTime();
+                    minute = minuteCount;
+                    second = secondCount;
+                    countDownStarted = false;
+                    whenToShowAdditionalTimeDialog = (minuteCount * 60 + secondCount) * 1000;
+                    sessionTime = sessionTimeInit * 60 * 1000 - showAdditionalTimeDialogBefore * 1000;
+                }
+
+                function checkCountDown() {
+                    var now = (new Date()).getTime();
+
+                    if (now - countDownTime > (sessionTime - whenToShowAdditionalTimeDialog)) {
+                        if (!isAutoLogin) {
+                            PF('additionalTimeDialog').show();
+                            countDownStarted = true;
+                        }
+                    }
+
+                    if (countDownStarted) {
+                        second = second - 1;
+
+                        if (0 > second) {
+                            second = 59;
+                            minute = minute - 1;
+                        }
+
+                        if (0 > minute) {
+                            if (!isAutoLogin) {
+                                handLogout();
+                            } else {
+                                handContinue();
+                            }
+                            return;
+                        }
+
+                        document.getElementById('minuteOutput').innerHTML = minute;
+                        document.getElementById('secondOutput').innerHTML = second;
+                    }
+                }
+
+                window.setInterval(checkCountDown, 1000);
+            </script>
+
+            <p:growl id="growl_main_dt" showDetail="true" showSummary="false" sticky="false"/>
+            <ui:insert name="center"/>
+
+            <p:ajaxStatus onstart="countDownInit();" oncomplete="reOrderPnlControl();"/>
+            <h:form>
+                <p:remoteCommand global="false" name="handLogout" actionListener="#{adminUser.logout}" oncomplete="logout();"/>
+                <p:remoteCommand global="false" name="handContinue" process="@this" update="@none" oncomplete="countDownInit();"/>
+            </h:form>
+
+            <p:dialog modal="true" widgetVar="additionalTimeDialog" header="Cảnh báo" draggable="false" resizable="false" closable="false" responsive="true" visible="false" styleClass="box-danger">
+                <h:form>
+                    Phiên làm việc còn
+                    <span id="minuteOutput"></span> #{PP_COMMONS.minute} <span id="secondOutput"></span> #{PP_COMMONS.second}
+                    . Bạn có muốn thêm thời gian ?
+                    <br/>
+                    <br/>
+
+                    <center>
+                        <p:commandButton value="#{PP_COMMONS.yes}" global="false" process="@this" styleClass="btn-success" update="@none" oncomplete="countDownInit(); PF('additionalTimeDialog').hide();" icon="fa fa-check"/>
+                        <p:commandButton value="#{PP_COMMONS.no}" global="false" process="@this" styleClass="btn-danger" actionListener="#{adminUser.logout}" oncomplete="logout();" icon="fa fa-times"/>
+                    </center>
+                </h:form>
+            </p:dialog>
+
+            <p:confirmDialog global="true" responsive="true" closeOnEscape="true" styleClass="box-warning">
+                <h:form>
+                    <div class="text-center">
+                        <p:commandButton value="#{PP_COMMONS.yes}" type="button" styleClass="ui-confirmdialog-yes btn-danger" icon="fa fa-check"/>
+                        <p:commandButton value="#{PP_COMMONS.no}" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times"/>
+                    </div>
+                </h:form>
+            </p:confirmDialog>
+
+            <p:dialog onShow="fillStackTrace();" modal="true" widgetVar="dlgStackTrace" header="StackTrace" draggable="true" resizable="false" closeOnEscape="true" height="500" width="1000" position="0,0" responsive="true" styleClass="box-danger">
+                <h:form>
+                    <p:remoteCommand global="false" name="fillStackTrace" update="txtStackTrace" resetValues="true"/>
+                    <h:outputText id="txtStackTrace" value="#{exceptionHandler.mstrExceptionContent}" escape="false"/>
+                </h:form>
+            </p:dialog>
+            <p:log id="log" rendered="#{adminUser.isShowActionLog()}"/>
+        </f:view>
+    </ui:define>
+</ui:composition>

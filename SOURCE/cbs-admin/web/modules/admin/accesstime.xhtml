@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <style type="text/css">
+            .ui-tree-container {
+                max-height: 500px !important;
+            }
+        </style>
+
+        <div class="ui-fluid">
+            <h:panelGroup id="pnl_center">
+                <p:sticky target="pnl_control"/>
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not accessTimeController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.add}" rendered="#{accessTimeController.isAllowInsert}" process="@this" update=":form_main:pnl_center" actionListener="#{accessTimeController.changeStateAdd()}" styleClass="btn-primary" icon="fa fa-plus" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_del" rendered="#{accessTimeController.isAllowDelete}" actionListener="#{accessTimeController.handleDelete()}" disabled="#{not accessTimeController.isSelectedAcesstime}" process="@this" styleClass=" btn-danger" value="#{PP_COMMONS.del}" update="pnl_center" icon="fa fa-trash" resetValues="true" oncomplete="clearFilters('dtAccessTime')">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{accessTimeController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.back}" rendered="#{not accessTimeController.isVIEW}" process="@this" update=":form_main:pnl_center" actionListener="#{accessTimeController.handleCancel}" icon="fa fa-undo" resetValues="true" oncomplete="clearFilters('dtAccessTime')"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.back}" rendered="#{accessTimeController.isVIEW}" process="@this" update=":form_main:pnl_center" actionListener="#{accessTimeController.handleCancel}" icon="fa fa-undo" resetValues="true"/>
+                                <p:commandButton value="#{PP_COMMONS.ok}" rendered="#{not accessTimeController.isVIEW}" process=":form_main" update=":form_main:pnl_center" actionListener="#{accessTimeController.handleOK}" styleClass="btn-success" icon="fa fa-check-circle" resetValues="true"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="grid-padding">
+                    <p:panel header="#{PP_ACCESSTIME.list}" styleClass="box-primary" rendered="#{not accessTimeController.isDisplayBtnConfirm}">
+                        <p:dataTable id="dt_access_time" widgetVar="dtAccessTime" rendered="#{not accessTimeController.isDisplayBtnConfirm}"
+                                     value="#{accessTimeController.mlistAccessTime}" var="atime" rowKey="#{atime.accessTime.accessTimeId}"
+                                     selection="#{accessTimeController.mselectedAccessTime}" rowSelectMode="checkbox"
+                                     paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,50,#{accessTimeController.mlistAccessTime.size()}" paginatorPosition="bottom" paginatorAlwaysVisible="true" styleClass="no-border"
+                        >
+
+                            <p:ajax global="false" event="rowSelectCheckbox" process="dt_access_time" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="rowUnselectCheckbox" process="dt_access_time" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="toggleSelect" process="dt_access_time" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                            <p:column headerText="#{PP_ACCESSTIME.schedule_name}" sortBy="#{atime.accessTime.name}">
+                                <h:outputText value="#{atime.accessTime.name}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_ACCESSTIME.state}" sortBy="#{atime.accessTime.status}">
+                                <h:outputText styleClass="label label-success" rendered="#{atime.accessTime.status eq '1'}" value="#{PP_COMMONS.enable}"/>
+                                <h:outputText styleClass="label label-warning" rendered="#{atime.accessTime.status ne '1'}" value="#{PP_COMMONS.disable}"/>
+                            </p:column>
+                            <p:column width="80" style="text-align: center !important;">
+                                <p:commandLink id="btn_view" process="@this" update=":form_main:pnl_center" actionListener="#{accessTimeController.changeStateView(atime)}" styleClass="fa fa-eye"/>&nbsp;&nbsp;
+                                <p:commandLink id="btn_edit" process="@this" update=":form_main:pnl_center" rendered="#{accessTimeController.isAllowUpdate}" actionListener="#{accessTimeController.changeStateEdit(atime)}" styleClass="fa fa-pencil" resetValues="true"/>&nbsp;&nbsp;
+                                <p:commandLink id="btn_del" process="@this" update=":form_main:pnl_center" rendered="#{accessTimeController.isAllowDelete}" actionListener="#{accessTimeController.handleDelete(atime)}" styleClass="fa fa-trash" resetValues="true">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandLink>
+
+                                <p:tooltip value="#{PP_COMMONS.view}" for="btn_view"/>
+                                <p:tooltip value="#{PP_COMMONS.edit}" for="btn_edit"/>
+                                <p:tooltip value="#{PP_COMMONS.del}" for="btn_del"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-lg-4 no-pad-y">
+                        <p:panel id="pnl_tree" header="#{PP_ACCESSTIME.member}" rendered="#{accessTimeController.isDisplayBtnConfirm}" styleClass="box-info">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:outputLabel for="groups" value="#{PP_ADDRESS.group}"/>
+                                    <p:autoComplete id="groups" disabled="#{accessTimeController.isDISABLE}" multiple="true" value="#{accessTimeController.mlistSelectedGroup}"
+                                                    dropdown="true" dropdownMode="blank" completeMethod="#{accessTimeController.completeGroup}" var="g" itemLabel="#{g}" itemValue="#{g}"
+                                                    maxResults="10"
+                                    >
+                                        <p:ajax global="false" event="itemSelect"/>
+                                        <p:ajax global="false" event="itemUnselect"/>
+                                    </p:autoComplete>
+                                    <p:watermark for="groups" rendered="#{not accessTimeController.isDISABLE}" value="#{PP_ADDRESS.type_group_name}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:outputLabel for="users" value="#{PP_ADDRESS.user}"/>
+                                    <p:autoComplete id="users" disabled="#{accessTimeController.isDISABLE}" multiple="true" value="#{accessTimeController.mlistSelectedUser}"
+                                                    dropdown="true" dropdownMode="blank" completeMethod="#{accessTimeController.completeUser}" var="u" itemLabel="#{u}" itemValue="#{u}"
+                                                    maxResults="10"
+                                    >
+                                        <p:ajax global="false" event="itemSelect"/>
+                                        <p:ajax global="false" event="itemUnselect"/>
+                                    </p:autoComplete>
+                                    <p:watermark for="users" rendered="#{not accessTimeController.isDISABLE}" value="#{PP_ADDRESS.type_user_name}"/>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-8 no-pad-y">
+                        <p:panel header="#{PP_ACCESSTIME.time_access}" rendered="#{accessTimeController.isDisplayBtnConfirm}" styleClass="box-primary" style="min-height: 577px;">
+                            <p:focus context="pnl_add_schedule" />
+                            <h:panelGroup id="pnl_add_schedule">
+                                <div class="ui-g">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="schedule_name" value="#{PP_ACCESSTIME.schedule_name}"/>
+                                            <p:inputText id="schedule_name" disabled="#{accessTimeController.isDISABLE}" required="true"  value="#{accessTimeController.mtmpAccessTime.accessTime.name}"/>
+                                            <p:message for="schedule_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="status" value="#{PP_ACCESSTIME.state}"/>
+                                            <p:selectOneMenu id="status" disabled="#{accessTimeController.isDISABLE}" value="#{accessTimeController.mtmpAccessTime.accessTime.status}">
+                                                <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                                <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="status"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+
+                            <div class="ui-grid ui-grid-responsive">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-6" style="margin-right: 10px;">
+                                        <p:dataTable id="dt_day" value="#{accessTimeController.mlistDay}" var="lday" rowKey="#{lday}" selectionMode="single" selection="#{accessTimeController.mselectedDay}">
+                                            <p:ajax global="false" event="rowSelect" listener="#{accessTimeController.onDayRowSelect}" update=":form_main:day_data"/>
+                                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                            <p:ajax global="false" event="sort"/>
+                                            <p:ajax global="false" event="page"/>
+
+                                            <p:column headerText="#{PP_ACCESSTIME.date}" sortBy="#{lday}">
+                                                <h:outputText value="#{lday}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+
+                                    <div class="ui-grid-col-6">
+                                        <p:dataTable editable="true" editMode="cell" value="#{accessTimeController.mlistAccessTimeDTL}" var="dtl" id="day_data">
+                                            <p:ajax global="true" event="cellEdit" process="day_data" listener="#{accessTimeController.onEdit(dtl)}" />
+                                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                            <p:ajax global="false" event="sort"/>
+                                            <p:ajax global="false" event="page"/>
+
+                                            <p:column headerText="#{PP_ACCESSTIME.start_time}" sortBy="#{dtl.startTime}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{dtl.startTime}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:inputMask id="start_time" value="#{dtl.startTime}" mask="99:99:99" label="#{PP_ACCESSTIME.start_time}"/>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="#{PP_ACCESSTIME.end_time}" sortBy="#{dtl.endTime}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{dtl.endTime}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:inputMask value="#{dtl.endTime}" mask="99:99:99" label="#{PP_ACCESSTIME.end_time}" />
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="#{PP_ACCESSTIME.delete}" style="width:50px">
+                                                <p:commandButton update=":form_main:day_data" process="@this" actionListener='#{accessTimeController.handleDeleteDetailAccessTime(dtl)}' disabled="#{accessTimeController.isDISABLE}" icon="fa fa-trash"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h:panelGroup id="pnl_control2">
+                                <div class="ui-g">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                        <p:commandButton disabled="#{accessTimeController.isDISABLE}" process="@this" value="24/24" actionListener="#{accessTimeController.handle24On24}" update=":form_main:day_data" icon="fa fa-clock-o"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                        <p:commandButton disabled="#{accessTimeController.isDISABLE}" process="@this" value="#{PP_ACCESSTIME.work}" actionListener="#{accessTimeController.handleWork}" update=":form_main:day_data" icon="fa fa-briefcase"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                        <p:commandButton disabled="#{accessTimeController.isDISABLE}" process="@this" value="#{PP_ACCESSTIME.free}" actionListener="#{accessTimeController.handleFree}" update=":form_main:day_data" icon="fa fa-film"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                        <p:commandButton actionListener="#{accessTimeController.handleAddTime}" update=":form_main:day_data" disabled="#{accessTimeController.isDISABLE}" process="@this" value="#{PP_ACCESSTIME.add}" icon="fa fa-plus"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <p:commandButton disabled="#{accessTimeController.isDISABLE}" process="@this" value="#{PP_ACCESSTIME.delete}" styleClass="btn-danger" icon="fa fa-trash" actionListener="#{accessTimeController.handleDeleteAtDay()}" update=":form_main:day_data"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                        <p:commandButton disabled="#{accessTimeController.isDISABLE}" process="@this" value="#{PP_ACCESSTIME.apply}" styleClass="btn-warning" icon="fa fa-check-circle" actionListener="#{accessTimeController.handleApplyAll}" update=":form_main:day_data"/>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </p:panel>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

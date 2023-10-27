@@ -1,0 +1,201 @@
+### Test service is available
+GET http://{{host}}:{{port}}{{path}}/test
+Content-Type: application/xml; charset=UTF-8
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/subscriberLookup
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<SubscriberLookupRequest>
+    <msisdn>84936190293</msisdn>
+</SubscriberLookupRequest>
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/profile
+Content-Type:  application/xml; charset=UTF-8
+
+<AccountProfileRequest>
+    <account refType="MSISDN">84936190293</account>
+</AccountProfileRequest>
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/checkEligibility
+Content-Type:  application/xml; charset=UTF-8
+
+<CheckEligibilityRequest>
+    <account refType="MSISDN">84936190293</account>
+</CheckEligibilityRequest>
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/charge
+Content-Type:  application/xml; charset=UTF-8
+
+<ChargeRequest>
+    <requestId>230574893</requestId>
+    <clientTransactionId>48d08321546f395138a5c23f</clientTransactionId>
+    <account refType="MSISDN">84936190293</account>
+    <purchaseAmount>
+        <amount>1000</amount>
+        <currency>VND</currency>
+    </purchaseAmount>
+    <productDescription>5 Flower Shop Gold</productDescription>
+</ChargeRequest>
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/refund
+Content-Type:  application/xml; charset=UTF-8
+
+<RefundRequest>
+    <requestId>230574897</requestId>
+    <clientRefundId>56c18389046d395138f5b90e</clientRefundId>
+    <issuerPaymentId>issuerTrxId123456</issuerPaymentId>
+    <refundAmount>
+        <amount>1000</amount>
+        <currency>IDR</currency>
+    </refundAmount>
+    <refundReason>Product was not delivered.</refundReason>
+</RefundRequest>
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/paymentStatus
+Content-Type:  application/xml; charset=UTF-8
+
+<PaymentStatusRequest>
+    <paymentRequestId>230574893</paymentRequestId>
+</PaymentStatusRequest>
+
+
+###
+
+POST http://{{host}}:{{port}}{{path}}/submitMT
+Content-Type:  application/xml; charset=UTF-8
+
+<SubmitMTRequest>
+    <messageId>123456789</messageId>
+    <message>Your PIN code is: 1234</message>
+    <account refType="MSISDN">6281548046374</account>
+    <originator>123456</originator>
+    <validity>1800</validity>
+</SubmitMTRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/auth
+Content-Type:  application/xml; charset=UTF-8
+
+<AuthRequest>
+    <correlationId>V_2023_05_09_T03</correlationId>
+    <purchaseTime>20230509000000</purchaseTime>
+    <storeTransactionId>t00000000000000000000000025</storeTransactionId>
+    <account refType="MSISDN">84940000575</account>
+    <purchaseAmount>
+        <amount>1</amount>
+        <currency>VND</currency>
+    </purchaseAmount>
+    <productDescription>GOOGLE - TLS TEST</productDescription>
+</AuthRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/reverse
+Content-Type:  application/xml; charset=UTF-8
+
+<ReverseRequest>
+    <authCorrelationId>V_2023_04_04_T02</authCorrelationId>
+
+    <storeTransactionId>t00000000000000000000000018</storeTransactionId>
+</ReverseRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/reverse
+Content-Type:  application/xml; charset=UTF-8
+
+<ReverseRequest>
+    <authCorrelationId>V_2023_04_04_T01</authCorrelationId>
+    <authPurchaseTime>20230329000000</authPurchaseTime>
+    <storeTransactionId>t00000000000000000000000017</storeTransactionId>
+</ReverseRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/refund
+Content-Type:  application/xml; charset=UTF-8
+
+<RefundRequest>
+    <authCorrelationId>V_2023_03_29_T13</authCorrelationId>
+    <authPurchaseTime>20230329000000</authPurchaseTime>
+    <storeTransactionId>g00000000000000000000000013</storeTransactionId>
+    <refundReason>Product was not delivered</refundReason>
+</RefundRequest>
+
+
+###
+
+POST http://10.11.10.143:9697/mobifone/refund
+Content-Type:  application/xml; charset=UTF-8
+
+<RefundRequest>
+    <authCorrelationId>V_2023_04_04_T03</authCorrelationId>
+    <storeTransactionId>t00000000000000000000000019</storeTransactionId>
+    <refundReason>Product was not delivered</refundReason>
+</RefundRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/charge
+Content-Type:  application/xml; charset=UTF-8
+
+<ChargeRequest>
+    <authCorrelationId>V_2023_04_04_T03</authCorrelationId>
+    <storeTransactionId>t00000000000000000000000019</storeTransactionId>
+    <refundReason>Product was not delivered</refundReason>
+</ChargeRequest>
+
+###
+
+POST http://10.11.10.143:9697/mobifone/auth
+Content-Type:  application/xml; charset=UTF-8
+
+<AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>6000</amount></purchaseAmount><correlationId>VGPlay_2023_0317_02</correlationId><purchaseTime>20230317000000</purchaseTime><productDescription>GOOGLE_ </productDescription></AuthRequest>
+
+
+
+###
+
+POST http://127.0.0.1:6969/mobifone/auth
+Content-Type:  application/xml; charset=UTF-8
+
+<AuthRequest>
+    <correlationId>g00000000000000000000000000000000000000051_57</correlationId>
+    <purchaseTime>20231025000000</purchaseTime>
+    <storeTransactionId>g00000000000000000000000000000000000000051_57</storeTransactionId>
+    <account refType="MSISDN">84940000575</account>
+    <purchaseAmount>
+        <amount>5000</amount>
+        <currency>VND</currency>
+    </purchaseAmount>
+    <productDescription>Film</productDescription>
+    <merchantInfo></merchantInfo>
+</AuthRequest>
+
+
+###
+
+POST http://127.0.0.1:6969/mobifone/refund
+Content-Type:  application/xml; charset=UTF-8
+
+<RefundRequest>
+    <authCorrelationId>g00000000000000000000000000000000000000051_57</authCorrelationId>
+    <authPurchaseTime>20231025000000</authPurchaseTime>
+    <refundReason>Product was not delivered</refundReason>
+    <storeTransactionId>g00000000000000000000000000000000000000051_57</storeTransactionId>
+</RefundRequest>
+

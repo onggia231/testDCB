@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <script type="text/javascript">
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+        </script>
+        <div class="ui-fluid">
+            <p:panel id="pnInfoISDNTrans" header="#{PP_INFOISDNTRANS.header}" styleClass="box-primary">
+                <h:panelGroup rendered="#{updateISDNController.bDISPLAYInfoISDNTrans}">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_storeId" value="#{PP_INFOISDNTRANS.storeId}"/>
+                                <p:selectOneMenu id="trans_storeId" value="#{updateISDNController.lStoreId}"
+                                                 required="false"
+                                                 requiredMessage="#{PP_INFOISDNTRANS.storeId}#{PP_COMMONS.can_not_be_empty}"
+                                                 filter="true" filterMatchMode="contains">
+                                    <p:ajax event="change" listener="#{updateISDNController.onStoreChange()}"
+                                            process="trans_storeId" update=":form_main:pnInfoISDNTrans"/>
+<!--                                    <f:selectItem itemLabel="Test" itemValue="5"/>-->
+                                    <f:selectItems value="#{updateISDNController.mlistStore}" var="store"
+                                                   itemLabel="#{store.name}" itemValue="#{store.id}"/>
+                                </p:selectOneMenu>
+                                <p:message for="trans_storeId"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_totalYear" value="#{PP_INFOISDNTRANS.totalYear}"/>
+                                <p:inputNumber id="trans_totalYear"
+                                               value="#{updateISDNController.mtmpSubStore.totalYear}"
+                                               disabled="true" maxlength="15" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.totalYear}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_totalYear"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_startYear" value="#{PP_INFOISDNTRANS.startYear}"/>
+                                <p:calendar id="trans_startYear" disabled="true"
+                                            value="#{updateISDNController.mtmpSubStore.startYear}"
+                                            pattern="dd/MM/yyyy"
+                                            mask="true" mode="popup" navigator="true" required="false"
+                                            requiredMessage="#{PP_INFOISDNTRANS.startYear}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="trans_startYear"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_totalMonth" value="#{PP_INFOISDNTRANS.totalMonth}"/>
+                                <p:inputNumber id="trans_totalMonth"
+                                               value="#{updateISDNController.mtmpSubStore.totalMonth}"
+                                               disabled="true" maxlength="15" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.totalMonth}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_totalMonth"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_startMonth" value="#{PP_INFOISDNTRANS.startMonth}"/>
+                                <p:calendar id="trans_startMonth" disabled="true"
+                                            value="#{updateISDNController.mtmpSubStore.startMonth}"
+                                            pattern="dd/MM/yyyy"
+                                            mask="true" mode="popup" navigator="true" required="false"
+                                            requiredMessage="#{PP_INFOISDNTRANS.startMonth}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="trans_startMonth"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_totalWeek" value="#{PP_INFOISDNTRANS.totalWeek}"/>
+                                <p:inputNumber id="trans_totalWeek"
+                                               value="#{updateISDNController.mtmpSubStore.totalWeek}"
+                                               disabled="true" maxlength="15" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.totalWeek}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_totalWeek"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_startWeek" value="#{PP_INFOISDNTRANS.startWeek}"/>
+                                <p:calendar id="trans_startWeek" disabled="true"
+                                            value="#{updateISDNController.mtmpSubStore.startWeek}"
+                                            pattern="dd/MM/yyyy"
+                                            mask="true" mode="popup" navigator="true" required="false"
+                                            requiredMessage="#{PP_INFOISDNTRANS.startWeek}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="trans_startWeek"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_totalDay" value="#{PP_INFOISDNTRANS.totalDay}"/>
+                                <p:inputNumber id="trans_totalDay"
+                                               value="#{updateISDNController.mtmpSubStore.totalDay}"
+                                               disabled="true" maxlength="15" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.totalDay}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_totalDay"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_yearlyLimit" value="#{PP_INFOISDNTRANS.yearlyLimit}"/>
+                                <p:inputNumber id="trans_yearlyLimit"
+                                               value="#{updateISDNController.mtmpSubStore.yearlyLimit}"
+                                               maxlength="10" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.yearlyLimit}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_yearlyLimit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_dailyLimit" value="#{PP_INFOISDNTRANS.dailyLimit}"/>
+                                <p:inputNumber id="trans_dailyLimit"
+                                               value="#{updateISDNController.mtmpSubStore.dailyLimit}"
+                                               maxlength="10" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.dailyLimit}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_dailyLimit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_monthlyLimit" value="#{PP_INFOISDNTRANS.monthlyLimit}"/>
+                                <p:inputNumber id="trans_monthlyLimit"
+                                               value="#{updateISDNController.mtmpSubStore.monthlyLimit}"
+                                               maxlength="10" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.monthlyLimit}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_monthlyLimit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_transLimit" value="#{PP_INFOISDNTRANS.transLimit}"/>
+                                <p:inputNumber id="trans_transLimit"
+                                               value="#{updateISDNController.mtmpSubStore.transLimit}"
+                                               maxlength="10" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.transLimit}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_transLimit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="trans_weeklyLimit" value="#{PP_INFOISDNTRANS.weeklyLimit}"/>
+                                <p:inputNumber id="trans_weeklyLimit"
+                                               value="#{updateISDNController.mtmpSubStore.weeklyLimit}"
+                                               maxlength="10" required="false"
+                                               requiredMessage="#{PP_INFOISDNTRANS.weeklyLimit}#{PP_COMMONS.can_not_be_empty}"
+                                               decimalSeparator="," decimalPlaces="0" thousandSeparator="."/>
+                                <p:message for="trans_weeklyLimit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:commandButton process="@this :form_main:pnInfoISDNTrans"
+                                                 update=":form_main:pnInfoISDNTrans"
+                                                 actionListener="#{updateISDNController.handleSaveInfoISDNTrans()}"
+                                                 oncomplete="scrollToTop();"
+                                                 value="#{PP_COMMONS.save}"
+                                                 styleClass="right btn-success" icon="fa fa-check" style="width:auto"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

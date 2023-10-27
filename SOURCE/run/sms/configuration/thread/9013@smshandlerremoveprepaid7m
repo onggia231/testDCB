@@ -1,0 +1,29 @@
+ThreadName==SMS Handler - Remove PREPAID_7M
+ClassName==com.telsoft.cbs.sms.HandleLimitationProfileSms
+StartupType==2
+Parameter
+	ThreadName==Remove_PRE_7M_1
+	Target Subscriber Type==PREPAID
+	Process amount==5
+	Store code==GPLAY
+	Channel type==SYS
+	Limit Profile Code
+	Process SMS Command Code==REMOVE_PREPAID_7M
+	Success SMS Command Code==REMOVE_PREPAID_7M_SUCCESS
+	Registered SMS Command Code==REMOVE_PREPAID_7M_FAIL_REGISTERED
+	Fail SMS Command Code==REMOVE_PREPAID_7M_FAIL
+	Not Target SubType SMS Command Code
+	Interval Process(ms)==5000
+	Interval Sync Config(s)==180
+	LogDir==log/SmsHandlerRemovePrepaid7M
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==5
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==1
+Schedule

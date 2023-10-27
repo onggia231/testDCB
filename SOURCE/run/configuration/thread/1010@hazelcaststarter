@@ -1,0 +1,16 @@
+ThreadName==Hazelcast Starter
+ClassName==com.telsoft.cbs.modules.hazelcast.HazelcastStarter
+StartupType==2
+Parameter
+	LogDir==log/hazelcast
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConfigFile==./configuration/hazelcast-server.xml
+	InstanceName==cbs-instance-01
+Status==1
+Schedule

@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: com.telsoft.cbs.module.fortumo.FortumoApp
+Class-Path: commons-compiler-3.0.9.jar disruptor-3.2.1.jar hessian-4.0.7
+ .jar janino-3.0.9.jar jcl.jar slf4j-api-1.7.25.jar slf4j-log4j12-1.7.25
+ .jar jetty-all-9.4.24.v20191120-osgi.jar jetty-http-spi-9.4.24.v2019112
+ 0.jar jersey-all-2.22.2.jar log4j-1.2.15.jar telsoft_admin_srv.jar tels
+ oft_commons.jar telsoft_srv.jar
+

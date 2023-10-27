@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <style type="text/css">
+            .ui-tree-container {
+                max-height: 500px;
+            }
+        </style>
+
+        <div class="ui-fluid">
+            <h:panelGroup id="pnl_center">
+                <p:sticky target="pnl_control"/>
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not addressController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.add}" rendered="#{addressController.getPermission('I')}" process="@this" update=":form_main" actionListener="#{addressController.changeStateAdd()}" styleClass="btn-primary" icon="fa fa-plus" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_del" rendered="#{addressController.isAllowDelete}" actionListener="#{addressController.handleDelete()}" disabled="#{not addressController.isSelectedAddr}" process="@this" styleClass=" btn-danger" value="#{PP_COMMONS.del}" update="pnl_center" icon="fa fa-trash" oncomplete="clearFilters('dtAddr');">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{addressController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.back}" process="@this" icon="fa fa-undo" update=":form_main" rendered="#{not addressController.isVIEW}" actionListener="#{addressController.handleCancel()}" oncomplete="clearFilters('dtAddr')"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton value="#{PP_COMMONS.back}" process="@this" icon="fa fa-undo" update=":form_main" rendered="#{addressController.isVIEW}" actionListener="#{addressController.handleCancel()}" oncomplete="clearFilters('dtAddr')"/>
+                                <p:commandButton value="#{PP_COMMONS.ok}" process=":form_main" styleClass="btn-success" icon="fa fa-check-circle" update=":form_main" rendered="#{not addressController.isVIEW}" actionListener="#{addressController.handleOK()}"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="grid-padding">
+                    <p:panel header="#{PP_ADDRESS.list}" styleClass="box-primary" rendered="#{not addressController.isDisplayBtnConfirm}">
+                        <p:dataTable id="dt_addr" widgetVar="dtAddr" value="#{addressController.mlistAddr}" rowKey="#{addr.address.addrId}" var="addr" selection="#{addressController.mselectedAddress}" rowSelectMode="checkbox"
+                                     paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginatorPosition="bottom" paginatorAlwaysVisible="true" rowsPerPageTemplate="10,20,50,#{addressController.mlistAddr.size()}" styleClass="no-border">
+                            >
+
+                            <p:ajax global="false" event="rowSelectCheckbox" process="dt_addr" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="rowUnselectCheckbox" process="dt_addr" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="toggleSelect" process="dt_addr" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                            <p:column headerText="#{PP_ADDRESS.address_name}" sortBy="#{addr.address.name}">
+                                <h:outputText value="#{addr.address.name}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="#{PP_ADDRESS.granttype}" sortBy="#{addr.address.grantType}">
+                                <h:outputText styleClass="label label-success" rendered="#{addr.address.grantType eq '1'}" value="#{PP_ADDRESS.grant1}"/>
+                                <h:outputText styleClass="label label-warning" rendered="#{addr.address.grantType ne '1'}" value="#{PP_ADDRESS.grant0}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_ADDRESS.state}" sortBy="#{addr.address.status}">
+                                <h:outputText styleClass="label label-success" rendered="#{addr.address.status eq '1'}" value="#{PP_COMMONS.enable}"/>
+                                <h:outputText styleClass="label label-warning" rendered="#{addr.address.status ne '1'}" value="#{PP_COMMONS.disable}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_ADDRESS.order}" sortBy="#{addr.address.ord}">
+                                <h:outputText value="#{addr.address.ord}"></h:outputText>
+                            </p:column>
+                            <p:column width="80" style="text-align: center !important;">
+                                <p:commandLink id="btn_view" process="@this" update=":form_main:pnl_center" actionListener="#{addressController.changeStateView(addr)}" styleClass="fa fa-eye" resetValues="true"/>&nbsp;&nbsp;
+                                <p:commandLink id="btn_edit" process="@this" update=":form_main:pnl_center" rendered="#{addressController.isAllowUpdate}" actionListener="#{addressController.changeStateEdit(addr)}" styleClass="fa fa-pencil" resetValues="true"/>&nbsp;&nbsp;
+                                <p:commandLink id="btn_del" rendered="#{addressController.isAllowDelete}" actionListener="#{addressController.handleDelete(addr)}" process="@this" styleClass="fa fa-trash" update=":form_main:pnl_center" oncomplete="clearFilters('dtAddr')">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandLink>
+
+                                <p:tooltip value="#{PP_COMMONS.view}" for="btn_view"/>
+                                <p:tooltip value="#{PP_COMMONS.edit}" for="btn_edit"/>
+                                <p:tooltip value="#{PP_COMMONS.del}" for="btn_del"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-lg-4 no-pad-y">
+                        <p:panel id="pnl_tree" header="#{PP_ADDRESS.member}" styleClass="box-info" rendered="#{addressController.isDisplayBtnConfirm}">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:outputLabel for="groups" value="#{PP_ADDRESS.group}"/>
+                                    <p:autoComplete id="groups" disabled="#{addressController.isDISABLE}" multiple="true" value="#{addressController.mlistSelectedGroup}"
+                                                    dropdown="true" dropdownMode="blank" completeMethod="#{addressController.completeGroup}" var="g" itemLabel="#{g}" itemValue="#{g}"
+                                                    maxResults="10"
+                                    >
+                                        <p:ajax global="false" event="itemSelect"/>
+                                        <p:ajax global="false" event="itemUnselect"/>
+                                    </p:autoComplete>
+                                    <p:watermark for="groups" rendered="#{not addressController.isDISABLE}" value="#{PP_ADDRESS.type_group_name}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:outputLabel for="users" value="#{PP_ADDRESS.user}"/>
+                                    <p:autoComplete id="users" disabled="#{addressController.isDISABLE}" multiple="true" value="#{addressController.mlistSelectedUser}"
+                                                    dropdown="true" dropdownMode="blank" completeMethod="#{addressController.completeUser}" var="u" itemLabel="#{u}" itemValue="#{u}"
+                                                    maxResults="10"
+                                    >
+                                        <p:ajax global="false" event="itemSelect"/>
+                                        <p:ajax global="false" event="itemUnselect"/>
+                                    </p:autoComplete>
+                                    <p:watermark for="users" rendered="#{not addressController.isDISABLE}" value="#{PP_ADDRESS.type_user_name}"/>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-8 no-pad-y">
+                        <p:panel id="pnl_addr_detail" header="#{PP_ADDRESS.detail}" styleClass="box-primary" rendered="#{addressController.isDisplayBtnConfirm}">
+                            <p:focus context="pnl_addr_detail"/>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="name" value="#{PP_ADDRESS.address_name}"/>
+                                        <p:inputText id="name" disabled="#{addressController.isDISABLE}" required="true" requiredMessage="#{PP_ADDRESS.address_name}#{PP_COMMONS.can_not_be_empty}" value="#{addressController.mtmpAddress.address.name}"/>
+                                        <p:message for="name"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="cbGrantType" value="#{PP_ADDRESS.granttype}"/>
+                                        <p:selectOneMenu id="cbGrantType" disabled="#{addressController.isDISABLE}" value="#{addressController.mtmpAddress.address.grantType}">
+                                            <f:selectItem itemLabel="#{PP_ADDRESS.grant1}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_ADDRESS.grant0}" itemValue="0"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="txtOrder" value="#{PP_ADDRESS.order}"/>
+                                        <p:inputText id="txtOrder" disabled="#{addressController.isDISABLE}" required="false" requiredMessage="#{PP_ADDRESS.order}#{PP_COMMONS.can_not_be_empty}" value="#{addressController.mtmpAddress.address.ord}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="cbStatus" value="#{PP_ADDRESS.state}"/>
+                                        <p:selectOneMenu id="cbStatus" disabled="#{addressController.isDISABLE}" value="#{addressController.mtmpAddress.address.status}">
+                                            <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:dataTable styleClass="accessdtl" value="#{addressController.mtmpAddress.listAddressDTL}" var="addrDtl" id="dtldata" editable="#{not addressController.isDISABLE}" editMode="cell" style="margin-top: 10px;">
+                                <f:facet name="header">
+                                    <p:commandButton value="#{PP_ADDRESS.add}" rendered="#{not addressController.isVIEW}" process="@this" update=":form_main:dtldata" actionListener="#{addressController.handAddAddrDTL}" styleClass="btn-auto btn-xs left" icon="fa fa-plus"/>
+                                    <div class="clear"/>
+                                </f:facet>
+
+                                <p:ajax event="rowEdit" listener="#{addressController.onEdit}" update=""/>
+                                <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                <p:ajax global="false" event="sort"/>
+                                <p:ajax global="false" event="page"/>
+
+                                <p:column headerText="#{PP_ADDRESS.host}" sortBy="#{addrDtl.address}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{addrDtl.address}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{addrDtl.address}" label="#{PP_ADDRESS.host}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{PP_ADDRESS.subnet}" sortBy="#{addrDtl.subnet}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{addrDtl.subnet}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{addrDtl.subnet}" label="#{PP_ADDRESS.subnet}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{PP_ADDRESS.delete}" style="width:50px">
+                                    <p:commandButton rendered="#{not addressController.isVIEW}" update=":form_main:dtldata" actionListener='#{addressController.handDeleteAddressDTL(addrDtl)}' icon="fa fa-trash"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

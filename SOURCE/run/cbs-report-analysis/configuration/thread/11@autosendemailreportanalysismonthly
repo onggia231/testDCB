@@ -1,0 +1,59 @@
+ThreadName==Auto Send Email Report Analysis Monthly
+ClassName==com.telsoft.cbs.thread.AutoSendEmailReportProcedure2
+StartupType==2
+Parameter
+	MailSetting
+		Host==smtp.gmail.com
+		Port==465
+		StartTLS==true
+		UsingSSLOnConnect==true
+		User==cbs.telsoft@gmail.com
+		Password==cbs123456
+		Sender==CBS_SYSTEM
+	ListMailConfig=^
+		0=^
+			0=^
+				0=^
+					0==vinhdhq
+					1==vinhdhq@telsoft.com.vn
+				1=^
+					0==vinh2
+					1==ongsucu2005@gmail.com
+			1=^
+				0=^
+					0==Doanh thu theo ngày
+					1==cbs_report.test_report
+					2=^
+						0=^
+							0==p_input
+							1==7
+					3
+				1=^
+					0==Doanh thu theo tháng
+					1==cbs_report.test_report
+					2=^
+						0=^
+							0==p_input
+							1==12
+					3==bc_thang
+			2==Báo cáo doanh thu ngày
+			3==Y
+			4==<p><em>K&iacute;nh gửi c&aacute;c anh,</em></p>\n<p>&nbsp;</p>\n<p style=\"padding-left: 40px;\">Hệ thống xin gửi b&aacute;o c&aacute;o doanh thu theo ng&agrave;y</p>\n<p>&nbsp;</p>
+	LogDir==log/AutoSendEmailReportAnalysisMonthly
+	Alert==N
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==500
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	LogDefinition
+	MailAddress
+	ProcedureConfig
+	MailSubject==Báo cáo test
+	MailBody==Test tùm lum
+	ZipFileReport==N
+	ScanDuration==24
+Status==1
+Schedule

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <p:panel header="#{PP_LOGACCESS.filtercondition}" styleClass="box-primary">
+                <h:panelGroup id="pncondition">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="start_date" value="#{PP_LOGACCESS.from}"/>
+                                <p:calendar id="start_date" pattern="dd/MM/yyyy HH:mm:ss" navigator="true" mask="true" value="#{logAccessController.mlogAccessGUI.ettFilterCond.dateFrom}" required="true" />
+                                <p:message for="start_date" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="end_date" value="#{PP_LOGACCESS.to}"/>
+                                <p:calendar id="end_date" pattern="dd/MM/yyyy HH:mm:ss" navigator="true" mask="true" value="#{logAccessController.mlogAccessGUI.ettFilterCond.dateTo}" required="true" />
+                                <p:message for="end_date" />
+                                <o:validateOrder type="lte" components="start_date end_date" message="#{PP_COMMONS.sta_end_date_error}" showMessageFor="start_date" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel value="#{PP_LOGACCESS.user}"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" value="#{logAccessController.mlogAccessGUI.ettFilterCond.userName}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItems value="#{logAccessController.mlistUser}" var="user" itemValue="#{user.user.userName}" itemLabel="#{user.user.userName}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel value="#{PP_MNGAPP.app_name}"/>
+                                <p:selectOneMenu id="app" value="#{logAccessController.mlogAccessGUI.ettFilterCond.appId}" filter="true" filterMatchMode="contains">
+                                    <f:selectItem itemLabel="" itemValue="0"/>
+                                    <f:selectItems value="#{logAccessController.mlistApp}" var="app" itemLabel="#{app.name}" itemValue="#{app.appId}"/>
+                                    <p:ajax global="false" event="change" listener="#{logAccessController.onAppChange}" update=":form_main:module,"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel value="#{PP_LOGACCESS.function}"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="module" value="#{logAccessController.mlogAccessGUI.ettFilterCond.functionPath}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItems value="#{logAccessController.mlistModule}" var="module" itemLabel="#{module.name}" itemValue="#{module.objectId}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel value="#{PP_LOGACCESS.number}"/>
+                                <p:selectOneMenu value="#{logAccessController.mlogAccessGUI.ettFilterCond.numberAccess}">
+                                    <f:selectItem itemLabel="" itemValue="0"/>
+                                    <f:selectItem itemLabel=">= 10" itemValue="10"/>
+                                    <f:selectItem itemLabel=">= 50" itemValue="50"/>
+                                    <f:selectItem itemLabel=">= 100" itemValue="100"/>
+                                    <f:selectItem itemLabel=">= 200" itemValue="200"/>
+                                    <f:selectItem itemLabel=">= 500" itemValue="500"/>
+                                    <f:selectItem itemLabel=">= 1000" itemValue="1000"/>
+                                    <f:selectItem itemLabel=">= 5000" itemValue="5000"/>
+                                    <f:selectItem itemLabel=">= 10000" itemValue="10000"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <center>
+                    <p:commandButton icon="fa fa-search" process="@this :form_main:pncondition" update=":form_main:pncondition, :form_main:dt_access, :form_main:dtdetail :form_main:opcmd" actionListener="#{logAccessController.handSearch()}" value="#{PP_LOGACCESS.search}" styleClass="btn-primary" style="width:auto" oncomplete="clearFilters('dtAccess')"/>
+                </center>
+            </p:panel>
+
+            <p:panel header="#{PP_LOGACCESS.listaccess}" styleClass="box-info">
+                <p:dataTable id="dt_access" widgetVar="dtAccess" value="#{logAccessController.mlogAccessGUI.listAccess}" var="laccess" filteredValue="#{logAccessController.mlistAccessFiltered}"
+                             emptyMessage="#{PP_LOGACCESS.norecord}" selectionMode="single" rowKey="#{laccess.key}" selection="#{logAccessController.mselectedLogAccess}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" styleClass="no-border">
+
+                    <p:ajax global="false" process="@this" update=":form_main:dtdetail :form_main:btndelete" event="rowSelect" listener="#{logAccessController.onLogAccessRowSelect}"/>
+                    <p:ajax event="sort" global="false"/>
+                    <p:ajax event="filter" global="false"/>
+                    <p:ajax event="page" global="false"/>
+
+                    <p:column sortBy="#{laccess.userName}" filterBy="#{laccess.userName}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.user}">
+                        #{laccess.userName}
+                    </p:column>
+                    <p:column sortBy="#{laccess.userFName}" filterBy="#{laccess.userFName}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.fullname}">
+                        #{laccess.userFName}
+                    </p:column>
+                    <p:column sortBy="#{laccess.mfName}" filterBy="#{laccess.mfName}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.fname}">
+                        #{laccess.mfName}
+                    </p:column>
+                    <p:column sortBy="#{laccess.mfPath}" filterBy="#{laccess.mfPath}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.fpath}">
+                        #{laccess.mfPath}
+                    </p:column>
+                    <p:column sortBy="#{laccess.number}" filterBy="#{laccess.number}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.number}">
+                        #{laccess.number}
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <p:panel header="#{PP_LOGACCESS.detailaccess}" styleClass="box-info">
+                <p:dataTable id="dtdetail" value="#{logAccessController.mlogAccessGUI.listDetail}" var="ldetail" emptyMessage="#{PP_LOGACCESS.norecord}"
+                             style="margin-bottom: 10px;" selectionMode="single" rowKey="#{ldetail.key}" filteredValue="#{logAccessController.mlistDetailFilterd}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             selection="#{logAccessController.mselectedLogDetail}" paginator="true" rows="20" paginatorPosition="bottom" styleClass="no-border">
+
+                    <p:ajax global="false" update=":form_main:btndelete" process="@this" event="rowSelect" listener="#{logAccessController.onLogDetailRowSelect}"/>
+                    <p:ajax event="sort" global="false"/>
+                    <p:ajax event="filter" global="false"/>
+                    <p:ajax event="page" global="false"/>
+
+                    <p:column sortBy="#{ldetail.dateAccess}" filterBy="#{ldetail.dateAccess}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.hour}">
+                        #{ldetail.dateAccess}
+                    </p:column>
+
+                    <p:column sortBy="#{ldetail.ip}" filterBy="#{ldetail.ip}" filterMatchMode="contains" headerText="#{PP_LOGACCESS.ip}">
+                        #{ldetail.ip}
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <h:panelGroup id="opcmd">
+                <div align="left">
+                    <p:commandButton id="btndelete" rendered="false" update=":form_main:dt_access :form_main:dtdetail" actionListener="#{logAccessController.handDelete()}" disabled="#{logAccessController.miLogLevel == -1}" value="#{PP_LOGACCESS.delete}" icon="fa fa-trash" styleClass="btn-danger" style="width: auto" >
+                        <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                    </p:commandButton>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

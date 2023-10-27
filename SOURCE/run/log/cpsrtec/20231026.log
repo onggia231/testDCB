@@ -1,0 +1,308 @@
+26/10 14:52:10 CPS_Rtec Dispatcher started
+26/10 14:52:10 [1]Start connecting to server [CPS_RTEC],ID:[CPS_RTEC]
+26/10 14:52:10 [1]Logined. SessionId = 1697552
+26/10 14:52:10 [1]Connected to server [CPS_RTEC]
+26/10 14:54:11 [1]Processing message : 
+<cp_request>
+                <user_id type="MSISDN">84940000575</user_id>
+                <application>7</application>
+                <action>0</action>
+                <cp_id>dcbsystem</cp_id>
+                <cp_transaction_id>dcbsystem</cp_transaction_id>
+                <op_transaction_id></op_transaction_id>
+                <transaction_description>dcbsystem</transaction_description>
+                <spid>001</spid>
+                <cpid>001</cpid>
+                <categoryid>000001</categoryid>
+                <contentid>0000000001</contentid>
+                <shortcode>333</shortcode>
+                <b_isdn>84940000575</b_isdn>
+                </cp_request>
+26/10 14:54:11 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 14:54:33 [1]Processing message : 
+<cp_request>
+                <user_id type="MSISDN">84940000575</user_id>
+                <application>7</application>
+                <action>0</action>
+                <cp_id>dcbsystem</cp_id>
+                <cp_transaction_id>dcbsystem</cp_transaction_id>
+                <op_transaction_id></op_transaction_id>
+                <transaction_description>dcbsystem</transaction_description>
+                <spid>001</spid>
+                <cpid>001</cpid>
+                <categoryid>000001</categoryid>
+                <contentid>0000000001</contentid>
+                <shortcode>333</shortcode>
+                <b_isdn>84940000575</b_isdn>
+                </cp_request>
+26/10 14:54:33 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 14:56:17 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 14:56:17 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 14:56:27 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 14:56:27 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 15:16:07 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 15:16:07 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 15:16:09 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 15:16:09 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 15:22:10 [1][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:11 [NOTIFICATION] THREAD : Is running
+26/10 15:46:09 [1][NOTIFICATION] COMMAND : No transaction
+26/10 15:50:03 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 15:50:03 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 15:50:14 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 15:50:14 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 15:52:10 [1][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:19 [NOTIFICATION] THREAD : Is running
+26/10 16:30:29 CPS_Rtec Dispatcher started
+26/10 16:30:29 [1]Start connecting to server [CPS_RTEC],ID:[CPS_RTEC]
+26/10 16:30:29 [1]Logined. SessionId = 1697554
+26/10 16:30:29 [1]Connected to server [CPS_RTEC]
+26/10 16:45:19 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 16:45:19 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 16:46:08 [1]Processing message : 
+<cp_request>
+	<user_id type="MSISDN">84940000575</user_id>
+	<application>7</application>
+	<action>0</action>
+	<cp_id>dcbsystem</cp_id>
+	<cp_transaction_id>dcbsystem</cp_transaction_id>
+	<op_transaction_id></op_transaction_id>
+	<transaction_description>dcbsystem</transaction_description>
+	<spid>001</spid>
+	<cpid>002</cpid>
+	<categoryid>000001</categoryid>
+	<contentid>0000000001</contentid>
+	<shortcode>049236</shortcode>
+	<b_isdn>84940000575</b_isdn>
+</cp_request>
+26/10 16:46:08 [1]Processed : 
+<?xml version='1.0'?>
+<cp_reply>
+	<cp_id>ChargingCSP</cp_id>
+	<cp_transaction_id>ChargingCSP</cp_transaction_id>
+	<sub_info>CARD_NBR=779500037,IDENTIFY=779500037,MSID=452019920223154,LANGUAGE=Vietnamese,SERVCLAS=QT2,ACCREDDT=01/11/2018 09:40:59,ACTIVBDT=28/04/2023 15:00:11,ACTIVEND=05/01/2020 23:59:59,CYCLSTAT=2,FIRSTCAL=1,INACTEND=14/02/2020 23:59:59,VALIDBEG=13/11/2018 18:28:39,PREPAID=1,USCREDVO=60063,WLCDONE=1,TDT=;</sub_info>
+	<result>CPS-0000</result>
+	<user_id>779500037</user_id>
+	<session>42631200021097419</session>
+	<cpid>001</cpid>
+	<spid>001</spid>
+</cp_reply>
+
+26/10 17:00:29 [1][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:30 [NOTIFICATION] THREAD : Is running
+26/10 17:16:08 [1][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:29 [1][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:31 [NOTIFICATION] THREAD : Is running

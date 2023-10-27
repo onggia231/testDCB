@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route>
+        <from/>
+        <log/>
+        <process/>
+        <choice>
+            <when/>
+            <when/>
+            <when/>
+            <otherwise/>
+        </choice>
+        <doTry>
+            <log/>
+            <doCatch/>
+            <doCatch/>
+            <doCatch customId="true" id="111"/>
+            <doFinally/>
+        </doTry>
+        <loop/>
+        <to/>
+        <toD/>
+        <throwException/>
+        <setBody/>
+        <setHeader/>
+        <removeHeader/>
+        <delay/>
+        <stop/>
+        <onException/>
+        <circuitBreaker>
+            <process/>
+            <pipeline/>
+            <onFallback/>
+        </circuitBreaker>
+        <transacted/>
+        <rollback/>
+        <script/>
+        <multicast/>
+        <setProperty/>
+        <removeProperty/>
+    </route>
+</routes>

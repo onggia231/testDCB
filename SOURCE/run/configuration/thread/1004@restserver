@@ -1,0 +1,65 @@
+ThreadName==Rest Server
+ClassName==telsoft.gateway.core.gw.Gateway
+StartupType==1
+Parameter
+	ReceptionistClass==com.telsoft.cbs.modules.rest.RestReceptionist
+	ContextPath==/cbs/
+	ServletContext==/*
+	Port==8888
+	Tcp-Acceptors==3
+	Tcp-SoLingerTime==-1
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath
+	KeyStorePassword
+	KeyManagerPassword
+	TrustStorePath
+	TrustStorePassword
+	TimeoutConfigTable=^
+		0=^
+			0==GPLAY
+			1==CHARGE
+			2==4500
+			3==300
+	ProcessorClass
+	ProcessorParameter
+	ThreadNumber==10
+	MaxConnection==10
+	UserLoginPerSecond==5
+	LoginPerSecond==30
+	ExpireDuration==30
+	GatewaySpeed==0
+	DelayOnNoDispatcher==0
+	TPS==2
+	WarningTPS==2
+	TPSSampleSize==20
+	TPSSampleDuration==2000
+	TPSChecking==GATEWAY
+	OverloadAction==NONE
+	IdleInterval==5
+	NoConnectionDuration==0
+	Synchronize==Y
+	CheckPrivilege==N
+	RouteParameterMapping
+	CheckParameterMapping
+	ResponseMapping
+	Attribute=^
+		0=^
+			0==ISI
+			1==CAMEL
+	MessageTimeout==15
+	LockProcessing==N
+	UserPrefix
+	LogDir==log/bokurs
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+	LogDefinition
+Status==1
+Schedule

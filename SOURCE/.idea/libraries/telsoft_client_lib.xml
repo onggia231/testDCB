@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="telsoft_client_lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/camel-builder/lib/telsoft_admin_client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/camel-builder/lib/telsoft_client.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <style type="text/css">
+        #layout-menu_menu {
+            z-index: 9997 !important;
+        }
+
+        #layout-menu_menu span.ui-menuitem-text {
+            margin-left: 2px;
+        }
+
+        #pnl_language {
+            width: auto !important;
+            top: 47px !important;
+            -webkit-box-shadow: unset;
+            -moz-box-shadow: unset;
+            box-shadow: unset;
+            border: 0;
+            background: transparent;
+        }
+
+        #pnl_language .ui-overlaypanel-content {
+            padding: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $().ready(function() {
+            var moduleId = "#{mainController.moduleId}";
+            $(".tls_module").removeClass("active");
+            $("#func_" + moduleId).addClass("active");
+            $("#func_" + moduleId).parent().parent().addClass("active");
+        });
+
+        //Logout function
+        var strContexPath = "#{request.contextPath}";
+
+        function logout() {
+            var strCasServer = "#{centralAuthService.getCasServer()}";
+            var strRootSite = $(location).attr('protocol') + "//" + $(location).attr('host');
+
+            if ("#{centralAuthService.getCasEnable()}" === "0") {
+                location.href = strRootSite + strContexPath;
+
+            } else {
+                location.href = strCasServer + '/logout?service=' + strCasServer + '/login?TARGET=' + strRootSite + strContexPath;
+            }
+        }
+
+        function changePassword() {
+            location.href = strContexPath + "/module/changepwd";
+        }
+    </script>
+
+    <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa  fa-user-circle" style="font-size: 18px" />
+                <span class="hidden-xs">#{adminUser.getUserLogged().userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <div class="hidden-xs">
+                        <span class="fa  fa-user-circle" style="font-size: 100px; color: #fff" />
+                    </div>
+                    <p>
+                        #{logonMB.currentUser}
+                        <small>#{adminUser.getUserLogged().fullName}</small>
+                        <small>#{adminUser.getUserLogged().email}</small>
+                        <small>IP: #{adminUser.ipAddress}</small>
+                    </p>
+                </li>
+                <li class="user-footer">
+                    <h:form prependId="false">
+                        <div class="pull-left">
+                            <a href="#{request.contextPath}/module/changepwd">
+                                <p:commandButton type="button" styleClass="btn btn-danger" value="#{PP_COMMONS.change_password}" onclick="changePassword();"/>
+                            </a>
+                            <p:commandLink global="false" id="btn_language">
+                                <p:graphicImage library="images" name="locale/#{mainController.locale.language}.png" height="36" alt="#{mainController.locale.language}"/>
+                            </p:commandLink>
+                            <p:overlayPanel id="pnl_language" for="btn_language" style="width: 80px;" >
+                                <ui:repeat value="#{mainController.listOtherLocale}" var="locale" varStatus="var">
+                                    <div style="#{var.index ne 0 ? 'height: 1px;' : ''}" ></div>
+                                    <p:commandLink global="false" actionListener="#{mainController.changeLanguage(locale.language)}" oncomplete="location.reload();">
+                                        <p:graphicImage library="images" name="locale/#{locale.language}.png" height="36" alt="#{locale.language}"/>
+                                    </p:commandLink>
+                                </ui:repeat>
+                            </p:overlayPanel>
+                        </div>
+                        <div class="pull-right">
+                            <p:commandLink id="logout" actionListener="#{adminUser.logout}" oncomplete="logout();">
+                                <i class="fa fa-sign-out fa-2x"></i>
+                                <p:confirm header="#{PP_COMMONS.logout_dialog_header}" message="#{PP_COMMONS.confirm_logout}"/>
+                            </p:commandLink>
+                        </div>
+                    </h:form>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a id="layout-setup" href="#" class="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>
+    </ul>
+
+</ui:composition>

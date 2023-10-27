@@ -1,0 +1,32 @@
+ThreadName==Reverse Charge
+ClassName==com.telsoft.cbs.thread.ReverseChargeThread
+StartupType==2
+Parameter
+	LogDir==log/ReverseChargeThread
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==5
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	ThreadName==1
+	Process amount==10
+	Start hour==2
+	End hour==1
+	Interval(ms)==5000
+	Source==google-api-01
+	Channel type==API
+	Store code==GPLAY
+	CBS Url==http://10.11.10.143:8001/cbs
+	Tps==1
+	Back hour==24
+	LogDefinition
+	Key Store Path==../../key/2ssl/server.jks
+	Key Store Password==mobifone
+	Trust Store Path==../../key/2ssl/trust.jks
+	Trust Store Password==mobifone
+	
+Status==2
+Schedule

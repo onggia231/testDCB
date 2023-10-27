@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services.client.soap.httpservice.telsoft.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services.client.soap.httpservice.telsoft.com" xmlns:intf="http://services.client.soap.httpservice.telsoft.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services.client.soap.httpservice.telsoft.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="msisdn" type="xsd:string"/>
+   <element name="action" type="xsd:string"/>
+   <element name="vasgateReturn" type="xsd:int"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="vasgateResponse">
+
+      <wsdl:part element="impl:vasgateReturn" name="vasgateReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="vasgateRequest">
+
+      <wsdl:part element="impl:msisdn" name="msisdn"/>
+
+      <wsdl:part element="impl:action" name="action"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="VasgateService">
+
+      <wsdl:operation name="vasgate" parameterOrder="msisdn action">
+
+         <wsdl:input message="impl:vasgateRequest" name="vasgateRequest"/>
+
+         <wsdl:output message="impl:vasgateResponse" name="vasgateResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="VasgateServiceSoapBinding" type="impl:VasgateService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="vasgate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="vasgateRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="vasgateResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="VasgateServiceService">
+
+      <wsdl:port binding="impl:VasgateServiceSoapBinding" name="VasgateService">
+
+         <wsdlsoap:address location="http://localhost:8080//services/com/telsoft/httpservice/soap/client/services/VasgateService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

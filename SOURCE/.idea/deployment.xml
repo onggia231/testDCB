@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Telsoft_CBS-app-server 10.11.10.143" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;*.bak*;*.log;*.sh;*.pid" remoteFilesAllowedToDisappearOnAutoupload="false" showDifferentInSync="false" showNewOnSourceInSync="false">
+    <serverData>
+      <paths name="Telsoft_CBS-app-server 10.11.10.143">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/cbs/cbs-core" local="$PROJECT_DIR$/out/artifacts/MBF_CBS_jar" web="/" />
+            <mapping deploy="/cbs/cbs-admin/webapps" local="$PROJECT_DIR$/cbs-admin/target" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cbs-admin/target/classes" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cbs-admin/target/generated-sources" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cbs-admin/target/tls-admin" />
+            <excludedPath path="/cbs/cbs-core/.auth" />
+            <excludedPath path="/cbs/cbs-core/cdr" />
+            <excludedPath path="/cbs/cbs-core/export" />
+            <excludedPath path="/cbs/cbs-core/file" />
+            <excludedPath path="/cbs/cbs-core/log" />
+            <excludedPath path="/cbs/cbs-core/sequence" />
+            <excludedPath path="/cbs/cbs-core/xml" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

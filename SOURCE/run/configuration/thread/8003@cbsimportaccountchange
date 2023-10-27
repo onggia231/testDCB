@@ -1,0 +1,21 @@
+ThreadName==CBS Import Account Change
+ClassName==com.telsoft.cbs.modules.selfcare.subsriberSync.AccountChangeImportThread
+StartupType==2
+Parameter
+	LogDir==log/AccountChangeImportThread
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConnectDB
+	Date format==yyyy-MM-dd HH:mm:ss
+	File Directory==../file/AccountChange/
+	Back Up File Path==../file/AccountChange/AccountChangeBackUp
+	Error File Path==../file/AccountChange/VasgateError
+	Wildcard==taidau*
+	File type==1
+Status==1
+Schedule

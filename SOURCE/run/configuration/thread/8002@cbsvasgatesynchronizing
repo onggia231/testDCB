@@ -1,0 +1,21 @@
+ThreadName==CBS Vasgate Synchronizing
+ClassName==com.telsoft.cbs.modules.selfcare.subsriberSync.CbsVasgateSyncThread
+StartupType==2
+Parameter
+	LogDir==log/CbsVasgateSyncThread
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	File type==2
+	Date format==yyyy-MM-dd HH:mm:ss
+	File Directory==../file/Vasgate/
+	Back Up File Path==../file/Vasgate/VasgateBackUp
+	Error File Path==../file/Vasgate/VasgateError
+	Wildcard==prepaid*
+Status==2
+Schedule

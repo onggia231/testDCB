@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HttpService/HttpService.iml" filepath="$PROJECT_DIR$/HttpService/HttpService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MBF-CBS.iml" filepath="$PROJECT_DIR$/.idea/MBF-CBS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cbs-admin/TSLIB-V8.iml" filepath="$PROJECT_DIR$/cbs-admin/TSLIB-V8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/camel-builder/camel-builder.iml" filepath="$PROJECT_DIR$/camel-builder/camel-builder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cbs-commons/cbs-commons.iml" filepath="$PROJECT_DIR$/cbs-commons/cbs-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cbs-fortumo/cbs-fortumo.iml" filepath="$PROJECT_DIR$/cbs-fortumo/cbs-fortumo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cbs-rest/cbs-rest.iml" filepath="$PROJECT_DIR$/cbs-rest/cbs-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cbs-sms/cbs-sms.iml" filepath="$PROJECT_DIR$/cbs-sms/cbs-sms.iml" />
+    </modules>
+  </component>
+</project>

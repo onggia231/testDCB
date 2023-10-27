@@ -1,0 +1,101 @@
+ThreadName==Auto Send Email Report 3
+ClassName==com.telsoft.cbs.thread.AutoSendEmailReportProcedure3
+StartupType==2
+Parameter
+	MailSetting
+		Protocol==stmp
+		Host==smtp.gmail.com
+		Port==465
+		StartTLS==true
+		UsingSSLOnConnect==true
+		User==cbs.telsoft@gmail.com
+		Password==cbs123456
+		Sender==CBS_SYSTEM
+	ListMailConfig=^
+		0=^
+			0=^
+				0=^
+					0==vinhdhq
+					1==vinhdhq@telsoft.com.vn
+				1=^
+					0==nampt
+					1==nampt@telsoft.com.vn
+				2=^
+					0==chungnt
+					1==chungnt@telsoft.com.vn
+			1=^
+				0=^
+					0=^
+						0=^
+							0==BC_REVENUE_BY_GAME
+							1=^
+								0=^
+									0==p_report_date
+									1==0
+								1=^
+									0==p_num_compare_day
+									1==4
+								2=^
+									0==p_top
+									1==100
+							2==Y
+							3==Doanh thu game
+							4==2
+							5==0
+						1=^
+							0==BC_REVENUE_BY_CONTENT
+							1=^
+								0=^
+									0==p_report_date
+									1==0
+								1=^
+									0==p_num_compare_day
+									1==4
+								2=^
+									0==p_top
+									1==100
+							2==Y
+							3==Doanh thu noi dung
+							4==2
+							5==0
+						2=^
+							0==BC_REVENUE_BY_PUBLISHER
+							1=^
+								0=^
+									0==p_report_date
+									1==0
+								1=^
+									0==p_num_compare_day
+									1==4
+								2=^
+									0==p_top
+									1==100
+							2==Y
+							3==Doanh thu nha phat hanh
+							4==2
+							5==0
+					1==testbaocao
+					2==Bao cao tong hop 
+					3
+			2==Test bao cao
+			3==N
+			4==test bao cao
+	LogDir==log/AutoSendEmailReportProcedure
+	Alert==N
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==500
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	Protocol==stmps
+	LogDefinition
+	MailAddress
+	ProcedureConfig
+	MailSubject==Báo cáo test
+	MailBody==Test tùm lum
+	ZipFileReport==N
+	ScanDuration==24
+Status==2
+Schedule

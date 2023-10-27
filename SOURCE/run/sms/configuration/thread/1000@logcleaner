@@ -1,0 +1,22 @@
+ThreadName==Log cleaner
+ClassName==smartlib.thread.basic.DiskCleaner
+StartupType==2
+Parameter
+	LocationList=^
+		0=^
+			0==log
+			1==*
+			2==Compress
+			3==Y
+			4==1
+	LogDir==log/log_cleaner
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==3600
+	NotificationInterval
+	NotificationString
+Status==1
+Schedule

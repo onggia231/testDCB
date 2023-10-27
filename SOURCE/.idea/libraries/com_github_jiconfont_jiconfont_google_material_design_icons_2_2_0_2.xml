@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="com.github.jiconfont:jiconfont-google_material_design_icons:2.2.0.2" type="repository">
+    <properties maven-id="com.github.jiconfont:jiconfont-google_material_design_icons:2.2.0.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jiconfont-google_material_design_icons-2.2.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jiconfont-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

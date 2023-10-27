@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact name="cbs-sms-2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cbs_sms_2_jar</output-path>
+    <root id="root">
+      <element id="archive" name="cbs-sms.jar">
+        <element id="module-output" name="cbs-sms-2" />
+        <element id="module-output" name="cbs-rest" />
+        <element id="module-output" name="HttpService" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="commons-codec-1.9" />
+        <element id="library" level="project" name="commons-dbutils-1.7" />
+        <element id="library" level="project" name="commons-discovery-0.2" />
+        <element id="library" level="project" name="commons-httpclient-3.0.1" />
+        <element id="library" level="project" name="commons-io-2.6" />
+        <element id="library" level="project" name="commons-lang3-3.9" />
+        <element id="library" level="project" name="lombok-1.16.16" />
+        <element id="library" level="project" name="smart_lib" />
+        <element id="library" level="project" name="smpp" />
+        <element id="library" level="project" name="jersey-all-2.22.2" />
+        <element id="library" level="project" name="jetty-all-9.4.24.v20191120-uber" />
+        <element id="library" level="project" name="slf4j" />
+        <element id="library" level="project" name="telsoft_srv_v1" />
+        <element id="library" level="project" name="commons-logging" />
+        <element id="library" level="project" name="axis" />
+      </element>
+    </root>
+  </artifact>
+</component>

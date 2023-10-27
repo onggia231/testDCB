@@ -1,0 +1,34 @@
+ThreadName==Camel Thread
+ClassName==com.telsoft.cbs.camel.CamelDispatcher
+StartupType==1
+Parameter
+	RouteFiles==cbs-charge.xml,cbs-nt.xml,cbs2.xml
+	ReceiptThreadNumber==3
+	ServerName==CAMEL
+	SplitNumber==5
+	ChannelSpeed==0
+	IdleInterval==5
+	Attribute
+	ExtParameters
+	Translator=^
+		0=^
+			0==com.telsoft.cbs.camel.CamelTranslator
+			1
+	KeepAliveInterval==0
+	KeepAliveCommand
+	SuccessfulSignal
+	ExceptionFilter
+	LogDir==log/camel
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	logging-command-process==n
+	MaxDelay==60
+	RouteFile==cbs.xml
+	LogDefinition
+Status==1
+Schedule

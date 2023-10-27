@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-12 ui-lg-10">
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                <p:commandButton value="#{PP_POLICY.SAVE}" rendered="#{policyController.isAllowUpdate}" process="@form" actionListener="#{policyController.handUpdate}" update="@form" icon="ui-icon fa fa-check-circle" styleClass="btn-success"/>
+            </div>
+        </div>
+            <p:panel header="#{PP_POLICY.module_name}" styleClass="box-primary">
+                <h:panelGroup id="pnl_edit">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="material">
+                                <p:selectBooleanCheckbox value="#{policyController.blMAX_OPEN_SESSION_USER}" itemLabel="#{PP_POLICY.MAX_OPEN_SESSION_USER}">
+                                    <p:ajax global="false" event="change" update="max_session_user"/>
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel for="max_session_user" value="#{PP_POLICY.MAX_OPEN_SESSION_USER}" styleClass="hide" />
+                                <p:inputText id="max_session_user" maxlength="6" disabled="#{!policyController.blMAX_OPEN_SESSION_USER}" value="#{policyController.MAX_OPEN_SESSION_USER}" required="true">
+                                    <p:keyFilter regEx="/[0-9]/i"/>
+                                </p:inputText>
+                                <p:message for="max_session_user"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="material">
+                                <p:selectBooleanCheckbox value="#{policyController.blMAX_LOGIN_FAILURE}" itemLabel="#{PP_POLICY.MAX_LOGIN_FAILURE}">
+                                    <p:ajax global="false" update="max_login_failure"/>
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel for="max_login_failure" value="#{PP_POLICY.MAX_LOGIN_FAILURE}" styleClass="hide" />
+                                <p:inputText id="max_login_failure" maxlength="6" disabled="#{!policyController.blMAX_LOGIN_FAILURE}" value="#{policyController.MAX_LOGIN_FAILURE}" required="true">
+                                    <p:keyFilter regEx="/[0-9]/i"/>
+                                </p:inputText>
+                                <p:message for="max_login_failure"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="material">
+                                <p:selectBooleanCheckbox value="#{policyController.blREQUIRE_STRONG_PASSWORD}" itemLabel="#{PP_POLICY.MINIMUM_PASSWORD_LENGTH}">
+                                    <p:ajax global="false" update="pwd_length"/>
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel for="pwd_length" value="#{PP_POLICY.MINIMUM_PASSWORD_LENGTH}" styleClass="hide" />
+                                <p:inputText id="pwd_length" maxlength="6" disabled="#{!policyController.blREQUIRE_STRONG_PASSWORD}" value="#{policyController.MINIMUM_PASSWORD_LENGTH}" required="true">
+                                    <p:keyFilter regEx="/[0-9]/i"/>
+                                </p:inputText>
+                                <p:message for="pwd_length"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="material">
+                                <p:selectBooleanCheckbox value="#{policyController.blPASSWORD_EXPIRE_DURATION}" itemLabel="#{PP_POLICY.PASSWORD_EXPIRE_DURATION}">
+                                    <p:ajax global="false" update="pwd_expire_duration"/>
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel for="pwd_expire_duration" value="#{PP_POLICY.PASSWORD_EXPIRE_DURATION}" styleClass="hide" />
+                                <p:inputText id="pwd_expire_duration" maxlength="6" disabled="#{!policyController.blPASSWORD_EXPIRE_DURATION}" value="#{policyController.PASSWORD_EXPIRE_DURATION}" required="true">
+                                    <p:keyFilter regEx="/[0-9]/i"/>
+                                </p:inputText>
+                                <p:message for="pwd_expire_duration"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,21 @@
+ThreadName==ThreadProcessMTSMS
+ClassName==com.telsoft.cbs.sms.ThreadProcessMTSMS
+StartupType==2
+Parameter
+	QueueSize==5000
+	ProcessAmount==100
+	Interval==1000
+	MaxQueueDelay==1000
+	SequencePath==sequence
+	LogDir==log/ThreadProcessMTSMS
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==5
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==1
+Schedule

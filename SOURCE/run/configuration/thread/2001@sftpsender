@@ -1,0 +1,51 @@
+ThreadName==SFTP Sender
+ClassName==com.telsoft.thread.basic.FTPSender
+StartupType==2
+Parameter
+	ServerType==SFTP
+	Host==127.0.0.1
+	Port==22
+	User==khanhnc
+	Password==mobifone
+	TransferType==BINARY
+	ConnectMode==PASSIVE
+	Timeout==30
+	PrivateKeyFileName==/data/cloud/Projects/2019.MBF-CBS/SOURCE/key/id_rsa
+	FtpDir==/data/cloud/Projects/2019.MBF-CBS/SOURCE/run/sftp/ftp
+	FtpStyle==Directly
+	FtpFileFormat==$FileName
+	LocalDir==/data/cloud/Projects/2019.MBF-CBS/SOURCE/run/sftp/local
+	LocalStyle==Directly
+	BackupDir
+	BackupStyle==Delete file
+	BackupFileFormat
+	DateFormat==yyyyMMdd
+	ProcessDate==20191001
+	Wildcard==*
+	SQLValidateCommand
+	Recursive==Y
+	LogDir==log/sftp
+	Alert
+	Debug
+	SingleSession==N
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+	ConnectDB
+	PublicKeyFileName==/data/cloud/Projects/2019.MBF-CBS/SOURCE/key/id_rsa
+	Passphrase==mobifone
+	privateKeyFilename==/data/cloud/Projects/2019.MBF-CBS/SOURCE/key/mobifone-priv.asc
+	InputDirName==./decryption/input
+	InputDirStructure==Directly
+	OutputDirName==./decryption/output
+	OutputDirStructure==Daily
+	OutputFileFormat==$BaseFileName.txt
+	BackupDirName==./decryption/backup
+	BackupDirStructure==Daily
+	RejectedDirName==./decryption/reject
+	RejectedDirStructure==Daily
+	TempDirName==./decryption/temp
+	NewDirectory==N
+Status==2
+Schedule

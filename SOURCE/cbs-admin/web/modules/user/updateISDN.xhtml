@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ct="http://telsoft.com.vn/custom-taglib"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <ct:searchISDN bean="#{updateISDNController}"
+                       isdn="isdn"
+                       listISDN="listSubscriber"
+                       isdnSelected="subscriberSelected"
+                       convertDateTime="convertDateTime"
+                       regDate="regDate" status="status"
+                       actionView="handleSearchListISDN"
+                       update=":form_main:pnListSubscriber :form_main:pnSearchIsdn :form_main:pnInfoIsdn :form_main:pnInfoISDNTrans"
+                       actionSelect="handleViewISDN"
+                       actionUnSelect="handleUnViewISDN"
+                       updateView=":form_main:pnSearchIsdn :form_main:pnInfoIsdn :form_main:pnInfoISDNTrans"/>
+        <!--        <ui:include src="searchISDN.xhtml"/>-->
+        <ct:infoISDN bean="#{updateISDNController}"
+                     beanInput="#{updateISDNController.mtmpSubscriber}"
+                     isdn="isdn" subType="subType" status="status"
+                     actionMethod="handleSaveInfoISDN"/>
+        <!--        <ui:include src="infoISDN.xhtml"/>-->
+        <ct:infoISDNTrans bean="#{updateISDNController}"
+                          beanInput="#{updateISDNController.mtmpSubStore}"
+                          lStoreId="lStoreId" mlistStore="mlistStore"
+                          onStoreChange="onStoreChange"
+                          limitProfileId="limitProfileId" listLimitProfile="listLimitProfile"
+                          regDate="regDate"
+                          totalYear="totalYear" startYear="startYear"
+                          totalMonth="totalMonth" startMonth="startMonth"
+                          totalWeek="totalWeek" startWeek="startWeek"
+                          totalDay="totalDay" startDay="startDay"
+                          yearlyLimit="yearlyLimit"
+                          monthlyLimit="monthlyLimit"
+                          weeklyLimit="weeklyLimit"
+                          dailyLimit="dailyLimit"
+                          transLimit="transLimit"
+                          actionMethod="handleSaveInfoISDNTrans"/>
+        <!--        <ui:include src="infoISDNTrans.xhtml"/>-->
+    </ui:composition>
+</h:body>
+</html>

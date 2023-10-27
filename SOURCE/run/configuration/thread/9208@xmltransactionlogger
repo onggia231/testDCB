@@ -1,0 +1,72 @@
+ThreadName==XML Transaction Logger
+ClassName==telsoft.gateway.ext.XMLClusterTransLogger2
+Parameter
+	AdditionData=^
+		0=^
+			0==store_code
+			1==store
+			2==CTX_PROP
+			3
+			4==Y
+		1=^
+			0==$AMOUNT
+			1==amount
+			2==CTX_PROP
+			3
+			4==Y
+		2=^
+			0==host
+			1==host
+			2==CTX_PROP
+			3
+			4==Y
+		3=^
+			0==$ORIGIN
+			1==client_transaction_id
+			2==CTX_PROP
+			3
+			4==Y
+	WriteCamelHistory==Y
+	TransactionLogDir==./xml/
+	TransactionLogStyle==Directly
+	TransactionLogFormat==mobifone_$Time_$Sequence.xml
+	MinSeqVal==0
+	MaxSeqVal==9999999999
+	ExpectedSeq==411110
+	SeqFormat==0000000000
+	CompressMethod==GZip
+	TempDir==./xml/temp/
+	ReleaseInterval==60
+	MaxRecordNumber==10000
+	WriteBufferSize==10000000
+	BufferSize==8192
+	ThreadSize==2
+	RecourdNumberPerSession
+	StorageLevel==2
+	CheckEmptyFrom==00:00:00
+	CheckEmptyUntil==23:59:59
+	EmptyDuration==3000
+	FailureAction==Do nothing
+	SuccessAction==Do nothing
+	DisplayStackTrace==N
+	ReloadCommand==0
+	LoggerClasses=^
+		0=^
+			0==telsoft.gateway.core.log.data.DefaultLogger
+			1==0
+	LogDir==log/xml-logger
+	Alert==N
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+	LogDefinition
+	FileName==mobifone_20231026164730_0000411110.xml
+	NextRelease==1698313670413
+	RecordCount==0
+	SuccessCount==0
+StartupType==1
+Status==1
+Schedule

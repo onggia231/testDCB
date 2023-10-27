@@ -1,0 +1,55 @@
+### Test service is available
+GET http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/test
+Content-Type: application/xml; charset=UTF-8
+
+###
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>GET_PROFILE</name>
+    <isdn>84936190293</isdn>
+    <store_code>1</store_code>
+    <transaction_id>12345678</transaction_id>
+    <parameter key="test">value</parameter>
+    <source>boku-api-01</source>
+</request>
+
+###
+
+POST http://localhost:8383/selfcare/getOTP
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <msisdn>84936190293</msisdn>
+</request>
+
+###
+
+POST http://10.11.10.143:8003/selfcare/getOTP
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <msisdn>84936190293</msisdn>
+</request>
+
+
+###
+POST http://10.11.10.143:8886/fortumoclient/submitmombf
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<!--<request>-->
+    <SubmitMORequestDTO>
+        <cbs_transaction_id>1234567890123456</cbs_transaction_id>
+        <msisdn>84904123456</msisdn>
+        <short_code>12345</short_code>
+        <content>DCB:ZBV4VFABE8I9P15D41SQH9108KJ31KUKA</content>
+    </SubmitMORequestDTO>
+<!--</request>-->
+
+###

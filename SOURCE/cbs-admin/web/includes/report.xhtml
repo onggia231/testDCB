@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:tf="http://telsoft.com.vn/functions"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <style type="text/css">
+            iframe {
+                overflow: auto;
+                width: 138%;
+                margin-top: 20px;
+            }
+        </style>
+        <div class="ui-fluid">
+            <p:panel id="pnl_error" rendered="#{birtReportController.mstrError ne null}" header="#{PP_MNGREPORT.report_error}" styleClass="box-danger">
+                #{birtReportController.mstrError}
+            </p:panel>
+            <p:panel id="pnl_filter" rendered="#{birtReportController.mstrError eq null}" header="#{PP_MNGREPORT.report_param}" styleClass="box-info">
+                <div class="ui-g">
+                    <c:forEach items="#{birtReportController.listParam}" var="entry" varStatus="val">
+                        <div class="ui-g-12 ui-md-6 ui-lg-#{birtReportController.getColumnCss()} #{entry.hidden ? 'hidden' : ''}">
+                            <div class="ui-material">
+                                <p:outputLabel
+                                        for="rp_param_number_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isInputNumber()}"
+                                />
+                                <p:inputText
+                                        id="rp_param_number_#{val.index}"
+                                        maxlength="8"
+                                        required="#{entry.required}"
+                                        value="#{entry.intValue}"
+
+                                        rendered="#{entry.isInputNumber()}"
+                                >
+                                    <p:keyFilter regEx="/[\d\-\.]/"/>
+                                </p:inputText>
+                                <p:message for="rp_param_number_#{val.index}" rendered="#{entry.isInputNumber()}"/>
+                                <p:outputLabel
+                                        for="rp_param_txt_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isInputText()}"
+                                />
+                                <p:inputText
+                                        id="rp_param_txt_#{val.index}"
+                                        maxlength="128"
+                                        required="#{entry.required}"
+                                        value="#{entry.stringValue}"
+
+                                        rendered="#{entry.isInputText()}"
+                                />
+                                <p:message for="rp_param_txt_#{val.index}" rendered="#{entry.isInputText()}"/>
+
+                                <p:outputLabel
+                                        for="rp_param_date_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isCalendar()}"
+                                />
+                                <p:calendar
+                                        id="rp_param_date_#{val.index}"
+                                        maxlength="128"
+                                        required="#{entry.required}"
+                                        value="#{entry.dateValue}"
+                                        navigator="true"
+                                        showButtonPanel="true"
+                                        pattern="#{entry.datePattern}"
+                                        mask="true"
+
+                                        rendered="#{entry.isCalendar()}"
+                                />
+                                <p:message for="rp_param_date_#{val.index}" rendered="#{entry.isCalendar()}"/>
+
+                                <p:outputLabel
+                                        for="rp_param_select_one_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isSelectOneMenu()}"
+                                />
+                                <p:selectOneMenu
+                                        id="rp_param_select_one_#{val.index}"
+                                        required="#{entry.required}"
+                                        value="#{entry.stringValue}"
+
+                                        rendered="#{entry.isSelectOneMenu()}"
+                                        styleClass="child-#{entry.name}"
+                                        filter="true" filterMatchMode="contains"
+                                >
+                                    <p:ajax global="false" event="change" listener="#{birtReportController.onSelectValue(entry)}" process="rp_param_select_one_#{val.index}"/>
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItems value="#{entry.dataset.listData}" var="item" itemValue="#{item.value}" itemLabel="#{item.name}"/>
+                                </p:selectOneMenu>
+                                <p:message for="rp_param_select_one_#{val.index}" rendered="#{entry.isSelectOneMenu()}"/>
+
+                                <p:outputLabel
+                                        for="rp_param_select_many_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isSelectCheckboxMenu()}"
+                                />
+                                <p:selectCheckboxMenu
+                                        id="rp_param_select_many_#{val.index}"
+                                        required="#{entry.required}"
+                                        value="#{entry.listValue}"
+
+                                        rendered="#{entry.isSelectCheckboxMenu()}"
+                                        filter="true" filterMatchMode="contains" label=""
+                                >
+                                    <f:selectItems value="#{entry.dataset.listData}" var="item" itemValue="#{item.value}" itemLabel="#{item.name}"/>
+                                </p:selectCheckboxMenu>
+                                <p:message for="rp_param_select_many_#{val.index}" rendered="#{entry.isSelectCheckboxMenu()}"/>
+
+                                <p:outputLabel
+                                        for="rp_param_autocomplete_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isAutoComplete()}"
+                                />
+                                <p:autoComplete
+                                        id="rp_param_autocomplete_#{val.index}"
+                                        var="item" queryDelay="500"
+                                        required="#{entry.required}"
+                                        value="#{entry.rowSelected}"
+                                        converter="ConverterReportParam"
+                                        itemLabel="#{item.name}"
+                                        itemValue="#{item}"
+                                        completeMethod="#{entry.dataset.filterValue}"
+                                        rendered="#{entry.isAutoComplete()}"
+                                        styleClass="child-#{entry.name}"
+                                        alt="#{entry.cacheKey}"
+                                        cache="true" cacheTimeout="30000"
+                                        dropdown="true" dropdownMode="blank"
+                                        minQueryLength="2" onclick="this.select();"
+                                >
+                                    <p:ajax global="false" event="itemSelect" listener="#{birtReportController.onSelectValue(entry)}" process="rp_param_autocomplete_#{val.index}"/>
+                                </p:autoComplete>
+                                <p:message for="rp_param_autocomplete_#{val.index}" rendered="#{entry.isAutoComplete()}"/>
+
+                                <p:outputLabel
+                                        for="rp_param_datatable_#{val.index}"
+                                        value="#{entry.label}"
+                                        rendered="#{entry.isDatatable() or entry.isDatatableMulti()}"
+                                />
+                                <p:inputText id="rp_param_datatable_#{val.index}" readonly="true"
+                                             value="#{entry.rowSelectedLabel}"
+                                             required="#{entry.required}"
+                                             rendered="#{entry.isDatatable() or entry.isDatatableMulti()}"
+
+                                             onclick="PF('dlg-#{entry.name}').show()"
+                                >
+                                </p:inputText>
+                                <p:dialog header="#{entry.label}" id="dlg_param_datatable_#{val.index}" widgetVar="dlg-#{entry.name}" appendTo=":form_main" styleClass="dlg-#{entry.name}" rendered="#{entry.isDatatable()}" width="800" height="420" modal="true" draggable="true" resizable="false" closable="true" closeOnEscape="true">
+                                    <p:dataTable id="dt_rp_param_datatable_#{val.index}" var="item" selectionMode="single" emptyMessage="#{PP_COMMONS.empty_message}"
+                                                 value="#{entry.dataset.listData}" selection="#{entry.rowSelected}" rowKey="#{item.value}"
+                                                 rendered="#{entry.isDatatable()}" paginatorPosition="top" paginator="true" rows="8" styleClass="no-border"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
+                                        <p:ajax global="false" event="rowSelect"/>
+                                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                        <p:ajax global="false" event="sort"/>
+                                        <p:ajax global="false" event="page"/>
+
+                                        <p:column headerText="" filterBy="#{item.name}" filterMatchMode="contains" sortBy="#{item.name}">
+                                            #{item.name}
+                                        </p:column>
+                                    </p:dataTable>
+
+                                    <f:facet name="footer">
+                                        <center>
+                                            <p:commandButton value="#{PP_COMMONS.ok}" actionListener="#{birtReportController.onSelectValue(entry)}" process="@this, dt_rp_param_datatable_#{val.index}" update="rp_param_datatable_#{val.index}" oncomplete="handleSubmitRequest('dlg-#{entry.name}', xhr, status, args)" icon="fa fa-check-circle" styleClass="btn-fix btn-success"/>
+                                            <p:commandButton value="#{PP_COMMONS.back}" type="button" onclick="PF('dlg-#{entry.name}').hide()" icon="fa fa-times-circle" styleClass="btn-fix"/>
+                                        </center>
+                                    </f:facet>
+                                </p:dialog>
+
+                                <p:dialog header="#{entry.label}" id="dlg_param_datatable_multi_#{val.index}" widgetVar="dlg-#{entry.name}" appendTo=":form_main" styleClass="dlg-#{entry.name}" rendered="#{entry.isDatatableMulti()}" width="800" height="450" modal="true" draggable="true" resizable="false" closable="true" closeOnEscape="true">
+                                    <p:dataTable id="dt_rp_param_datatable_multi_#{val.index}" var="item" emptyMessage="#{PP_COMMONS.empty_message}" rowSelectMode="checkbox"
+                                                 value="#{entry.dataset.listData}" selection="#{entry.rowSelectedMulti}" rowKey="#{item.value}"
+                                                 rendered="#{entry.isDatatableMulti()}" paginatorPosition="top" paginator="true" rows="8" styleClass="no-border"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
+                                        <p:ajax global="false" event="rowSelect"/>
+                                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                        <p:ajax global="false" event="sort"/>
+                                        <p:ajax global="false" event="page"/>
+
+                                        <p:column selectionMode="multiple" headerText="&nbsp;" style="width:16px; text-align:center"/>
+                                        <p:column headerText="" filterBy="#{item.name}" filterMatchMode="contains" sortBy="#{item.name}">
+                                            #{item.name}
+                                        </p:column>
+                                    </p:dataTable>
+
+                                    <f:facet name="footer">
+                                        <center>
+                                            <p:commandButton value="#{PP_COMMONS.ok}" actionListener="#{birtReportController.onSelectValueMulti(entry)}" process="@this, dt_rp_param_datatable_multi_#{val.index}" update="rp_param_datatable_#{val.index}" oncomplete="handleSubmitRequest('dlg-#{entry.name}', xhr, status, args)" icon="fa fa-check-circle" styleClass="btn-fix btn-success"/>
+                                            <p:commandButton value="#{PP_COMMONS.back}" type="button" onclick="PF('dlg-#{entry.name}').hide()" icon="fa fa-times-circle" styleClass="btn-fix"/>
+                                        </center>
+                                    </f:facet>
+                                </p:dialog>
+                                <p:message for="rp_param_datatable_#{val.index}" rendered="#{entry.isDatatable() or entry.isDatatableMulti()}"/>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <p:commandButton value="#{PP_MNGREPORT.download_txt}" rendered="#{birtReportController.isExportCSV}" ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);" styleClass="btn-auto btn-info" icon="fa fa-file-text">
+                        <p:fileDownload value="#{birtReportController.report('txt')}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{PP_MNGREPORT.download_excel}" ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);" styleClass="btn-auto btn-success" icon="fa fa-file-excel-o">
+                        <p:fileDownload value="#{birtReportController.report('xlsx')}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{PP_MNGREPORT.download_word}" ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);" styleClass="btn-auto btn-primary" icon="fa fa-file-word-o ">
+                        <p:fileDownload value="#{birtReportController.report('doc')}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{PP_MNGREPORT.download_pdf}" ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);" styleClass="btn-auto btn-danger" icon="fa fa-file-pdf-o">
+                        <p:fileDownload value="#{birtReportController.report('pdf')}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{PP_MNGREPORT.view_report}" actionListener="#{birtReportController.renderDocument()}" process="@this, pnl_filter" update=":form_main" styleClass="btn-auto btn-success" icon="fa fa-search" />
+                </div>
+            </p:panel>
+
+            <p:spacer height="20"/>
+            <h:panelGroup id="pnlExport" style="text-align: center;">
+                <p:panel rendered="#{birtReportController.mstrExportHtmlUrl ne null}" style="overflow: auto;">
+                    <div class="left" style="width: 100%">
+                        <div class="material">
+                            <p:selectOneMenu value="#{birtReportController.mreportPage.currentPage}" styleClass="left" style="width: 50px;">
+                                <p:ajax event="change" listener="#{birtReportController.goPage()}" process="@this" update="pnlExport"/>
+                                <f:selectItems value="#{of:createIntegerArray(1, birtReportController.mreportPage.totalPage)}" var="item" itemLabel="#{PP_COMMONS.page} #{item}" itemValue="#{item}"/>
+                            </p:selectOneMenu>
+                            <div class="right">
+                                (#{PP_COMMONS.page} #{birtReportController.mreportPage.currentPage}/#{birtReportController.mreportPage.totalPage})&nbsp;&nbsp;
+                                <p:commandButton actionListener="#{birtReportController.prevPage()}" process="@this" update="pnlExport" disabled="#{not birtReportController.mreportPage.allowPrevPage}" styleClass="btn-xs btn-auto" icon="fa fa-chevron-left" />
+                                <p:commandButton actionListener="#{birtReportController.nextPage()}" process="@this" update="pnlExport" disabled="#{not birtReportController.mreportPage.allowNextPage}" styleClass="btn-xs btn-auto" icon="fa fa-chevron-right"/>
+                            </div>
+                        </div>
+                    </div>
+                    <iframe onload="javascript:resizeIframe(this);" id="frame" src="#{birtReportController.mstrExportHtmlUrl}"  frameborder="0" ></iframe>
+
+                </p:panel>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

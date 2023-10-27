@@ -1,0 +1,29 @@
+26/10 14:52:10 [STARTED]Log cleaner started
+26/10 14:52:10 [STARTED]CPS_Rtec Dispatcher started
+26/10 14:52:10 [STARTED]Camel Thread started
+26/10 14:52:10 [STARTED]CBS Seft Care Service started
+26/10 14:52:10 [STARTED]CDR CPS logger started
+26/10 14:52:10 [STARTED]Dispatcher Logger started
+26/10 14:52:10 Cache was cleared for update configuration change at Thu Oct 26 14:52:10 ICT 2023
+26/10 14:52:10 Cache was cleared for update authentication change at Thu Oct 26 14:52:10 ICT 2023
+26/10 14:52:11 [STARTED]Rest Server started
+26/10 14:52:11 [STARTED]Anti Profit Dispatcher started
+26/10 14:52:11 [STARTED]XML Transaction Logger started
+26/10 14:52:12 [STARTED]CPS_Diameter Dispatcher started
+26/10 14:52:12 [STARTED]Queue Monitor started
+26/10 14:52:13 [STARTED]Roll CDR CPS started
+26/10 14:52:46 [CONNECTED]User 'system' connected successfully
+26/10 16:30:28 [STARTED]Log cleaner started
+26/10 16:30:29 [STARTED]CPS_Rtec Dispatcher started
+26/10 16:30:29 [STARTED]Camel Thread started
+26/10 16:30:29 [STARTED]CBS Seft Care Service started
+26/10 16:30:29 [STARTED]CDR CPS logger started
+26/10 16:30:29 [STARTED]Dispatcher Logger started
+26/10 16:30:29 Cache was cleared for update configuration change at Thu Oct 26 16:30:29 ICT 2023
+26/10 16:30:29 Cache was cleared for update authentication change at Thu Oct 26 16:30:29 ICT 2023
+26/10 16:30:30 [STARTED]Rest Server started
+26/10 16:30:30 [STARTED]Anti Profit Dispatcher started
+26/10 16:30:30 [STARTED]XML Transaction Logger started
+26/10 16:30:31 [STARTED]CPS_Diameter Dispatcher started
+26/10 16:30:31 [STARTED]Queue Monitor started
+26/10 16:30:32 [STARTED]Roll CDR CPS started

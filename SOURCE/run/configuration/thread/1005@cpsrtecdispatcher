@@ -1,0 +1,40 @@
+ThreadName==CPS_Rtec Dispatcher
+ClassName==com.telsoft.cbs.modules.cps_rtec.CpsRtecDispatcher
+StartupType==1
+Parameter
+	Host==10.11.10.144
+	Port==18088
+	URI==/
+	Timeout==30
+	cp_id==TOPCPID
+	http-retry-count==3
+	Username==khanhnc
+	Password==thienha123
+	ServerName==CPS_RTEC
+	SplitNumber==1
+	ChannelSpeed==0
+	IdleInterval==5
+	Attribute
+	ExtParameters
+	Translator=^
+		0=^
+			0==com.telsoft.cbs.modules.cps_rtec.RtecTranslator
+			1
+	KeepAliveInterval==60
+	KeepAliveCommand==<cp_request>\n    <session>$Session</session>\n    <command>keepalive</command>\n</cp_request>
+	SuccessfulSignal
+	ExceptionFilter
+	LogDir==log/cpsrtec
+	Alert==Y
+	Debug==N
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	logging-command-process==y
+	MaxDelay==60
+	TemplateName==RTEC
+	LogDefinition
+Status==1
+Schedule

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head>
+</h:head>
+<h:body>
+<ui:composition>
+    <style type="text/css">
+        .ui-message-error-icon {
+            display: none;
+        }
+        .ui-message-error-detail {
+            font-size: 12px;
+        }
+        .fixed-size {
+            table-layout: fixed;
+            word-wrap: break-word;
+            width: 160px !important;
+        }
+
+    </style>
+    <div class="ui-fluid">
+        <p:tabView id="tabHis">
+            <p:ajax event="tabChange" update=":form_main:tabHis" />
+            <p:tab title="#{PP_SEARCH_HIS.tab_header_request}" id="tabHisRequest">
+                <p:outputPanel >
+                    <p:focus context="pnHisRequest"/>
+                    <h:panelGroup id="pnHisRequest">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_SEARCH_HIS.from_date}" for="from_date"/>
+                                <p:calendar id="from_date" value="#{searchHisController.mtmpRequest.fromDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                            required="true" requiredMessage="#{PP_SEARCH_HIS.from_date}#{PP_COMMONS.can_not_be_empty}">
+                                    <p:ajax process="@this"/>
+                                </p:calendar>
+                                <p:message for="from_date"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_SEARCH_HIS.to_date}" for="to_date"/>
+                                <p:calendar id="to_date" value="#{searchHisController.mtmpRequest.toDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                            required="true" requiredMessage="#{PP_SEARCH_HIS.to_date}#{PP_COMMONS.can_not_be_empty}">
+                                    <p:ajax process="@this"/>
+                                </p:calendar>
+                                <p:message for="to_date"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_SEARCH_HIS.store}" for="cbStore" />
+                                <p:selectOneMenu id="cbStore" value="#{searchHisController.mtmpRequest.storeCode}"
+                                                 filter="#{searchHisController.mlstStore.size() > 10}" filterMatchMode="contains">
+                                    <p:ajax process="@this"/>
+                                    <f:selectItem />
+                                    <f:selectItems value="#{searchHisController.mlstStore}" var="store" itemLabel="#{store.storeCode} - #{store.name}" itemValue="#{store.storeCode}"/>
+                                </p:selectOneMenu>
+
+                                <p:message for="cbStore"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                            <div class="ui-material_2">
+                                <p:outputLabel for="search_isdn" value="#{PP_SEARCH_HIS.isdn}"/>
+                                <p:inputText id="search_isdn" value="#{searchHisController.mtmpRequest.isdn}" style="border: none;
+                                    border-bottom: solid 1px #d2d6de;"
+                                             maxlength="20" required="true" placeholder="84xxxxxxxxx"
+                                             requiredMessage="#{PP_SEARCH_HIS.isdn}#{PP_COMMONS.can_not_be_empty}">
+                                    <p:ajax event="change" process="@this form_main:tabHis:pnHisRequest" listener="#{searchHisController.handSearch}" update="form_main:tabHis:pnHisRequest form_main:tabHis:panelListRequest"/>
+                                    <p:keyFilter preventPaste="false" regEx="/[0-9]/i" />
+                                </p:inputText>
+                                <p:message for="search_isdn"/>
+                            </div>
+                        </div>
+                    </div>
+                    </h:panelGroup>
+                    <h:panelGroup id="panelButton">
+                        <p:commandButton icon="fa fa-search" process="@this form_main:tabHis:pnHisRequest" id="btn_search"
+                                        actionListener="#{searchHisController.handSearch}" update="form_main:tabHis:pnHisRequest form_main:tabHis:panelListRequest"
+                                         value="#{PP_COMMONS.search}"
+                                         styleClass="btn-primary" style="width:auto"/>
+                    </h:panelGroup>
+                    <p:panel id="panelListRequest" header="#{PP_SEARCH_HIS.table_list_req}" styleClass="box-info" style="margin-top: 5px;">
+                        <p:dataTable paginatorAlwaysVisible="true" paginatorPosition="bottom" id="tableRequest" widgetVar="tableRequest" rowIndexVar="stt"
+                                     var="req" value="#{searchHisController.mlstRequest}" selectionMode="single" rowKey="#{req}" emptyMessage="#{PP_COMMONS.empty_message}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,30,40" paginator="true" rows="10" styleClass="no-border " >
+                            <p:column headerText="#{PP_SEARCH_HIS.isdn}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{req.isdn}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.store}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{searchHisController.getStoreNameByCode(req.storeCode)}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.request_time}" styleClass="fixed-size" style="width: 150px !important;">
+                                <h:outputText value="#{req.requestTime}">
+                                    <f:convertDateTime locale="vi_VN" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+7" />
+                                </h:outputText>
+
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.response_time}" styleClass="fixed-size" style="width: 150px !important;">
+                                <h:outputText value="#{req.responseTime}">
+                                    <f:convertDateTime locale="vi_VN" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+7" />
+                                </h:outputText>
+
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.command}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{req.command}" title="#{req.command}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.amount}" style="text-align: right !important; width: 100px !important;" styleClass="fixed-size">
+                                <h:outputText value="#{req.amount}"><f:convertNumber locale="vi_VN"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.vat}" style="text-align: right !important; width: 100px !important;" styleClass="fixed-size">
+                                <h:outputText value="#{req.vat}">
+                                    <f:convertNumber locale="vi_VN"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.status}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{req.statusDisplay}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.FINAL_RESULT_CODE}" styleClass="fixed-size"  style="text-align: right !important; width: 80px !important;">
+                                <h:outputText value="#{req.finalResultCode.code}" title="#{req.finalResultCode.code}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.final_result_detail}" styleClass="fixed-size" style="width: 200px !important;">
+                                <h:outputText value="#{req.finalResultCode.title}" title="#{req.finalResultCode.title}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.transaction_id}" styleClass="fixed-size" style="width: 380px !important;">
+                                <h:outputText value="#{req.transactionId}" title="#{req.transactionId}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.STORE_TRANSACTION_ID}" styleClass="fixed-size" style="width: 360px !important;" >
+                                <h:outputText value="#{req.storeTransactionId}" title="#{req.storeTransactionId}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.REFER_TRANSACTION_ID}" styleClass="fixed-size" style="width: 380px !important;" >
+                                <h:outputText value="#{req.referTransactionId}" title="#{req.referTransactionId}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.CPS_TRANSACTION_ID}" styleClass="fixed-size" style="width: 120px !important;">
+                                <h:outputText value="#{req.cpsTransactionId}" title="#{req.cpsTransactionId}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.content_description}" styleClass="fixed-size" style="width: 700px !important;">
+                                <h:outputText value="#{req.contentDescription}" title="#{req.contentDescription}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:outputPanel>
+            </p:tab>
+            <p:tab title="#{PP_SEARCH_HIS.tab_header_refund}" id="tabHisRefund">
+                <p:outputPanel>
+                    <p:focus context="pnHisRequestRefund"/>
+                    <h:panelGroup id="pnHisRequestRefund">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.from_date}" for="from_date_refund"/>
+                                    <p:calendar id="from_date_refund" value="#{searchHisController.mtmpRequest.fromDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                                required="true" requiredMessage="#{PP_SEARCH_HIS.from_date}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax process="@this"/>
+                                    </p:calendar>
+                                    <p:message for="from_date_refund"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.to_date}" for="to_date_refund"/>
+                                    <p:calendar id="to_date_refund" value="#{searchHisController.mtmpRequest.toDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                                required="true" requiredMessage="#{PP_SEARCH_HIS.to_date}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax process="@this"/>
+                                    </p:calendar>
+                                    <p:message for="to_date_refund"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.store}" for="cbStore_refund" />
+                                    <p:selectOneMenu id="cbStore_refund" value="#{searchHisController.mtmpRequest.storeCode}"
+                                                     filter="#{searchHisController.mlstStore.size() > 10}" filterMatchMode="contains">
+                                        <p:ajax process="@this"/>
+                                        <f:selectItem />
+                                        <f:selectItems value="#{searchHisController.mlstStore}" var="store" itemLabel="#{store.storeCode} - #{store.name}" itemValue="#{store.storeCode}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:message for="cbStore_refund"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div >
+
+                                    <p:outputLabel for="search_isdn_refund" value="#{PP_SEARCH_HIS.isdn}"/>
+                                    <p:inputText id="search_isdn_refund" value="#{searchHisController.mtmpRequest.isdn}" style="border: none;
+
+                                    border-bottom: solid 1px #d2d6de;"
+                                                 maxlength="20" required="true" placeholder="84xxxxxxxxx"
+                                                 requiredMessage="#{PP_SEARCH_HIS.isdn}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax event="change" process="@this form_main:tabHis:pnHisRequestRefund" listener="#{searchHisController.handSearchRefund}"
+                                                update="form_main:tabHis:pnHisRequestRefund form_main:tabHis:panelListRequestRefund"/>
+                                        <p:keyFilter preventPaste="false" regEx="/[0-9]/i" />
+                                    </p:inputText>
+                                    <p:message for="search_isdn_refund"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup id="panelButtonRefund">
+                        <p:commandButton icon="fa fa-search" process="@this form_main:tabHis:pnHisRequestRefund" id="btn_search_refund"
+                                         actionListener="#{searchHisController.handSearchRefund()}"
+                                         value="#{PP_COMMONS.search}" update="form_main:tabHis:pnHisRequestRefund form_main:tabHis:panelListRequestRefund"
+                                         styleClass="btn-primary" style="width:auto"/>
+                    </h:panelGroup>
+                    <p:panel id="panelListRequestRefund" header="#{PP_SEARCH_HIS.table_list_req_ref}" styleClass="box-info" style="margin-top: 5px;">
+                        <p:dataTable paginatorAlwaysVisible="true" paginatorPosition="bottom" id="tableRequestRefund" widgetVar="tableRequestRefund" rowIndexVar="stt"
+                                     var="req" value="#{searchHisController.mlstRequestRefund}" selectionMode="single" rowKey="#{req}" emptyMessage="#{PP_COMMONS.empty_message}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,30,40" paginator="true" rows="10" styleClass="no-border">
+                            <p:column headerText="#{PP_SEARCH_HIS.isdn}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{req.isdn}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.channel_type}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{req.channelType}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.store}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{searchHisController.getStoreNameByCode(req.storeCode)}"
+                                              title="#{searchHisController.getStoreNameByCode(req.storeCode)}" />
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.res_refund_time}" styleClass="fixed-size">
+                                <h:outputText value="#{req.responseTime}">
+                                    <f:convertDateTime locale="vi_VN" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+7" />
+                                </h:outputText>
+
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.command}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{req.command}" title="#{req.command}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.amount}" style="text-align: right !important; width: 100px !important;" styleClass="fixed-size">
+                                <h:outputText value="#{req.amount}"><f:convertNumber locale="vi_VN"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.vat}" style="text-align: right !important; width: 100px !important;" styleClass="fixed-size">
+                                <h:outputText value="#{req.vat}">
+                                    <f:convertNumber locale="vi_VN"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.status}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{req.statusDisplay}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.FINAL_RESULT_CODE}" styleClass="fixed-size"  style="text-align: right !important; width: 80px !important;">
+                                <h:outputText value="#{req.finalResultCode.code}" title="#{req.finalResultCode.code}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.final_result_detail}" styleClass="fixed-size" style="width: 200px !important;">
+                                <h:outputText value="#{req.finalResultCode.title}" title="#{req.finalResultCode.title}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.transaction_id}" styleClass="fixed-size" style="width: 380px !important;">
+                                <h:outputText value="#{req.transactionId}" title="#{req.transactionId}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.STORE_TRANSACTION_ID}" styleClass="fixed-size" style="width: 360px !important;" >
+                                <h:outputText value="#{req.storeTransactionId}" title="#{req.storeTransactionId}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.REFER_TRANSACTION_ID}" styleClass="fixed-size" style="width: 380px !important;" >
+                                <h:outputText value="#{req.referTransactionId}" title="#{req.referTransactionId}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.CPS_TRANSACTION_ID}" styleClass="fixed-size" style="width: 120px !important;" >
+                                <h:outputText value="#{req.cpsTransactionId}" title="#{req.cpsTransactionId}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.content_description}" styleClass="fixed-size" style="width: 700px !important;">
+                                <h:outputText value="#{req.contentDescription}" title="#{req.contentDescription}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:outputPanel>
+            </p:tab>
+            <p:tab title="#{PP_SEARCH_HIS.tab_header_mo}" id="tabHisMtMo">
+                <p:outputPanel >
+                    <p:focus context="pnHisMtMo"/>
+                    <h:panelGroup id="pnHisMtMo">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.from_date}" for="from_date_mo"/>
+                                    <p:calendar id="from_date_mo" value="#{searchHisController.mtmpRequest.fromDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                                required="true" requiredMessage="#{PP_SEARCH_HIS.from_date}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax process="@this"/>
+                                    </p:calendar>
+                                    <p:message for="from_date_mo"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.to_date}" for="to_date_mo"/>
+                                    <p:calendar id="to_date_mo" value="#{searchHisController.mtmpRequest.toDate}" mask="true" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"
+                                                required="true" requiredMessage="#{PP_SEARCH_HIS.to_date}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax process="@this"/>
+                                    </p:calendar>
+                                    <p:message for="to_date_mo"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.store}" for="cbStore_mo" />
+                                    <p:selectOneMenu id="cbStore_mo" value="#{searchHisController.mtmpRequest.storeCode}"
+                                                     filter="#{searchHisController.mlstStore.size() > 10}" filterMatchMode="contains">
+                                        <p:ajax process="@this"/>
+                                        <f:selectItem/>
+                                        <f:selectItems value="#{searchHisController.mlstStore}" var="store" itemLabel="#{store.storeCode} - #{store.name}" itemValue="#{store.storeCode}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:message for="cbStore_mo"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div >
+
+                                    <p:outputLabel for="search_isdn_mo" value="#{PP_SEARCH_HIS.isdn}"/>
+                                    <p:inputText id="search_isdn_mo" value="#{searchHisController.mtmpRequest.isdn}" style="border: none;
+
+                                    border-bottom: solid 1px #d2d6de;"
+                                                 maxlength="20" required="true" placeholder="84xxxxxxxxx"
+                                                 requiredMessage="#{PP_SEARCH_HIS.isdn}#{PP_COMMONS.can_not_be_empty}">
+                                        <p:ajax event="change" process="@this form_main:tabHis:pnHisMtMo" listener="#{searchHisController.handSearchMoMt}"
+                                                update="form_main:tabHis:pnHisMtMo form_main:tabHis:panelListMo"/>
+                                        <p:keyFilter preventPaste="false" regEx="/[0-9]/i" />
+                                    </p:inputText>
+                                    <p:message for="search_isdn_mo"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.type}" for="cb_type" />
+                                    <p:selectOneMenu id="cb_type" value="#{searchHisController.mtmpRequest.moMtType}">
+                                        <f:selectItems value="#{searchHisController.moMtType}" var="s" itemValue="#{s}" itemLabel="#{s}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:message for="cb_type"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.channel_type}" for="cb_channel_type" />
+                                    <p:selectOneMenu id="cb_channel_type" value="#{searchHisController.mtmpRequest.channelType}">
+                                        <f:selectItem/>
+                                        <f:selectItems value="#{searchHisController.channelType}" var="s" itemValue="#{s}" itemLabel="#{s}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:message for="cb_channel_type"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_SEARCH_HIS.content}" for="content" />
+                                    <p:inputText id="content" value="#{searchHisController.mtmpRequest.content}" maxlength="4000"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </h:panelGroup>
+                    <h:panelGroup id="panelButtonMo">
+                        <p:commandButton icon="fa fa-search" process="@this form_main:tabHis:pnHisMtMo" id="btn_search_mo"
+                                         actionListener="#{searchHisController.handSearchMoMt()}"
+                                         value="#{PP_COMMONS.search}" update="form_main:tabHis:pnHisMtMo form_main:tabHis:panelListMo"
+                                         styleClass="btn-primary" style="width:auto"/>
+                    </h:panelGroup>
+                    <p:panel id="panelListMo" header="#{PP_SEARCH_HIS.table_list_mo}" styleClass="box-info" style="margin-top: 5px;">
+                        <p:dataTable paginatorAlwaysVisible="true" paginatorPosition="bottom" id="tableMo" widgetVar="tableMo" rowIndexVar="stt"
+                                     var="his" value="#{searchHisController.mlstMtMoHistory}" selectionMode="single" rowKey="#{his}" emptyMessage="#{PP_COMMONS.empty_message}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,30,40" paginator="true" rows="10" styleClass="no-border">
+                            <p:column headerText="#{PP_SEARCH_HIS.type}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{his.type}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.channel_type}" styleClass="fixed-size" style="width: 100px !important;">
+                                <h:outputText value="#{his.channelType}"/>
+                            </p:column>
+
+                            <p:column headerText="#{PP_SEARCH_HIS.store}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{searchHisController.getStoreNameByCode(his.storeCode)}"
+                                title="#{searchHisController.getStoreNameByCode(his.storeCode)}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.isdn}" styleClass="fixed-size" style="width: 110px !important;">
+                                <h:outputText value="#{his.isdn}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.issue_time}" styleClass="fixed-size" style="width: 150px !important;">
+                                <h:outputText value="#{his.issueTime}">
+                                    <f:convertDateTime locale="vi_VN" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+7" />
+                                </h:outputText>
+
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.cmd_code}" styleClass="fixed-size">
+                                <h:outputText value="#{his.commandCode}" title="#{req.commandCode}"/>
+                            </p:column>
+                            <p:column headerText="#{PP_SEARCH_HIS.content}" styleClass="fixed-size" style="width: 300px !important; white-space: pre-wrap !important;">
+                                <h:outputText value="#{his.content}" title="#{req.content}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:outputPanel>
+            </p:tab>
+        </p:tabView>
+    </div>
+</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,33 @@
+ThreadName==CBS Seft Care Service
+ClassName==com.telsoft.cbs.modules.selfcare.rest.CbsSelfCareStarter
+StartupType==1
+Parameter
+	LogDir==log/CbsSelfCareStarter
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ContextPath==/selfcare
+	ServletContext==/*
+	Port==8383
+	Tcp-Acceptors==3
+	Tcp-SoLingerTime==-1
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath
+	KeyStorePassword
+	KeyManagerPassword
+	TrustStorePath
+	TrustStorePassword
+	OTP SMS Command Code==OTP
+	Store code==GPLAY
+	Channel type==SYS
+	OTP Template==Your OTP is {otp}. Please login within 30s.
+	
+Status==1
+Schedule

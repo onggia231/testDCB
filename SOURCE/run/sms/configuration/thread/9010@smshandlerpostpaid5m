@@ -1,0 +1,29 @@
+ThreadName==SMS Handler - POSTPAID_5M
+ClassName==com.telsoft.cbs.sms.HandleLimitationProfileSms
+StartupType==2
+Parameter
+	ThreadName==POSTPAID_5M_thread_1
+	Target Subscriber Type==POSTPAID
+	Process amount==5
+	Store code==GPLAY
+	Channel type==SYS
+	Limit Profile Code==POSTPAID_5M
+	Process SMS Command Code==5M
+	Success SMS Command Code==5M_SUCCESS
+	Registered SMS Command Code==5M_FAIL_REGISTERED
+	Fail SMS Command Code==5M_FAIL
+	Not Target SubType SMS Command Code==5M_FAIL_SUBTYPE
+	Interval Process(ms)==5000
+	Interval Sync Config(s)==180
+	LogDir==log/SmsHandlerPostpaid5M
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==60
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==1
+Schedule

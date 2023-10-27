@@ -1,0 +1,28 @@
+ThreadName==SMS Handler - Remove POSTPAID_5M
+ClassName==com.telsoft.cbs.sms.HandleLimitationProfileSms
+StartupType==2
+Parameter
+	ThreadName==Remove_5M_thread_1
+	Target Subscriber Type==POSTPAID
+	Process amount==5
+	Store code==GPLAY
+	Channel type==SYS
+	Limit Profile Code
+	Process SMS Command Code==HUY5M
+	Success SMS Command Code==HUY5M_SUCCESS
+	Registered SMS Command Code==HUY5M_FAIL_REGISTERED
+	Fail SMS Command Code==HUY5M_FAIL
+	Interval Process(ms)==5000
+	Interval Sync Config(s)==180
+	LogDir==log/SmsHandlerRemove5M
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==60
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==1
+Schedule

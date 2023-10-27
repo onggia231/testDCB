@@ -1,0 +1,19 @@
+ThreadName==CBS Change Account
+ClassName==com.telsoft.cbs.modules.selfcare.subsriberSync.AccountChangeRequestThread
+StartupType==2
+Parameter
+	LogDir==log/AccountChangeRequestThread
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	Store attribute==store-api
+	xForward==10.10.10.1
+	Process amount==5
+	Fortumo Url==http://10.11.10.143:8005/fortumoclient/fortumoclient
+Status==2
+Schedule

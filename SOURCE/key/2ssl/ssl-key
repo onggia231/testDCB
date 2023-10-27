@@ -1,0 +1,73 @@
+ 
+***********  GEN KEY ****************
+openssl genrsa -out rootCA.key 2048
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 30240 -out rootCA.pem
+
+#******** ROOT CA INFO
+
+# Country Name (2 letter code) [AU]:VN
+# State or Province Name (full name) [Some-State]: Ha Noi
+# Locality Name (eg, city) []: Cau Giay
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]: Mobifone 
+# Organizational Unit Name (eg, section) []: BBSC
+# Common Name (e.g. server FQDN or Computer  name) []: API RSP Server CA
+# Email Address []:
+
+#****** CLIENT Key and CSR
+
+openssl genrsa -out client.key 2048
+openssl req -new -key client.key -out client.csr
+openssl x509 -req -in client.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out client.pem -days 30240 -sha256
+
+#******** CLIENT INFO
+
+# Country Name (2 letter code) [AU]:VN
+# State or Province Name (full name) [Some-State]: Ha Noi
+# Locality Name (eg, city) []: Cau Giay
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]: TELSOFT 
+# Common Name (e.g. server FQDN or Computer  name) []: Client TELSOFT
+# Email Address []: client@telsoft.vn
+
+
+
+#****** SERVER KEY
+openssl genrsa -out server.key 2048
+openssl req -new -key server.key -out server.csr
+#******** SERVER ***
+# Country Name (2 letter code) [AU]:VN
+# State or Province Name (full name) [Some-State]: Ha Noi
+# Locality Name (eg, city) []: Cau Giay
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]: Mobifone 
+# Organizational Unit Name (eg, section) []: BBSC
+# Common Name (e.g. server FQDN or Computer  name) []: Client TELSOFT
+# Email Address []: client@telsoft.vn
+openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.pem -days 30240 -sha256
+
+
+#------------ CA Truststore
+
+keytool -import -alias rootca -file rootCA.pem -keystore truststore.jks -storepass 123456
+# SERVER Keystore (pkcs12 is the format required for )
+
+openssl pkcs12 -export -in server.pem -inkey server.key -chain -CAfile rootCA.pem -out keystore.p12
+
+
+
+
+
+DUMP SSL: openssl x509 -in rootCA.pem -text -noout
+curl command:
+
+curl --key client.key --cert client.pem --cacert rootCA.pem https://api-rsp.mobifone.vn:1034/gsma/rsp2/es2plus/handleNotification -X POST -d "{}"
+curl --key client.key --cert client.pem --cacert rootCA.pem https://api-rsp.mobifone.vn/gsma/rsp2/es2plus/handleNotification -X POST -d "{}"
+curl --key client.key --cert client.pem --cacert rootCA.pem https://localhost:6601/gsma/rsp2/es2plus/handleNotification -X POST -d "{}"
+curl --key client.key --cert client.pem --cacert rootCA.pem https://10.54.7.74:6605/gsma/rsp2/es2plus/handleNotification -X POST -d "{}"
+#*************   DB  CONNECTION ************
+
+
+
+X509Certificate[] certs = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
+   if (null != certs && certs.length > 0) {
+       System.out.println(certs.toString());
+   }
+return ResponseEntity.ok("success");

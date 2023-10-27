@@ -1,0 +1,16 @@
+ThreadName==CBS Sync Account To Vasgate
+ClassName==com.telsoft.cbs.modules.selfcare.subsriberSync.SyncAccountToVasgateThread
+StartupType==2
+Parameter
+	LogDir==log/SyncAccountToVasgateThread
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	Url==http://10.11.10.144:9031/vasgate
+Status==2
+Schedule

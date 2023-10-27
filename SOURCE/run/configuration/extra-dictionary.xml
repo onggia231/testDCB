@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<validator enabled="false" />
+
+	<application id="0" name="Base" uri="http://www.ietf.org/rfc/rfc3588.txt?number=3588">
+		<typedefn type-name="OctetString" />
+		<typedefn type-name="UTF8String" type-parent="OctetString" />
+		<typedefn type-name="IPAddress" type-parent="OctetString" />
+		<typedefn type-name="DiameterIdentity" type-parent="OctetString" />
+		<typedefn type-name="IPFilterRule" type-parent="OctetString" />
+		<typedefn type-name="QOSFilterRule" type-parent="OctetString" />
+		<typedefn type-name="MIPRegistrationRequest" type-parent="OctetString" />
+		<typedefn type-name="Integer32" />
+		<typedefn type-name="VendorId" type-parent="Unsigned32" />
+		<typedefn type-name="AppId" type-parent="Unsigned32" />
+		<typedefn type-name="Float64" />
+		<typedefn type-name="Integer64" />
+		<typedefn type-name="Unsigned32" />
+		<typedefn type-name="Time" />
+		<typedefn type-name="Unsigned64" />
+		<typedefn type-name="Enumerated" type-parent="Integer32" />
+		<typedefn type-name="DiameterURI" type-parent="UTF8String" />
+	</application>
+
+	<application name="RFC 4006 CCA" id="4" uri="http://www.ietf.org/rfc/rfc3588.txt?number=3588">
+		<avp name="Description" code="1011" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="CPS_RESULT_CODE" code="1021" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="CP_ID" code="10111" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="SP_ID" code="10112" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>		
+		<avp name="CATEGORY_ID" code="10113" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="CONTENT_ID" code="10114" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="ShortCode" code="10115" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="B_ISDN" code="10116" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="EXTRA_INFO" code="10117" mandatory="may" vendor-bit="mustnot" vendor-id="None" may-encrypt="yes" protected="may">
+			<type type-name="UTF8String" />
+		</avp>
+		<avp name="REFUND_INFOMATION" code="2022" vendor-bit="must" may-encrypt="no" vendor-id="TGPP">
+			<type type-name="UTF8String" />
+		</avp>		
+	</application>
+	<vendor vendor-id="TGPP" code="10415" name="3GPP" />	
+</dictionary>

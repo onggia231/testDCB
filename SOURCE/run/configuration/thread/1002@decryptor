@@ -1,0 +1,29 @@
+ThreadName==Decryptor
+ClassName==com.telsoft.cbs.encryption.DecryptThread
+StartupType==2
+Parameter
+	Passphrase==mobifone
+	privateKeyFilename==/data/cloud/Projects/2019.MBF-CBS/SOURCE/key/mobifone-priv.asc
+	InputDirName==./decryption/input
+	InputDirStructure==Directly
+	ProcessDate==20191001
+	Wildcard==*.pgp
+	OutputDirName==./decryption/output
+	OutputDirStructure==Daily
+	OutputFileFormat==$BaseFileName.txt
+	BackupDirName==./decryption/backup
+	BackupDirStructure==Daily
+	RejectedDirName==./decryption/reject
+	RejectedDirStructure==Daily
+	TempDirName==./decryption/temp
+	DateFormat==yyyyMMdd
+	LogDir==log/decrypt
+	Alert
+	Debug
+	SingleSession==N
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval
+	NotificationString
+Status==2
+Schedule

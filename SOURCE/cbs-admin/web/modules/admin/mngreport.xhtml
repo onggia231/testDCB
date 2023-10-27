@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:func="http://telsoft.com.vn/functions"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:sticky target="pnl_control"/>
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not mngReportController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_add" rendered="#{mngReportController.isAllowInsert}" actionListener="#{mngReportController.changeStateAdd()}" process="@this" styleClass="btn-primary" value="#{PP_COMMONS.add}" update="panel_center" resetValues="true" icon="fa fa-plus"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_delete" disabled="#{empty mngReportController.mselectedReport}" actionListener="#{mngReportController.handleDelete()}" process="@this, table_report" styleClass="btn-danger" value="#{PP_COMMONS.del}" update="panel_center" icon="fa fa-trash" oncomplete="PF('tableReport').clearFilters();">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{mngReportController.isDisplayBtnConfirm}">
+                        <div class="ui-g pnl-control">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8">
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel" actionListener="#{mngReportController.handleCancel()}" process="@this" value="#{PP_COMMONS.back}" update="panel_center" icon="fa fa-undo" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok" rendered="#{not mngReportController.isVIEW}" actionListener="#{mngReportController.handleOK()}" process="@this :form_main:panel_add_report" styleClass=" btn-success" value="#{PP_COMMONS.ok}" update="panel_center" icon="fa fa-check-circle"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="grid-padding">
+                    <p:panel header="#{PP_MNGREPORT.report_list}" rendered="#{not mngReportController.isDisplayBtnConfirm}" styleClass="box-info">
+                        <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_report" widgetVar="tableReport" filterDelay="500" value="#{mngReportController.mlistReport}" var="item"
+                                     emptyMessage="#{PP_COMMONS.empty_message}" rowSelectMode="checkbox" selection="#{mngReportController.mselectedReport}" rowKey="#{item.reportId}"
+                                     paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,50,#{mngReportController.mlistReport.size()}" styleClass="no-border">
+
+                            <p:ajax global="false" event="rowSelectCheckbox" process="table_report" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="rowUnselectCheckbox" process="table_report" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="toggleSelect" process="table_report" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column headerText="&nbsp;" selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                            <p:column headerText="#{PP_MNGREPORT.report_code}" sortBy="#{item.reportCode}" filterBy="#{item.reportCode}" filterMatchMode="contains">
+                                #{item.reportCode}
+                            </p:column>
+                            <p:column headerText="#{PP_MNGREPORT.report_name}" sortBy="#{item.reportName}" filterBy="#{item.reportName}" filterMatchMode="contains">
+                                <h:outputLink value="#{request.contextPath}#{item.objectPath}" target="_blank">
+                                    #{item.reportName}
+                                </h:outputLink>
+                            </p:column>
+                            <p:column headerText="#{PP_MNGREPORT.create_date}" sortBy="#{func:getDateTimeStr(item.createDate)}" filterBy="#{item.createDate}" filterFunction="#{filterFunction.filterByDate}" >
+                                #{func:getDateTimeStr(item.createDate)}
+                            </p:column>
+
+                            <p:column headerText="#{PP_COMMONS.status}" filterBy="#{item.status}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('tableReport').filter()">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                        <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText styleClass="label label-success" rendered="#{item.status eq '1'}" value="#{PP_COMMONS.enable}"/>
+                                <h:outputText styleClass="label label-warning" rendered="#{item.status ne '1'}" value="#{PP_COMMONS.disable}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandLink id="btn_del" rendered="#{mngReportController.isAllowDelete}" actionListener="#{mngReportController.handleDelete(item)}" process="@this" styleClass="fa fa-trash right" update=":form_main:panel_center" oncomplete="PF('tableReport').clearFilters();">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandLink>
+                                <p:spacer width="10" styleClass="right"/>
+                                <p:commandLink id="btn_edit" rendered="#{mngReportController.isAllowUpdate}" actionListener="#{mngReportController.changeStateEdit(item)}" process="@this" styleClass="fa fa-pencil right" update=":form_main:panel_center" resetValues="true"/>
+                                <p:spacer width="10" styleClass="right"/>
+                                <p:commandLink id="btn_view" actionListener="#{mngReportController.changeStateView(item)}" process="@this" styleClass="fa fa-eye right" update=":form_main:panel_center" resetValues="true"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel header="#{PP_MNGREPORT.report_info}" rendered="#{mngReportController.isDisplayBtnConfirm}" styleClass="box-primary">
+                        <p:focus context=":form_main:panel_add_report"/>
+                        <h:panelGroup id="panel_add_report">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="report_code" value="#{PP_MNGREPORT.report_code}"/>
+                                        <p:inputText id="report_code" maxlength="50" value="#{mngReportController.mtmpReport.reportCode}" disabled="#{mngReportController.isVIEW}" required="true"  validatorMessage="#{PP_COMMONS.is_not_valid}" style="text-transform: uppercase">
+                                            <p:keyFilter regEx="/[a-zA-Z0-9_]/" preventPaste="false"/>
+                                            <f:validateRegex pattern="[a-zA-Z0-9_]+"/>
+                                        </p:inputText>
+                                        <p:message for="report_code"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="report_name" value="#{PP_MNGREPORT.report_name}"/>
+                                        <p:inputText id="report_name" maxlength="100" value="#{mngReportController.mtmpReport.reportName}" disabled="#{mngReportController.isVIEW}" required="true" />
+                                        <p:message for="report_name"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="app_id" value="#{PP_MNGREPORT.app_id}"/>
+                                        <p:selectOneMenu id="app_id" value="#{mngReportController.mtmpReport.appId}" disabled="#{mngReportController.isVIEW}" required="true"  filter="true" filterMatchMode="contains">
+                                            <p:ajax event="change" listener="#{mngReportController.onAppChange()}" process="app_id" update="object_id"/>
+                                            <f:selectItem itemLabel="" itemValue=""/>
+                                            <f:selectItems value="#{mngReportController.mlistApp}" var="item" itemValue="#{item.appId}" itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message rendered="#{mngReportController.isADD}" for="app_id"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="object_id" value="#{PP_MNGREPORT.object_id}"/>
+                                        <p:selectOneMenu id="object_id" value="#{mngReportController.mtmpReport.parObjectId}" disabled="#{mngReportController.isVIEW}" required="true"  filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemLabel="" itemValue=""/>
+                                            <f:selectItems value="#{mngReportController.mlistModule}" var="item" itemValue="#{item.objectId}" itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message rendered="#{mngReportController.isADD}" for="object_id"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="status" value="#{PP_COMMONS.status}"/>
+                                        <p:selectOneMenu id="status" value="#{mngReportController.mtmpReport.status}" disabled="#{mngReportController.isVIEW}" required="true">
+                                            <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="status"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="procedure" value="#{PP_MNGREPORT.procedure}"/>
+                                        <p:inputText id="procedure" maxlength="50" disabled="#{mngReportController.isVIEW}" value="#{mngReportController.mtmpReport.procedure}"/>
+                                        <p:tooltip for="procedure" value="summary({p_1},{p_2},'{p_3}')" trackMouse="true"/>
+                                        <p:message for="procedure"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="reversion" value="#{PP_MNGREPORT.reversion}"/>
+                                        <p:inputText id="reversion" value="#{PP_COMMONS.click_to_view}" onclick="PF('dlgReversion').show()" readonly="true"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="template_file" rendered="#{mngReportController.isADD or mngReportController.isEDIT}" value="#{PP_MNGREPORT.template_file}"/>
+                                        <p:inputText id="template_file" rendered="#{mngReportController.isADD or mngReportController.isEDIT}" value="#{mngReportController.mtmpReport.templateFileName}" disabled="#{mngReportController.isVIEW}" required="#{mngReportController.isADD}" >
+                                            <p:keyFilter regEx="/[]/"/>
+                                        </p:inputText>
+                                        <p:fileUpload fileUploadListener="#{mngReportController.handleFileUpload}" mode="advanced"
+                                                      rendered="#{mngReportController.isADD or mngReportController.isEDIT}" disabled="#{mngReportController.isVIEW}"
+                                                      auto="true" sizeLimit="5000000" allowTypes="/(\.|\/)(rptdesign)$/" update="template_file"
+                                                      invalidFileMessage="#{PP_MNGREPORT.invalid_file}" invalidSizeMessage="#{PP_MNGREPORT.invalid_file_size}"
+                                        />
+                                        <p:message rendered="#{mngReportController.isADD or mngReportController.isEDIT}" for="template_file"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </p:panel>
+                </div>
+
+                <p:dialog header="#{PP_MNGREPORT.template_file}" id="dlg_reversion" widgetVar="dlgReversion" modal="true" appendTo=":form_main" draggable="true" resizable="false" width="600" height="300" closeOnEscape="true" styleClass="box-info">
+                    <p:dataTable id="table_report_file" widgetVar="tableReportFile" filterDelay="500" value="#{mngReportController.mtmpReport.listFile}"
+                                 var="item" emptyMessage="#{PP_COMMONS.empty_message}" styleClass="no-border">
+
+                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                        <p:ajax global="false" event="sort"/>
+                        <p:ajax global="false" event="page"/>
+
+                        <p:column headerText="#{PP_MNGREPORT.version}">
+                            #{item.version}
+                        </p:column>
+                        <p:column headerText="#{PP_MNGREPORT.log_time}">
+                            #{func:getDateTimeStr(item.logTime)}
+                        </p:column>
+                        <p:column headerText="#{PP_MNGREPORT.status}" style="text-align: center !important;" width="100">
+                            <p:selectBooleanCheckbox value="#{item.enable}" disabled="#{mngReportController.isVIEW}">
+                                <p:ajax global="false" listener="#{mngReportController.onCheckReportFile(item)}" update="table_report_file"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                        <p:column width="50">
+                            <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);" styleClass="btn-xs btn-info" icon="fa fa-download">
+                                <p:fileDownload value="#{mngReportController.downloadTemplate(item)}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

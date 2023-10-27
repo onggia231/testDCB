@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route customId="true" id="SUBMIT_MO_GPLAY">
+        <description/>
+        <from uri="direct:SUBMIT_MO_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <to uri="cbs-send-sms:?dateFormat=dd/MM/yyyy&amp;channelType=SYS&amp;apParamSMSType=SUBMIT_MO_FAILURE"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <setBody>
+            <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;application&gt;7&lt;/application&gt;
+	&lt;action&gt;0&lt;/action&gt;
+	&lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+	&lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+	&lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+	&lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+	&lt;categoryid&gt;000001&lt;/categoryid&gt;
+	&lt;contentid&gt;0000000001&lt;/contentid&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+	&lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+&lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <to uri="cbs-submit-mo:?xForward=10.10.10.1&amp;dateFormat=dd/MM/yyyy&amp;listCode=ISDN-WHITELIST,ISDN-BLACKLIST&amp;channelType=SYS&amp;attribute=store-api"/>
+        <to uri="cbs-result:?code=OK"/>
+        <to uri="cbs-send-sms:?dateFormat=dd/MM/yyyy&amp;channelType=SYS&amp;apParamSMSType=SUBMIT_MO_SUCCESS"/>
+    </route>
+    <route customId="true" id="SUBSCRIBER_LOOKUP_GPLAY">
+        <from uri="direct:SUBSCRIBER_LOOKUP_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <setBody>
+            <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;application&gt;7&lt;/application&gt;
+	&lt;action&gt;0&lt;/action&gt;
+	&lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+	&lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+	&lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+	&lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+	&lt;categoryid&gt;000001&lt;/categoryid&gt;
+	&lt;contentid&gt;0000000001&lt;/contentid&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+	&lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+&lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <choice>
+            <when>
+                <description/>
+                <simple>${body} contains "CPS-0000"</simple>
+                <to uri="cbs-result:?code=OK"/>
+            </when>
+            <when>
+                <simple>${body} contains "CPS-1007"</simple>
+                <to uri="cbs-result:?code=USER_UNKNOWN"/>
+            </when>
+            <otherwise>
+                <to uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="CHECK_ELIGIBILITY_GPLAY">
+        <from uri="direct:CHECK_ELIGIBILITY_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <setBody>
+            <description/>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <to uri="cbs-check-access:?name=ISDN-WHITELIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <to uri="cbs-check-access:?name=ISDN-BLACKLIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <to uri="cbs-check-access:?name=VASGATE-BLACKLIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("anti_profit")} != 'DISABLE'</simple>
+                <setBody>
+                    <simple>money=0,msisdn=${exchangeProperty.msisdn}</simple>
+                </setBody>
+                <to uri="queue:?id=ANTI_PROFIT"/>
+                <choice>
+                    <when>
+                        <simple>${body} contains "result=WCG-001"</simple>
+                        <to uri="cbs-throw-cbexception:?code=USER_BARRED"/>
+                    </when>
+                    <when>
+                        <description/>
+                        <simple>${body} contains "result=WCG-004" || ${body} contains "result=WCG-005" || ${body} contains "result=WCG-010"</simple>
+                        <to uri="cbs-throw-cbexception:?code=INTERNAL_SERVER_ERROR"/>
+                    </when>
+                    <when>
+                        <simple>${body} contains "result=WCG-000"</simple>
+                        <to uri="cbs-result:?code=OK"/>
+                    </when>
+                    <otherwise>
+                        <to uri="cbs-throw-cbexception:?code=UNKNOWN"/>
+                    </otherwise>
+                </choice>
+            </when>
+            <otherwise>
+                <to uri="cbs-result:?code=OK"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="ACCOUNT_PROFILE_GPLAY">
+        <from uri="direct:ACCOUNT_PROFILE_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <doTry>
+            <pipeline>
+                <to uri="cbs-check-access:?name=ISDN-WHITELIST&amp;errorCode=USER_BARRED"/>
+                <to uri="cbs-check-access:?name=ISDN-BLACKLIST&amp;errorCode=USER_BARRED"/>
+                <to uri="cbs-check-access:?name=VASGATE-BLACKLIST&amp;errorCode=USER_BARRED"/>
+                <choice>
+                    <when>
+                        <simple>${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("anti_profit")} != 'DISABLE'</simple>
+                        <setBody>
+                            <simple>command=check,msisdn=${exchangeProperty.msisdn}</simple>
+                        </setBody>
+                        <to uri="queue:?id=ANTI_PROFIT"/>
+                        <choice>
+                            <when>
+                                <simple>${body} contains "result=WCG-001"</simple>
+                                <to uri="cbs-throw-cbexception:?code=USER_BARRED"/>
+                            </when>
+                            <when>
+                                <description/>
+                                <simple>${body} contains "result=WCG-004" || ${body} contains "result=WCG-005" || ${body} contains "result=WCG-010"</simple>
+                                <to uri="cbs-throw-cbexception:?code=INTERNAL_SERVER_ERROR"/>
+                            </when>
+                            <when>
+                                <simple>${body} contains "result=WCG-000"</simple>
+                            </when>
+                            <otherwise>
+                                <to uri="cbs-throw-cbexception:?code=UNKNOWN"/>
+                            </otherwise>
+                        </choice>
+                    </when>
+                </choice>
+            </pipeline>
+            <doCatch>
+                <exception>com.telsoft.cbs.domain.CBException</exception>
+                <setProperty name="eligibility">
+                    <simple>false</simple>
+                </setProperty>
+            </doCatch>
+            <doFinally/>
+        </doTry>
+        <setBody>
+            <description/>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <to uri="cbs-get-profile"/>
+        <to uri="cbs-result-account-profile:?code=OK"/>
+    </route>
+</routes>

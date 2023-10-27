@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <style type="text/css">
+            .ui-tree-container {
+                max-height: 400px !important;
+            }
+        </style>
+
+        <div class="ui-fluid">
+            <p:sticky target="pnl_control"/>
+            <h:panelGroup id="pnl_control">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-lg-10"></div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-2">
+                        <p:commandButton id="btnsave" value="#{PP_COMMONS.save}" rendered="#{filePropertyController.isAllowUpdate and filePropertyController.miTabIndex eq 0}" disabled="#{!filePropertyController.mblSave}" process="@this" actionListener="#{filePropertyController.handSave()}" oncomplete="scrollToTop();" styleClass="btn-success" icon="fa fa-floppy-o"/>
+                        <p:commandButton id="btnsaveright" value="#{PP_COMMONS.save}" rendered="#{filePropertyController.isAllowUpdate and filePropertyController.miTabIndex eq 1}" disabled="#{!filePropertyController.mblSaveright}" process="@this" actionListener="#{filePropertyController.handSaveTab2()}" oncomplete="scrollToTop();" styleClass="btn-success" icon="fa fa-floppy-o"/>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+            <p:tabView id="tabpp" dynamic="true" tabindex="#{filePropertyController.miTabIndex}">
+                <p:ajax global="true" event="tabChange" listener="#{filePropertyController.onTabChange}" update=":form_main:pnl_control" />
+
+                <p:tab title="#{PP_FILEPP.language}" id="tab0">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <p:panel header="#{PP_FILEPP.headerleft}" styleClass="box-primary">
+                                <p:tree selectionMode="single" value="#{filePropertyController.mtreeModule}" var="node" id="tree" animate="true" style="border: 0;">
+                                    <p:ajax global="false" event="select" listener="#{filePropertyController.onNodeSelect}" update=":form_main:tabpp:dt_file_detail :form_main:btnsave" oncomplete="clearFilters('dtFileDetail')"/>
+
+                                    <p:treeNode expandedIcon="fa fa-folder-open" collapsedIcon="fa fa-folder">
+                                        <h:outputText value="#{node.name}"/>
+                                    </p:treeNode>
+                                    <p:treeNode type="m" icon="#{node.icon}">
+                                        <h:outputText value="#{node.name}"/>
+                                    </p:treeNode>
+                                    <p:treeNode type="h" icon="#{node.icon}">
+                                        <h:outputText value="#{node.name}"/>
+                                    </p:treeNode>
+                                </p:tree>
+                            </p:panel>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-8">
+                            <p:panel header="#{PP_FILEPP.content}" styleClass="box-info">
+                                <p:dataTable id="dt_file_detail" widgetVar="dtFileDetail" value="#{filePropertyController.listEntry}" var="entry" editable="#{filePropertyController.isAllowUpdate}" editMode="cell"
+                                             paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" styleClass="no-border">
+
+                                    <p:ajax global="false" event="rowEdit" listener="#{filePropertyController.onEdit}"/>
+                                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                    <p:ajax global="false" event="sort"/>
+                                    <p:ajax global="false" event="page"/>
+
+                                    <p:column filterBy="#{entry.key}" headerText="#{PP_FILEPP.key}" sortBy="#{entry.key}">
+                                        <h:outputText value="#{entry.key}"/>
+                                    </p:column>
+                                    <p:column filterBy="#{entry.value}" headerText="#{PP_FILEPP.value}" sortBy="#{entry.value}" style="white-space: normal;">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{entry.value}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{entry.value}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </div>
+                    </div>
+                </p:tab>
+
+                <p:tab title="#{PP_FILEPP.config}" id="tab1">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <p:panel header="#{PP_FILEPP.config_left}" styleClass="box-primary">
+                                <p:treeTable value="#{filePropertyController.mtreeSystem}" var="rright" selectionMode="single" selection="#{filePropertyController.mselectedTreeModule}" styleClass="no-border">
+                                    <p:ajax global="false" process="@this" update=":form_main:tabpp:dt_config :form_main:btnsaveright" event="select" listener="#{filePropertyController.onTab2NodeSelect}" oncomplete="clearFilters('dtConfig')"/>
+                                    <p:column style="width:150px">
+                                        <h:outputText value="#{rright}"/>
+                                    </p:column>
+                                </p:treeTable>
+                            </p:panel>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-8">
+                            <p:panel header="#{PP_FILEPP.config_right}" styleClass="box-info">
+                                <p:dataTable id="dt_config" widgetVar="dtConfig" value="#{filePropertyController.listTab2Entry}" var="lright" editable="#{filePropertyController.isAllowUpdate}" editMode="cell"
+                                             paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" styleClass="no-border">
+
+                                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                    <p:ajax global="false" event="sort"/>
+                                    <p:ajax global="false" event="page"/>
+
+                                    <p:column filterBy="#{lright.key}" headerText="#{PP_FILEPP.key}" sortBy="#{lright.key}">
+                                        #{lright.key}
+                                    </p:column>
+                                    <p:column filterBy="#{lright.value}" headerText="#{PP_FILEPP.value}" sortBy="#{lright.value}" style="white-space: normal;">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{lright.value}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{lright.value}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </div>
+                    </div>
+                </p:tab>
+            </p:tabView>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

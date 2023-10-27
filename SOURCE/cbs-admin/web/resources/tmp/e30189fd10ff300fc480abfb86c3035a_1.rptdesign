@@ -1,0 +1,2253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="datefrom" id="1074">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">01/12/2017</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="dateto" id="1075">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">30/12/2017</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="cencode" id="2772">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="chinhanh" id="2925">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">-1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="network" id="2926">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">-1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="province" id="2927">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">HNO</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="shoptype" id="2928">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">-1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="shopcode" id="2929">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">-1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="strCreator" id="2362">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="strApprover" id="2365">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="949">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">oracle.jdbc.OracleDriver</property>
+            <property name="odaURL">jdbc:oracle:thin:@//10.50.195.102:1521/testgold</property>
+            <property name="odaUser">cusman</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">Y3VzbWFu</encrypted-property>
+            <property name="odaJndiName">java:comp/env/jdbc/cusman_bea_ds</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="1380">
+            <property name="nullsOrdering">nulls lowest</property>
+            <list-property name="columnHints"/>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">cencode</property>
+                    <property name="paramName">cencode</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">1</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">cencode1</property>
+                    <property name="paramName">cencode</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">2</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">province</property>
+                    <property name="paramName">province</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">3</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">province1</property>
+                    <property name="paramName">province</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">4</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">chinhanh</property>
+                    <property name="paramName">chinhanh</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">5</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">chinhanh1</property>
+                    <property name="paramName">chinhanh</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">6</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">chinhanh2</property>
+                    <property name="paramName">chinhanh</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">7</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">shoptype</property>
+                    <property name="paramName">shoptype</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">8</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">shoptype1</property>
+                    <property name="paramName">shoptype</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">9</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">shopcode</property>
+                    <property name="paramName">shopcode</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">10</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">shopcode1</property>
+                    <property name="paramName">shopcode</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">11</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">cencode2</property>
+                    <property name="paramName">cencode</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">12</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">network</property>
+                    <property name="paramName">network</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">13</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">network1</property>
+                    <property name="paramName">network</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">14</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">datefrom</property>
+                    <property name="paramName">datefrom</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">15</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">dateto</property>
+                    <property name="paramName">dateto</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">16</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">CONGTY</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">CHINHANH</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">QUANHUYEN</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">LOAITBCÐI</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">LOAIKHCÐI</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">LOAITBCÐEN</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">LOAIKHCÐEN</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">SLTB_YCCM_ÐEN</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">SLTB_DEN_TC_KO_HK</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">SLTB_HK_TC</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">SLTB_HK_KTC</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">SLTB_DANG_HK</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">SLTB_BI_TUCHOI</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">SLTB_HUY_KH</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">SLTB_HUY_QH</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">SLTB_DANG_XULY</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">CONGTY</property>
+                    <property name="nativeName">CONGTY</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">CHINHANH</property>
+                    <property name="nativeName">CHINHANH</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">QUANHUYEN</property>
+                    <property name="nativeName">QUANHUYEN</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">NAME</property>
+                    <property name="nativeName">NAME</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">LOAITBCÐI</property>
+                    <property name="nativeName">LOAITBCÐI</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">LOAIKHCÐI</property>
+                    <property name="nativeName">LOAIKHCÐI</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">LOAITBCÐEN</property>
+                    <property name="nativeName">LOAITBCÐEN</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">LOAIKHCÐEN</property>
+                    <property name="nativeName">LOAIKHCÐEN</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">SLTB_YCCM_ÐEN</property>
+                    <property name="nativeName">SLTB_YCCM_ÐEN</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">SLTB_DEN_TC_KO_HK</property>
+                    <property name="nativeName">SLTB_DEN_TC_KO_HK</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">SLTB_HK_TC</property>
+                    <property name="nativeName">SLTB_HK_TC</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">SLTB_HK_KTC</property>
+                    <property name="nativeName">SLTB_HK_KTC</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">SLTB_DANG_HK</property>
+                    <property name="nativeName">SLTB_DANG_HK</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">SLTB_BI_TUCHOI</property>
+                    <property name="nativeName">SLTB_BI_TUCHOI</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">SLTB_HUY_KH</property>
+                    <property name="nativeName">SLTB_HUY_KH</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select congty,NVL(Chinhanh,'Không xác định') Chinhanh, NVL(QuanHuyen,'') QuanHuyen, name, LoaiTBCÐi, LoaiKHCÐi,LoaiTBCÐen, LoaiKHCÐen, COUNT(1) SLTB_YCCM_Ðen,
+	SUM(CASE WHEN mnp_state = '9' AND commitment_process_id IS NULL THEN 1 ELSE 0 END) SLTB_DEN_TC_KO_HK,
+    SUM(CASE WHEN mnp_state = '9' AND commitment_process_id IS NOT NULL THEN 1 ELSE 0 END) SLTB_HK_TC,
+    SUM(CASE WHEN mnp_state = '14' AND commitment_process_id IS NOT NULL THEN 1 ELSE 0 END) SLTB_HK_KTC,
+    SUM(CASE WHEN mnp_state in ('10','11') AND commitment_process_id IS NOT NULL THEN 1 ELSE 0 END) SLTB_DANG_HK,
+    SUM(CASE WHEN mnp_state = '2' THEN 1 ELSE 0 END) SLTB_BI_TUCHOI,
+    SUM(CASE WHEN mnp_state = '4' THEN 1 ELSE 0 END) SLTB_HUY_KH,
+    SUM(CASE WHEN mnp_state = '6' THEN 1 ELSE 0 END) SLTB_HUY_QH,
+    SUM(CASE WHEN mnp_state IN ('0','01','1','31','32','33','8','12','13') THEN 1 ELSE 0 END) SLTB_DANG_XULY
+FROM
+(SELECT (SELECT name
+            	FROM ap_domain
+    				WHERE TYPE = '31' AND code = a.cen_code AND status = 1) congty,
+		 
+        (SELECT name FROM SHOP WHERE shop_type = '6' AND status = '1' 
+                    and rownum = 1
+         START WITH shop_code = a.shop_code CONNECT BY PRIOR par_shop_code = shop_code) Chinhanh,
+            
+        (SELECT p.NAME
+            FROM shop s, pay_area p
+                WHERE s.cen_code = p.cen_code 
+                AND s.province = p.province
+                AND s.district = p.district
+                AND p.precinct IS NULL
+                AND s.shop_code = a.shop_code
+                AND ROWNUM = 1) QuanHuyen,
+                
+        f.NAME,
+            
+        (SELECT name
+            FROM ap_domain
+            WHERE TYPE = '12TLS' AND code = b.payment_mode AND status = 1) LoaiTBCÐi,
+            
+        (SELECT name
+            FROM ap_domain
+            WHERE TYPE = '15TLS' AND code = a.cust_type AND status = 1)LoaiKHCÐi,
+            
+        (SELECT name
+            FROM ap_domain
+            WHERE TYPE = '12TLS' AND code = b.req_payment_mode AND status = 1) LoaiTBCÐen,
+            
+        case when b.req_payment_mode = '1'
+        	then (SELECT case when sub.cust_type in ('0','2') then 'Cá nhân' when sub.cust_type = '1' then 'Doanh nghiệp' else 'Loại khác' end FROM subscriber_mnp sub WHERE sub.sub_id = b.sub_id)
+        		else (select case when bt.cust_type in ('0','2') then 'Cá nhân' when bt.cust_type = '1' then 'Doanh nghiệp' else 'Loại khác' end from mc_subscriber_mnp mcs, mc_bus_type bt where mcs.bus_type = bt.bus_type and mcs.sub_id = b.sub_id) end LoaiKHCÐen,
+           
+        b.mnp_state,
+		a.commitment_process_id
+FROM mnp_registration a,mnp_registration_dtl b, network_operator f
+    WHERE a.mnp_registration_id=b.mnp_registration_id 
+    	and a.reg_inf_date=b.reg_inf_date
+        and a.network_operator_id = f.network_operator_id
+        and a.mnp_type=2
+		and b.mnp_state IN ('0','01','1','2','4','6','8','9','10','11','31','32','33','14')
+		and a.mnp_state NOT IN ('12','13')
+        and a.cen_code= ?
+        and a.shop_code in (SELECT DISTINCT dtl.shop_code
+                            FROM  (SELECT sp1.shop_code, sp1.shop_type, sp1.cen_code
+                                    FROM shop sp1
+                                        WHERE sp1.cen_code = ? --Combo Công ty khu vuc
+                                        AND (sp1.province = ? OR ? = '-1') --Combo Tinh Thanh
+                                        AND (sp1.shop_code = ? OR ? = '-1') --Combo Chi nhanh
+                                    UNION ALL
+                                    SELECT sp2.shop_code, sp2.shop_type, sp2.cen_code
+                                    FROM shop sp2
+                                        START WITH sp2.shop_code = ? -- Combo chi nhanh
+                                        CONNECT BY PRIOR sp2.shop_code = sp2.par_shop_code) dtl
+                                WHERE (1=1)
+                                    AND (dtl.shop_type = ? OR ? = '-1') -- Combo Loai cua hang
+                                    AND (dtl.shop_code = ? OR ? = '-1') -- combo cua hang
+                                    AND dtl.cen_code = ?) --Combo Cong ty khu vuc
+        and (a.network_operator_id =? or ? = '-1')
+        AND a.reg_inf_date BETWEEN TO_DATE (?, 'DD/MM/YYYY') and TO_DATE (?, 'DD/MM/YYYY') + 1)
+group by congty,Chinhanh, QuanHuyen, name, LoaiTBCÐi, LoaiKHCÐi,LoaiTBCÐen,LoaiKHCÐen
+order by congty,Chinhanh, QuanHuyen, name, LoaiTBCÐi, LoaiKHCÐi,LoaiTBCÐen]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>CONGTY</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CONGTY</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CONGTY</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>CHINHANH</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>80</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CHINHANH</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CHINHANH</design:label>
+            <design:formattingHints>
+              <design:displaySize>80</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PROVINCE</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PROVINCE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PROVINCE</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>NAME</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>250</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>NAME</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>NAME</design:label>
+            <design:formattingHints>
+              <design:displaySize>250</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>LOAITBCÐI</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>LOAITBCÐI</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>LOAITBCÐI</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>LOAIKHCÐI</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>LOAIKHCÐI</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>LOAIKHCÐI</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="146">
+            <property name="fontFamily">"Times New Roman"</property>
+            <property name="fontSize">12pt</property>
+        </style>
+        <style name="page" id="147"/>
+        <style name="data" id="148"/>
+        <style name="text" id="149"/>
+        <style name="reportTitle" id="150">
+            <property name="fontSize">16pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="table" id="151"/>
+        <style name="table-cell" id="152">
+            <property name="borderBottomColor">black</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftColor">black</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightColor">black</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopColor">black</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <property name="paddingTop">3px</property>
+            <property name="paddingLeft">3px</property>
+            <property name="paddingBottom">3px</property>
+            <property name="paddingRight">3px</property>
+        </style>
+        <style name="table-header" id="153">
+            <property name="backgroundColor">#FFFF80</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="table-header-cell" id="154">
+            <property name="backgroundColor">#FFFF80</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="table-footer" id="155"/>
+        <style name="table-footer-cell" id="156"/>
+        <style name="table-detail" id="157"/>
+        <style name="table-detail-cell" id="158"/>
+        <style name="crosstab" id="159"/>
+        <style name="crosstab-header" id="160">
+            <property name="backgroundColor">#0099FF</property>
+        </style>
+        <style name="crosstab-cell" id="161">
+            <property name="borderBottomColor">black</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftColor">black</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightColor">black</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopColor">black</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <property name="paddingTop">3px</property>
+            <property name="paddingLeft">3px</property>
+            <property name="paddingBottom">3px</property>
+            <property name="paddingRight">3px</property>
+        </style>
+        <style name="crosstab-column-header" id="162">
+            <property name="backgroundColor">#FFFF80</property>
+        </style>
+        <style name="crosstab-row-header" id="163">
+            <property name="backgroundColor">#FFFF80</property>
+        </style>
+        <style name="crosstab-row-grand-total" id="164">
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="crosstab-column-grand-total" id="165">
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="crosstab-row-sub-total" id="166">
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="crosstab-column-sub-total" id="167">
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="reportHeader1" id="168">
+            <property name="fontSize">13pt</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="reportHeader2" id="169">
+            <property name="fontSize">13pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="reportFooter1" id="170">
+            <property name="fontSize">13pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="reportFooter2" id="171">
+            <property name="fontSize">13pt</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="reportFooter3" id="172">
+            <property name="fontSize">13pt</property>
+            <property name="fontStyle">italic</property>
+            <property name="textAlign">center</property>
+        </style>
+        <style name="reportHeaderDate" id="173">
+            <property name="fontSize">13pt</property>
+            <property name="fontStyle">italic</property>
+        </style>
+        <style name="center" id="174">
+            <property name="textAlign">center</property>
+        </style>
+        <style name="grid" id="175">
+            <property name="textAlign">center</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a3</property>
+            <property name="orientation">landscape</property>
+            <property name="showHeaderOnFirst">false</property>
+            <property name="showFooterOnLast">false</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="4">
+            <property name="height">5.6875in</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">COUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="5"/>
+            <column id="6"/>
+            <column id="7"/>
+            <column id="8"/>
+            <column id="2971"/>
+            <column id="2991"/>
+            <column id="3031"/>
+            <column id="3021"/>
+            <column id="3011"/>
+            <column id="3001"/>
+            <column id="2981"/>
+            <column id="2961"/>
+            <column id="2951"/>
+            <column id="9"/>
+            <column id="10"/>
+            <column id="11"/>
+            <column id="12"/>
+            <column id="13"/>
+            <row id="3144">
+                <cell id="3145">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">2</property>
+                    <property name="textAlign">left</property>
+                    <image id="2924">
+                        <property name="height">0.625in</property>
+                        <property name="width">2.5in</property>
+                        <property name="source">embed</property>
+                        <property name="imageName">logo-mobiFone.png</property>
+                    </image>
+                </cell>
+                <cell id="3148"/>
+                <cell id="3149"/>
+                <cell id="3150"/>
+                <cell id="3151"/>
+                <cell id="3152"/>
+                <cell id="3153"/>
+                <cell id="3154"/>
+                <cell id="3155"/>
+                <cell id="3156"/>
+                <cell id="3157"/>
+                <cell id="3158"/>
+                <cell id="3159">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <label id="699">
+                        <property name="fontSize">10pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="marginTop">10pt</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="3183">
+                <cell id="3187"/>
+                <cell id="3188"/>
+                <cell id="3189"/>
+                <cell id="3190"/>
+                <cell id="3191"/>
+                <cell id="3192"/>
+                <cell id="3193"/>
+                <cell id="3194"/>
+                <cell id="3195"/>
+                <cell id="3196"/>
+                <cell id="3197"/>
+                <cell id="3198">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <label id="700">
+                        <property name="fontSize">10pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textUnderline">underline</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">Độc lập - Tự do - Hạnh phúc</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="3203">
+                <cell id="3204"/>
+                <cell id="3205"/>
+                <cell id="3206"/>
+                <cell id="3207"/>
+                <cell id="3208"/>
+                <cell id="3209"/>
+                <cell id="3210"/>
+                <cell id="3211"/>
+                <cell id="3212"/>
+                <cell id="3213"/>
+                <cell id="3214"/>
+                <cell id="3215"/>
+                <cell id="3216"/>
+                <cell id="3217"/>
+                <cell id="3218">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <label id="701">
+                        <property name="fontSize">10pt</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">*-*-*</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="3163">
+                <cell id="3164"/>
+                <cell id="3165"/>
+                <cell id="3166"/>
+                <cell id="3167"/>
+                <cell id="3168"/>
+                <cell id="3169"/>
+                <cell id="3170"/>
+                <cell id="3171"/>
+                <cell id="3172"/>
+                <cell id="3173"/>
+                <cell id="3174"/>
+                <cell id="3175"/>
+                <cell id="3176"/>
+                <cell id="3177"/>
+                <cell id="3178">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <data id="2939">
+                        <property name="fontSize">10pt</property>
+                        <property name="fontStyle">italic</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">sysdate</property>
+                                <text-property name="displayName">sysdate</text-property>
+                                <expression name="expression" type="javascript">vars["sysdate"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">sysdate</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="3219">
+                <cell id="3220"/>
+                <cell id="3221"/>
+                <cell id="3222"/>
+                <cell id="3223"/>
+                <cell id="3224"/>
+                <cell id="3225"/>
+                <cell id="3226"/>
+                <cell id="3227"/>
+                <cell id="3228"/>
+                <cell id="3229"/>
+                <cell id="3230"/>
+                <cell id="3231"/>
+                <cell id="3232"/>
+                <cell id="3233">
+                    <label id="3238"/>
+                </cell>
+                <cell id="3234"/>
+                <cell id="3235"/>
+                <cell id="3236"/>
+                <cell id="3237"/>
+            </row>
+            <row id="1541">
+                <cell id="1542">
+                    <property name="colSpan">18</property>
+                    <property name="rowSpan">1</property>
+                    <text id="2940">
+                        <property name="fontWeight">bold</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[BÁO CÁO THUÊ BAO CHUYỂN ĐẾN </Br> THEO CÔNG TY/ CHI NHÁNH/ TỈNH/ THÀNH PHỐ/ QUẬN/ HUYỆN]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="34">
+                <cell id="35">
+                    <property name="colSpan">18</property>
+                    <property name="rowSpan">1</property>
+                    <data id="2941">
+                        <property name="fontSize">11pt</property>
+                        <property name="fontStyle">italic</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">datefrom</property>
+                                <expression name="expression" type="javascript">'Từ ngày: ' + params["datefrom"] + ' đến ngày: ' + params["dateto"].value</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">datefrom</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="64">
+                <property name="height">0.2916666666666667in</property>
+                <cell id="65"/>
+                <cell id="66"/>
+                <cell id="67"/>
+                <cell id="68">
+                    <label id="3037"/>
+                </cell>
+                <cell id="2967"/>
+                <cell id="2987"/>
+                <cell id="3027"/>
+                <cell id="3017"/>
+                <cell id="3007"/>
+                <cell id="2997"/>
+                <cell id="2977"/>
+                <cell id="2957"/>
+                <cell id="2947"/>
+                <cell id="69"/>
+                <cell id="70"/>
+                <cell id="71"/>
+                <cell id="72"/>
+                <cell id="73"/>
+            </row>
+            <row id="2737">
+                <cell id="2738">
+                    <property name="colSpan">18</property>
+                    <property name="rowSpan">1</property>
+                    <table id="2747">
+                        <property name="fontSize">10pt</property>
+                        <property name="marginTop">2pt</property>
+                        <property name="marginBottom">2pt</property>
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">CONGTY</property>
+                                <text-property name="displayName">CONGTY</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["CONGTY"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">CHINHANH</property>
+                                <text-property name="displayName">CHINHANH</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["CHINHANH"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">QUANHUYEN</property>
+                                <text-property name="displayName">QUANHUYEN</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["QUANHUYEN"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">NAME</property>
+                                <text-property name="displayName">NAME</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["NAME"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">LOAITBCÐI</property>
+                                <text-property name="displayName">LOAITBCÐI</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["LOAITBCÐI"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">LOAIKHCÐI</property>
+                                <text-property name="displayName">LOAIKHCÐI</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["LOAIKHCÐI"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">LOAITBCÐEN</property>
+                                <text-property name="displayName">LOAITBCÐEN</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["LOAITBCÐEN"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">LOAIKHCÐEN</property>
+                                <text-property name="displayName">LOAIKHCÐEN</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["LOAIKHCÐEN"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">integer</property>
+                                <property name="aggregateFunction">RUNNINGCOUNT</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_YCCM_ÐEN</property>
+                                <text-property name="displayName">SLTB_YCCM_ÐEN</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_YCCM_ÐEN"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_DEN_TC_KO_HK</property>
+                                <text-property name="displayName">SLTB_DEN_TC_KO_HK</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_DEN_TC_KO_HK"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_HK_TC</property>
+                                <text-property name="displayName">SLTB_HK_TC</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_HK_TC"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_HK_KTC</property>
+                                <text-property name="displayName">SLTB_HK_KTC</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_HK_KTC"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_DANG_HK</property>
+                                <text-property name="displayName">SLTB_DANG_HK</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_DANG_HK"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_BI_TUCHOI</property>
+                                <text-property name="displayName">SLTB_BI_TUCHOI</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_BI_TUCHOI"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_HUY_KH</property>
+                                <text-property name="displayName">SLTB_HUY_KH</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_HUY_KH"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_HUY_QH</property>
+                                <text-property name="displayName">SLTB_HUY_QH</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_HUY_QH"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SLTB_DANG_XULY</property>
+                                <text-property name="displayName">SLTB_DANG_XULY</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SLTB_DANG_XULY"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_1</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_YCCM_ÐEN"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_2</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_DEN_TC_KO_HK"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_3</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_HK_TC"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_4</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_HK_KTC"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_5</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_DANG_HK"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_6</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_BI_TUCHOI"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_7</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_HUY_KH"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_8</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_HUY_QH"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation_9</property>
+                                <property name="dataType">float</property>
+                                <property name="aggregateFunction">SUM</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">dataSetRow["SLTB_DANG_XULY"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="pageBreakInterval">99999</property>
+                        <column id="2881">
+                            <property name="width">0.4in</property>
+                        </column>
+                        <column id="2836"/>
+                        <column id="2837"/>
+                        <column id="2838"/>
+                        <column id="2839"/>
+                        <column id="2840"/>
+                        <column id="2841"/>
+                        <column id="2842"/>
+                        <column id="2843"/>
+                        <column id="2844"/>
+                        <column id="2845"/>
+                        <column id="2846"/>
+                        <column id="2847"/>
+                        <column id="2848"/>
+                        <column id="2849"/>
+                        <column id="2850"/>
+                        <column id="2851"/>
+                        <column id="2852"/>
+                        <header>
+                            <row id="2901">
+                                <property name="height">0.6in</property>
+                                <cell id="2902">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="1361">
+                                        <text-property name="text">STT</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="2903">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="1362">
+                                        <text-property name="text">Công ty</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="2904">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="1363">
+                                        <text-property name="text">Chi nhánh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="2905">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="1364">
+                                        <text-property name="text">Quận / Huyện</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="2906">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3240">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Nhà
+mạng
+chuyển
+đi]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2907">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3241">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Loại thuê bao
+chuyển đi
+(Trả trước/
+trả sau)]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2908">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3242">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Loại
+khách hàng
+chuyển đi
+(Cá nhân/
+Doanh nghiệp)]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2909">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3243">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Loại
+thuê bao
+chuyển đến
+(Trả trước/
+trả sau)
+]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2910">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3244">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Loại
+khách hàng
+chuyển đến
+(Cá nhân/
+Doanh nghiệp)
+]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2911">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3245">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Số lượng
+thuê bao
+yêu cầu
+chuyển mạng
+đến
+]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2912">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3246">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[1. Số lượng
+thuê bao
+chuyển mạng
+đến thành công
+không yêu cầu
+hậu kiểm]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2913">
+                                    <property name="colSpan">3</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3247">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[2. Số lượng thuê bao
+chuyển mạng đến
+thành công yêu cầu hậu kiểm]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2916">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3250">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[3. Số lượng
+thuê bao
+được chuyển mạng
+đến bị từ chối]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2917">
+                                    <property name="colSpan">2</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3251">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[4.Số lượng thuê bao
+hủy chuyển mạng]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2919">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3254">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[5. Số lượng thuê bao
+chuyển mạng đến
+đang được xử lý]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                            <row id="2748">
+                                <property name="height">0.7in</property>
+                                <cell id="2769">
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3248">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[HK
+thành công]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2771">
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3249">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[HK
+không thành công]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2773">
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3255">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Đang
+hậu kiểm]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2777">
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3252">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Hủy do
+khách hàng ]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="2779">
+                                    <property name="verticalAlign">middle</property>
+                                    <text id="3253">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Hủy do
+quá hạn]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="2783">
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">thin</property>
+                                <property name="borderLeftStyle">solid</property>
+                                <property name="borderLeftWidth">thin</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">thin</property>
+                                <property name="verticalAlign">middle</property>
+                                <cell id="2879">
+                                    <data id="2923">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="2784">
+                                    <property name="textAlign">left</property>
+                                    <data id="2785">
+                                        <property name="whiteSpace">pre</property>
+                                        <property name="resultSetColumn">CONGTY</property>
+                                    </data>
+                                </cell>
+                                <cell id="2786">
+                                    <property name="textAlign">left</property>
+                                    <data id="2787">
+                                        <property name="whiteSpace">pre</property>
+                                        <property name="resultSetColumn">CHINHANH</property>
+                                    </data>
+                                </cell>
+                                <cell id="2788">
+                                    <property name="textAlign">left</property>
+                                    <data id="2789">
+                                        <property name="whiteSpace">pre</property>
+                                        <property name="resultSetColumn">QUANHUYEN</property>
+                                    </data>
+                                </cell>
+                                <cell id="2790">
+                                    <property name="textAlign">left</property>
+                                    <data id="2791">
+                                        <property name="whiteSpace">pre</property>
+                                        <property name="resultSetColumn">NAME</property>
+                                    </data>
+                                </cell>
+                                <cell id="2792">
+                                    <property name="textAlign">left</property>
+                                    <data id="2793">
+                                        <property name="resultSetColumn">LOAITBCÐI</property>
+                                    </data>
+                                </cell>
+                                <cell id="2794">
+                                    <property name="textAlign">left</property>
+                                    <data id="2795">
+                                        <property name="resultSetColumn">LOAIKHCÐI</property>
+                                    </data>
+                                </cell>
+                                <cell id="2796">
+                                    <property name="textAlign">left</property>
+                                    <data id="2797">
+                                        <property name="resultSetColumn">LOAITBCÐEN</property>
+                                    </data>
+                                </cell>
+                                <cell id="2798">
+                                    <property name="textAlign">left</property>
+                                    <data id="2799">
+                                        <property name="resultSetColumn">LOAIKHCÐEN</property>
+                                    </data>
+                                </cell>
+                                <cell id="2800">
+                                    <property name="textAlign">right</property>
+                                    <data id="2930">
+                                        <property name="resultSetColumn">SLTB_YCCM_ÐEN</property>
+                                    </data>
+                                </cell>
+                                <cell id="2802">
+                                    <property name="textAlign">right</property>
+                                    <data id="2931">
+                                        <property name="resultSetColumn">SLTB_DEN_TC_KO_HK</property>
+                                    </data>
+                                </cell>
+                                <cell id="2804">
+                                    <property name="textAlign">right</property>
+                                    <data id="2932">
+                                        <property name="resultSetColumn">SLTB_HK_TC</property>
+                                    </data>
+                                </cell>
+                                <cell id="2806">
+                                    <property name="textAlign">right</property>
+                                    <data id="2933">
+                                        <property name="resultSetColumn">SLTB_HK_KTC</property>
+                                    </data>
+                                </cell>
+                                <cell id="2808">
+                                    <property name="textAlign">right</property>
+                                    <data id="2934">
+                                        <property name="resultSetColumn">SLTB_DANG_HK</property>
+                                    </data>
+                                </cell>
+                                <cell id="2810">
+                                    <property name="textAlign">right</property>
+                                    <data id="2935">
+                                        <property name="resultSetColumn">SLTB_BI_TUCHOI</property>
+                                    </data>
+                                </cell>
+                                <cell id="2812">
+                                    <property name="textAlign">right</property>
+                                    <data id="2936">
+                                        <property name="resultSetColumn">SLTB_HUY_KH</property>
+                                    </data>
+                                </cell>
+                                <cell id="2814">
+                                    <property name="textAlign">right</property>
+                                    <data id="2937">
+                                        <property name="resultSetColumn">SLTB_HUY_QH</property>
+                                    </data>
+                                </cell>
+                                <cell id="2816">
+                                    <property name="textAlign">right</property>
+                                    <data id="2938">
+                                        <property name="resultSetColumn">SLTB_DANG_XULY</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="3256">
+                                <cell id="3257">
+                                    <property name="colSpan">9</property>
+                                    <property name="rowSpan">1</property>
+                                    <label id="3275">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Tổng</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3266">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <data id="3277">
+                                        <property name="resultSetColumn">Aggregation_1</property>
+                                    </data>
+                                </cell>
+                                <cell id="3267">
+                                    <data id="3278">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_2</property>
+                                    </data>
+                                </cell>
+                                <cell id="3268">
+                                    <data id="3279">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_3</property>
+                                    </data>
+                                </cell>
+                                <cell id="3269">
+                                    <data id="3280">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_4</property>
+                                    </data>
+                                </cell>
+                                <cell id="3270">
+                                    <data id="3281">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_5</property>
+                                    </data>
+                                </cell>
+                                <cell id="3271">
+                                    <data id="3282">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_6</property>
+                                    </data>
+                                </cell>
+                                <cell id="3272">
+                                    <data id="3283">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_7</property>
+                                    </data>
+                                </cell>
+                                <cell id="3273">
+                                    <data id="3284">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_8</property>
+                                    </data>
+                                </cell>
+                                <cell id="3274">
+                                    <data id="3285">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">Aggregation_9</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+            <row id="3124">
+                <cell id="3125"/>
+                <cell id="3126"/>
+                <cell id="3127">
+                    <label id="3143"/>
+                </cell>
+                <cell id="3128"/>
+                <cell id="3129"/>
+                <cell id="3130"/>
+                <cell id="3131"/>
+                <cell id="3132"/>
+                <cell id="3133"/>
+                <cell id="3134"/>
+                <cell id="3135"/>
+                <cell id="3136"/>
+                <cell id="3137"/>
+                <cell id="3138"/>
+                <cell id="3139"/>
+                <cell id="3140"/>
+                <cell id="3141"/>
+                <cell id="3142"/>
+            </row>
+            <row id="2727">
+                <property name="height">0.3541666666666667in</property>
+                <cell id="2728"/>
+                <cell id="2729">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <label id="3038">
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">Người phê duyệt báo cáo</text-property>
+                    </label>
+                </cell>
+                <cell id="2969"/>
+                <cell id="2989"/>
+                <cell id="3029"/>
+                <cell id="3019"/>
+                <cell id="3009"/>
+                <cell id="2999"/>
+                <cell id="2979"/>
+                <cell id="2959"/>
+                <cell id="2949"/>
+                <cell id="2732"/>
+                <cell id="2733">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <label id="3116">
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">Người lập báo cáo</text-property>
+                    </label>
+                </cell>
+                <cell id="2736"/>
+            </row>
+            <row id="3039">
+                <cell id="3040"/>
+                <cell id="3041">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <label id="3115">
+                        <property name="fontSize">10pt</property>
+                        <property name="fontStyle">italic</property>
+                        <text-property name="text">(Ký và ghi rõ họ tên)</text-property>
+                    </label>
+                </cell>
+                <cell id="3044"/>
+                <cell id="3045"/>
+                <cell id="3046"/>
+                <cell id="3047"/>
+                <cell id="3048"/>
+                <cell id="3049"/>
+                <cell id="3050"/>
+                <cell id="3051"/>
+                <cell id="3052"/>
+                <cell id="3053"/>
+                <cell id="3054">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <label id="3117">
+                        <property name="fontSize">10pt</property>
+                        <property name="fontStyle">italic</property>
+                        <text-property name="text">(Ký và ghi rõ họ tên)</text-property>
+                    </label>
+                </cell>
+                <cell id="3057"/>
+            </row>
+            <row id="3058">
+                <cell id="3059"/>
+                <cell id="3060"/>
+                <cell id="3061">
+                    <label id="3120"/>
+                </cell>
+                <cell id="3062"/>
+                <cell id="3063"/>
+                <cell id="3064"/>
+                <cell id="3065"/>
+                <cell id="3066"/>
+                <cell id="3067"/>
+                <cell id="3068"/>
+                <cell id="3069"/>
+                <cell id="3070"/>
+                <cell id="3071"/>
+                <cell id="3072"/>
+                <cell id="3073"/>
+                <cell id="3074">
+                    <label id="3122"/>
+                </cell>
+                <cell id="3075"/>
+                <cell id="3076"/>
+            </row>
+            <row id="3077">
+                <cell id="3078"/>
+                <cell id="3079"/>
+                <cell id="3080">
+                    <label id="3121"/>
+                </cell>
+                <cell id="3081"/>
+                <cell id="3082"/>
+                <cell id="3083"/>
+                <cell id="3084"/>
+                <cell id="3085"/>
+                <cell id="3086"/>
+                <cell id="3087"/>
+                <cell id="3088"/>
+                <cell id="3089"/>
+                <cell id="3090"/>
+                <cell id="3091"/>
+                <cell id="3092"/>
+                <cell id="3093">
+                    <label id="3123"/>
+                </cell>
+                <cell id="3094"/>
+                <cell id="3095"/>
+            </row>
+            <row id="3096">
+                <cell id="3097"/>
+                <cell id="3098">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <data id="3118">
+                        <property name="fontWeight">bold</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">strApprover</property>
+                                <expression name="expression" type="javascript">params["strApprover"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">strApprover</property>
+                    </data>
+                </cell>
+                <cell id="3101"/>
+                <cell id="3102"/>
+                <cell id="3103"/>
+                <cell id="3104"/>
+                <cell id="3105"/>
+                <cell id="3106"/>
+                <cell id="3107"/>
+                <cell id="3108"/>
+                <cell id="3109"/>
+                <cell id="3110"/>
+                <cell id="3111">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <data id="3119">
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">strCreator</property>
+                                <expression name="expression" type="javascript">params["strCreator"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">strCreator</property>
+                    </data>
+                </cell>
+                <cell id="3114"/>
+            </row>
+            <row id="74">
+                <property name="height">0.23958333333333334in</property>
+                <cell id="75">
+                    <property name="colSpan">18</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+            </row>
+        </grid>
+    </body>
+    <property name="pageVariables">
+        <variable-element name="sysdate">
+            <expression name="value" type="javascript">"Hà Nội, ngày "+BirtDateTime.day(BirtDateTime.now())+" tháng "+BirtDateTime.month(BirtDateTime.now())+ " năm "+BirtDateTime.year(BirtDateTime.now())</expression>
+            <property name="type">report</property>
+        </variable-element>
+    </property>
+    <list-property name="images">
+        <structure>
+            <property name="name">logo-mobiFone.png</property>
+            <property name="type">image/png</property>
+            <property name="data">
+                iVBORw0KGgoAAAANSUhEUgAAAlEAAABeCAYAAAADtUEiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lD
+                Q1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQ
+                SoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPues852zzwfA
+                CAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgABeNMLCADATZvAMByH
+                /w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAtAGAnf+bTAICd+Jl7AQBb
+                lCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3AMDOEAuyAAgMADBRiIUpAAR7
+                AGDIIyN4AISZABRG8lc88SuuEOcqAAB4mbI8uSQ5RYFbCC1xB1dXLh4ozkkXKxQ2YQJhmkAuwnmZGTKB
+                NA/g88wAAKCRFRHgg/P9eM4Ors7ONo62Dl8t6r8G/yJiYuP+5c+rcEAAAOF0ftH+LC+zGoA7BoBt/qIl
+                7gRoXgugdfeLZrIPQLUAoOnaV/Nw+H48PEWhkLnZ2eXk5NhKxEJbYcpXff5nwl/AV/1s+X48/Pf14L7i
+                JIEyXYFHBPjgwsz0TKUcz5IJhGLc5o9H/LcL//wd0yLESWK5WCoU41EScY5EmozzMqUiiUKSKcUl0v9k
+                4t8s+wM+3zUAsGo+AXuRLahdYwP2SycQWHTA4vcAAPK7b8HUKAgDgGiD4c93/+8//UegJQCAZkmScQAA
+                XkQkLlTKsz/HCAAARKCBKrBBG/TBGCzABhzBBdzBC/xgNoRCJMTCQhBCCmSAHHJgKayCQiiGzbAdKmAv
+                1EAdNMBRaIaTcA4uwlW4Dj1wD/phCJ7BKLyBCQRByAgTYSHaiAFiilgjjggXmYX4IcFIBBKLJCDJiBRR
+                IkuRNUgxUopUIFVIHfI9cgI5h1xGupE7yAAygvyGvEcxlIGyUT3UDLVDuag3GoRGogvQZHQxmo8WoJvQ
+                crQaPYw2oefQq2gP2o8+Q8cwwOgYBzPEbDAuxsNCsTgsCZNjy7EirAyrxhqwVqwDu4n1Y8+xdwQSgUXA
+                CTYEd0IgYR5BSFhMWE7YSKggHCQ0EdoJNwkDhFHCJyKTqEu0JroR+cQYYjIxh1hILCPWEo8TLxB7iEPE
+                NyQSiUMyJ7mQAkmxpFTSEtJG0m5SI+ksqZs0SBojk8naZGuyBzmULCAryIXkneTD5DPkG+Qh8lsKnWJA
+                caT4U+IoUspqShnlEOU05QZlmDJBVaOaUt2ooVQRNY9aQq2htlKvUYeoEzR1mjnNgxZJS6WtopXTGmgX
+                aPdpr+h0uhHdlR5Ol9BX0svpR+iX6AP0dwwNhhWDx4hnKBmbGAcYZxl3GK+YTKYZ04sZx1QwNzHrmOeZ
+                D5lvVVgqtip8FZHKCpVKlSaVGyovVKmqpqreqgtV81XLVI+pXlN9rkZVM1PjqQnUlqtVqp1Q61MbU2ep
+                O6iHqmeob1Q/pH5Z/YkGWcNMw09DpFGgsV/jvMYgC2MZs3gsIWsNq4Z1gTXEJrHN2Xx2KruY/R27iz2q
+                qaE5QzNKM1ezUvOUZj8H45hx+Jx0TgnnKKeX836K3hTvKeIpG6Y0TLkxZVxrqpaXllirSKtRq0frvTau
+                7aedpr1Fu1n7gQ5Bx0onXCdHZ4/OBZ3nU9lT3acKpxZNPTr1ri6qa6UbobtEd79up+6Ynr5egJ5Mb6fe
+                eb3n+hx9L/1U/W36p/VHDFgGswwkBtsMzhg8xTVxbzwdL8fb8VFDXcNAQ6VhlWGX4YSRudE8o9VGjUYP
+                jGnGXOMk423GbcajJgYmISZLTepN7ppSTbmmKaY7TDtMx83MzaLN1pk1mz0x1zLnm+eb15vft2BaeFos
+                tqi2uGVJsuRaplnutrxuhVo5WaVYVVpds0atna0l1rutu6cRp7lOk06rntZnw7Dxtsm2qbcZsOXYBtuu
+                tm22fWFnYhdnt8Wuw+6TvZN9un2N/T0HDYfZDqsdWh1+c7RyFDpWOt6azpzuP33F9JbpL2dYzxDP2DPj
+                thPLKcRpnVOb00dnF2e5c4PziIuJS4LLLpc+Lpsbxt3IveRKdPVxXeF60vWdm7Obwu2o26/uNu5p7ofc
+                n8w0nymeWTNz0MPIQ+BR5dE/C5+VMGvfrH5PQ0+BZ7XnIy9jL5FXrdewt6V3qvdh7xc+9j5yn+M+4zw3
+                3jLeWV/MN8C3yLfLT8Nvnl+F30N/I/9k/3r/0QCngCUBZwOJgUGBWwL7+Hp8Ib+OPzrbZfay2e1BjKC5
+                QRVBj4KtguXBrSFoyOyQrSH355jOkc5pDoVQfujW0Adh5mGLw34MJ4WHhVeGP45wiFga0TGXNXfR3ENz
+                30T6RJZE3ptnMU85ry1KNSo+qi5qPNo3ujS6P8YuZlnM1VidWElsSxw5LiquNm5svt/87fOH4p3iC+N7
+                F5gvyF1weaHOwvSFpxapLhIsOpZATIhOOJTwQRAqqBaMJfITdyWOCnnCHcJnIi/RNtGI2ENcKh5O8kgq
+                TXqS7JG8NXkkxTOlLOW5hCepkLxMDUzdmzqeFpp2IG0yPTq9MYOSkZBxQqohTZO2Z+pn5mZ2y6xlhbL+
+                xW6Lty8elQfJa7OQrAVZLQq2QqboVFoo1yoHsmdlV2a/zYnKOZarnivN7cyzytuQN5zvn//tEsIS4ZK2
+                pYZLVy0dWOa9rGo5sjxxedsK4xUFK4ZWBqw8uIq2Km3VT6vtV5eufr0mek1rgV7ByoLBtQFr6wtVCuWF
+                fevc1+1dT1gvWd+1YfqGnRs+FYmKrhTbF5cVf9go3HjlG4dvyr+Z3JS0qavEuWTPZtJm6ebeLZ5bDpaq
+                l+aXDm4N2dq0Dd9WtO319kXbL5fNKNu7g7ZDuaO/PLi8ZafJzs07P1SkVPRU+lQ27tLdtWHX+G7R7ht7
+                vPY07NXbW7z3/T7JvttVAVVN1WbVZftJ+7P3P66Jqun4lvttXa1ObXHtxwPSA/0HIw6217nU1R3SPVRS
+                j9Yr60cOxx++/p3vdy0NNg1VjZzG4iNwRHnk6fcJ3/ceDTradox7rOEH0x92HWcdL2pCmvKaRptTmvtb
+                Ylu6T8w+0dbq3nr8R9sfD5w0PFl5SvNUyWna6YLTk2fyz4ydlZ19fi753GDborZ752PO32oPb++6EHTh
+                0kX/i+c7vDvOXPK4dPKy2+UTV7hXmq86X23qdOo8/pPTT8e7nLuarrlca7nuer21e2b36RueN87d9L15
+                8Rb/1tWeOT3dvfN6b/fF9/XfFt1+cif9zsu72Xcn7q28T7xf9EDtQdlD3YfVP1v+3Njv3H9qwHeg89Hc
+                R/cGhYPP/pH1jw9DBY+Zj8uGDYbrnjg+OTniP3L96fynQ89kzyaeF/6i/suuFxYvfvjV69fO0ZjRoZfy
+                l5O/bXyl/erA6xmv28bCxh6+yXgzMV70VvvtwXfcdx3vo98PT+R8IH8o/2j5sfVT0Kf7kxmTk/8EA5jz
+                /GMzLdsAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAANFJJREFUeNrs
+                nXeYHMW19n89aZPiKq2yhAhCBCGBEZhkQCIaLhlswLaMSQaDbRxxuJ8NBgwGm2i4YOML9jU5m2SSQeQk
+                ogQSyhmFzWFC9/dHnWZbo57unjyjrfd55tnZmZ7qquqqU+8JdcqwLAuN0sKY/ZDuBI1i4bfAFMDM8P3V
+                wOtlqVk4xtOvXc3+GxfSEY5VQ1+OA0bKa4j8rQca5X8v4VkHPA/cAMT1sNQoBRqXL9CdUGJEdBdoaGxV
+                OALY3eP7+8pGoqqDNB0GHATsAAwHBglxyhbvAw9rAqWhoUmUhoZG9aDb5/uk7qItMAn4LnAqMKIA5b0O
+                HAOs0V2roaFJlIaGhsbWim8Bl6FcdYXA28AJmkBpaPQNhHQXaGho9FH8Eri9gATqNeAoYIXuWg0NTaI0
+                NDQ0Coq6VKJSqnIxcEkBy3sSOA5YrZ+yhkbfgXbnaWholAxzBk9i340Lct2dNwm4AkhlUAgXA78BOn3K
+                mVVgAvUY8HWgTT9hDQ1NojQ0NDQKDzPBz6ecSMRKcd6yF+kORckywcpQVLxRJiwALvchURFUGohsrPCL
+                pOxPgE1AWD4PA6tQLsEO/YA1NDSJ0tDQ0CgOLAusFD+dfBzHr3mXpngbnaEoRhY0zOf7LvDlZQcDXwp4
+                v6eBW4BngRb9ADU0NNKhY6I0NDRKBzOFFYpy5q7foD1cQ9QyS12DA+i1JHnhSuBI4AFNoDQ0NDSJ0tDQ
+                qAhYZoJnm6bx6PCdSx1oHsY7EamN24CfonNqaWhoaBKloaFRcUjFuXKbQzGwCJfu6KlaYKLPNWtRO/c0
+                NDQ0NInS0NCoTBK1sP8ovjflJGJWMpu4qHwQAZp8rrkL+Fw/IA0NDU2iNDQ0KpdHWSY3j/8Kc/uPJmYG
+                8pz5yas68ORjA4CoTxkv6iejoaGRjWamoaGhUXpYJkTquHriLO57+8/01Azw+8UG4F9kzhO1CPAKshrp
+                I/O6gOX6wWhoaGgSpaGhUflIdvPYyOlcN3EmFyx5jo2xfl5XLwSOxj2NgSGfewVY+W0F7ADa9UPR0NDQ
+                JEpDQ6MKYNFDiAt3ORWAC5Y8C0bYiwllIkJWkhBtkVovh14Ub3dfO7BRPxMNDQ1NojQ0NKqER6XAtLhw
+                p5N5d8AYas0klpFtqHmYCamNnLF0DtF4HNNwDZ8ai3eOqG78j4zR0NDQ0CRKQ0OjkoiUCRj8bcJB5LRV
+                z4ixa88iZq98lVCPheleRpCSdW4oDQ0NTaL6GOp9NOxUmTXsGCpHTyYvjUX1xKLUAP1RO8HqZQ41AGPS
+                2hcC1gDNKBdUJyrmpg3oqfCx1F+eV4MQjyHAMHpdaYa8X46y3iRQQdntQCvugd9BmBQku7wuCAH9XMeR
+                kbT6J7vDWBnjokxpmxfCwGD5m0/Whag8444c+94eYwCjULsKM/V9Uvq9U8ZWtZLA/o738QqfI27P25YJ
+                DfJ/vcgEwzEeQyIP1sj/HTJv2tAWUE2iNEoyUXcEdkOdZj8UGCECf4QQlUwBt3FUEkGbrGxAHaS6WoTx
+                Qvmbj+DqB+wETEa5TYbIAhCRhWkgmeNZTBEsKUf9VgFLgSXAByJsSg0DGA3sAewi/T4BtctriLyCYhOw
+                Xvp8qbw+At4CFudOPLJGMm3+byvtmwJsA4xH5VIaJK8gMOWZrZXnthz4TJ7bW45FI19MBv7u3leWFTfC
+                iZQRCmWQaykhgl4YCzwmfZQriQrJongm6tBiL8Vie1QG9amy4I6ROdMfaMzinqtRsVyrZb4sB16Xvt9Q
+                IbJrvIyxidLP/YDhMnai0m57zrVJvQ3pzxaZP80yvlYA78l4S5WhPcNQ5y9Oc8yZkfLMhmaxrtrtsttk
+                t2suMA/vnaYamkRpBMRoYDbwNZmsDQUuPyUa0XpUjpzngKeAdQF+OxJ1oOvRwL5ClmoLXL8uWSBeQh0I
+                +7wsFMXE3sCBwOHAzkIA880HOVhe26V93oramv8o8AwwB/9dZPmgUdp2JHCYjKl+eZYZkoVlmPSXk1y1
+                AG8CTwAvyAKRj7ViWqYvE0a4xzRCNXmUX+tVfhY4KwOBapC+P0ReowvQ9/Y8HClKjJMstwLvyNh6Xkht
+                KYnGftLOg0TR60dhchOmhGgtE3n1b5EPbUVsz1Rpx2FCfAcR7AxGLwyU14S0zzukbU+JzHsJvWu0YmFY
+                pTtyQcPu9NkPnQWc6nHJ7cDfhDz9RjS3UmIRcCtwPe4uiXrgQlksJpS4bquA+4HfAysLWG5/4FjgO8AM
+                sRSUGibwrvT9XeR28O0cYB+P79fKglYOtAEvA9fJwpet6+lLwBvukyrCtOTq1kdevzE2oL21NhkKl6N9
+                KeB7wJ9dFKEzgJPFGlMONIuSdIsszNn2/QgZlwM9rCq2TPsRcJpYaUqFedLv/yvksRCIiiJ1tiiJA8r0
+                7OahLLC3o6yNmTWk5Qv0AqtJVJ8gUdcAP/C45EaUa+2HZa7qG8AFKNeAje1EmB5Q5rqtAH4uwiVfHA38
+                CuXWqhS8B1wO3F1gElUpeAr477SxVc0kygTOTyNQNcC5qMOMmyqo758Gfp1l308EPiazpbkN+Ka0dUYZ
+                2/auyNb/5FnODOB3KEt7pWCFKI+3kMHVp0lU6aGPfSkP/GKPvlkBBApgT+ABYC8HgXq4AggUqPiRO0XQ
+                5Yo64E/AgxVGoEC5D+4C7iC72KtqwaHAs2K1qHY5ZKIss39OIx2PAX+sMAIFysX2HHBRlm30cinVikIz
+                o8xtmwY8KTI0V/wY5Vo/uMKe2xiUd+Bf+B+kraFJVJ9GvwqqyyiU++wo4K+o4PZKwsU5EqmhwH2y+FXy
+                PDhdiGvTVjjOG4CrhHyEq7QNJspae4Pjs31QrrOZFVzveuAPwM34nycYBPaOtEpALcpa/rUcfvcX4MoK
+                k8HpmIWKcfuSXio1idKoDowSwrFvhdbvYlQ8U1DUiZA9okr6fx+URXDAVjq+zkJZBPOCoVJ01pSw3pYQ
+                qBsdn22DcsGOqZK+P1tIw9aGqBDbbGLQrgK+XSXtGy8yeRs0ygq9O6/6kURtB27HfQeZhbK6DMzzPrkG
+                WtspC9y2jZtS7tACaLG/R+3+2hTg2p8Ax+R5vy7p240o92ymvq9B7YgLkd/Oxb2ljd/F+3y4QqEHFXex
+                Uf66tc8UYtcfZUnKJxj/fFTQ+V05TwQjnAhZ5qci19Lrm5K6egXVd6PSAwSxipko18qNaXPkVlQgeT7o
+                lPLXS70z9X1/eneO5kMev4+Kpbu/hHIrJf29KW3+mNKmfqLs5INGmTPH4J8K4TQZg/mgW/42i9wLZZAJ
+                EZSLPpSn3Bsn4+1QdJJYTaI0AmM1Knjy36g8Q+tRO2M6PBbywagtuaNR8U0HoHLu9C9C/RbIYviSvN8g
+                9XMjUbZAseu3I7C/EIZJWd53O9TuoBt8rtsVFfwaFC3SjjeA+aj0Cs3ysgVm3KPvY7IohGQR7yfa4y6o
+                dACThUQGwZnAPShTfiGxDvgU5YL6CLUDcpM8sxYPEmWhXHINQjwGoba2T0Rtt98VlQsp6ELxe1Qsyvrs
+                bUIpPo0OW/1O7chjj2j9sHVjqMEwNueaJnAcW+6cc+ID4KsEs9BbqJ2OTnwLtQ0+KFaidl69g8qrtQQV
+                oN0m5W/yIFF23/eT7xtlYZ4o82h3mRNBicilqBi15iLJraWo9BYvoQLU18q8aUmbPzY5rJe6j0TFB34Z
+                lSMv252lh6NSLbzgcc0w1C7obMjSJ6g8XPNRed420Hvuop08M9Nzs5O6Gg4lZAIqZ9t0kQmjAtblIJQl
+                9ya9NGoSpeGNd1C7Mh6TRS4bOIW9rW1OB76O2no9qAD1u1usCE86NLJsFhNEG75VBOihUr8TsihndgAS
+                9b2AC0sX8D+oVBNz8+yb5R7fbYva+n6RCFYvhFHuo0KRqM+Ba+S5LSnSuP0yKm3E7ICa9anAtdnfxqLb
+                Cie/udsZKx5464aufTctYlOkLn0V80s82UOw/GhuGIiKrwuCZcBlKBft50WUGfvK/P5WgGsnAyfJmC8k
+                HgX+ATxO8DxO6c/gYcf4OFzGyH4BywrL+PMiUScS3C32f0LE5+TZL14yvAk4HmUxHxegrLNRqR060Cg5
+                dExU5aNdLCf7i4BbVaBy30HtjNoTtQMsV3yKii06BXgoBwLlhk7UjrkTRWh+HPB3U8T64aVxBgn2XYdK
+                e/D9AhAoPyxEBcYfLtq6Hw4U606++FSI6hUUN3npK6g4k/MJloH5BHJ1C5pJY0OsIXbMHuczZ9A2DE50
+                pfs9/ZTGfOThngSLv3lNnuEtRSZQtlIyGzgnYN+fVsB7fybz9xhRsAqRCHOZ9NssaVPQTPgHeCgoBvCN
+                AGV0S1+eWgAC5Yc1KDfxLJTXwQ+7UpgksRqaRG11WCWL+ZVF1DIWoLYDX0j2mbKfFG33iSL2wZNCIJ8J
+                cG2tLGaZsBf+yUFN4LyA9yskXkftxPNLfzGQ7FxGbmiTxeDdErbvRpTLyA8z8iKJqQSbog0cvef3eH7I
+                9tSZJTs547gA1yxBWXsWlXhs3QJcEuC63SlMMtBXZc7eR3Gy7/dImw5FudX8MAzlPnfDLig3oR+uQFml
+                S4lPhYiuLND409Akqk+hB2WGfr5E97sOldwxKD4WzfXzEtRtA8rl9XaAa7fz0Uj98DzKzVIOvATcG+C6
+                vfO8zz2oeI5S448BFr0oygWYO8wELTUD+MGOxxOxzFK0K0ywnas34e3aLSauDUDe6sk/Ues8lCtqVQna
+                9H5AklFDZnfdfvgH5S9ApYMoBz4jmIt1X/I/mkpDk6itCrdRXAuPGy4lWBbjFCorcCkPN92IspbFfa7z
+                CjzdK8B9iqU9Z0Nw/HYSfYn8zlD8e5na1kZvfItf+/KDmSJmpijReQxj8c/j1VNGcg7qKJSHAlyXjyUq
+                jto9urqE7foA+AX+O1YzHeg8NeCcLGe80b34h0lMoPRHcGloElWx6CCn4Nq80Y0K7PYTSK+gMh6XGi/j
+                72brn0Ejq8c/eNSk9G68dLyK/w6pSfgHoWfCWkrrxktHEMvqrlWmVe/isUjbmEtprDNeeCNg3+eaquIZ
+                vAO4i4W/oyxgXnBLOxHD33VsoeJHy4llqF2zXhgC7KCXTk2iNBTexf0U+FLgOfy3mL9A+fKSPOLz/Qjc
+                zfPb4m+9WUxp3JNeWC9C0wtBhH8mvF9mrXohauejF4ZSnPQbxcLoALL0wwDtLjY+wP9Q6/F59P3jZWpX
+                KoBccNuROxD/3W+bCL6xpZhKtZ8bPETwtAgamkRt9fiwjPde7EOirABaUTHhJ0wyWdFG4p/aYBFqZ2C5
+                MT/gwp0LPqO8ifla8bfIDCL/hJWlJlFBrAnlxnK8z78D5ZrMxVWcQAVClwtv5/Cbfvjnndokc6bcmBfg
+                mjFolBw6T1RlYn2Z75/0ISmtZaxbMyr2IpYliRqK/xlhKwm2FbzYWBjgmgk5ll3uxbwFtYXbK5lqPbm7
+                K8uBIMlSl1dAPdtQcYxepC9Gblm0U/jvLC0m/OIYbWuhmUai/NoaBr5S5rUyEZCoD9NLpyZRGgrlthAa
+                FV4/L4EZzVC/IAvdmgp5/kGOrsn1SIyWMretB/+Yr1oKkwC2VHPVzwKQovxuYhur8c6lZhP0+UWQG+WU
+                WTUu1wRJZDkBeLpKxuJIvXT2vcVaQ6MYgsRNuwyyKHdXSBtWBLgmV5KxrgLat76PjUmT8sdD2WgPcI21
+                FT4DK4PCtTUhhYYmURoaeSJM5gNb/VAph3gGEYbDq1jQBiEU1eSa8CMd3ZR/Z142BD1G38DWRhaHo6FJ
+                lIZGGQXjygppQxC3iFnEsiuhfdWykNfgnyOq2mT+BC1GqhKDdRdoEqWhUU6Yugu0lSAHGVq3lfW9Xhf0
+                nNHQk0VDI2sMraK6bu1HPFTLgtCNv4vMqiCCHqRfN2pRUJVI6C7QJEpDo5ykY0AVLXSdRSy7ElAtwedW
+                gMUrhsooXQkIkr5gHRrViOW6C0oPneJAo6+gu4rqGiRANNfzyRoroH1BtmLHq+h5hQOQqMYKqeuoArSn
+                LxkR3kUdAByqwLq3oDYshERJXIOGJlEaGkVCEO16RIXUNYhbMVfTfbmDT0OoPFBeSFYR6bXwzwFlUDnH
+                2PQLcE1fcecFsdy0Ajdr8amRDxPX0Nga0IZ/XMrICtHCg2QnXpFj2eXeSRbkqI12qsud1xyARFXCDj6D
+                YEeDrO0jMiHIyQsj9TqpoUmUhoZKX+Bn3RiHv5WkFNgmwDW55h0aT3mD0gehzmfzQgfqeJJqwbKA/V5u
+                jMXfIraWykkMWmx0BiDrA9AH+2poEqWhwfIAi8P2lP+4kQiwg881Jv4HMWfCjmUmiqPwjw9aT3UFNwch
+                UTtQfivnFPzductQVtu+gBb8LbpDRC5oaGgSpdGnsRJ/600DsFuZ67k7/q6fdXmQjMmU97T3vQOSkmQV
+                ja3FKOuZF6ZS/uDyyfjHwS4M0JatBW3Apz7XRIGdtfjU0CRKQ0PttPHDkWWu42GoLNh+7cjVWhAGji1j
+                +4L075tVNq4+xT+4fCSwT5nreUSAaz7sYzIhyEHLh2vRqaFJlIYGvBDgmuMJFpNUDAwBTg1IMvI5A+90
+                ypMT6yBgvwDXPV9l46oNeCfAdT8oM4Ga5XNNHHi1j8mElwPMpUOAQ7X41HCDTnGg0ZfwJiouyuuYjuGo
+                Lc2nUNqt3hHgGmA7n+sSwFN53mtn4PfAuSVs32jgWvzPxFsIfFyFY+th4Difa/YHfgZcUeK62X3vh9XA
+                G32QRK1EbSrxMjb8CZhJ6c/XPAvlAk/5yI4/Au9pEa9JlIZGMTEPeAU42Oe6WcADwE9KtKhMAS4JsAiD
+                cj8Uok7noGJ0fk3uQepBcbiQtiCxJf+mOvMU/Qe1o9AvM/nvhNRcg4qlKiZCKAvUVcC2Aa6/n74TD2Wj
+                A3gIuMDnusmivFxUACUmCCYAFwNnBrg2DlyqxbsmURoaxUYKuCkAiQI4AHgJeBx4UYjLYpQlq1PKSmY5
+                1yKonXH1qF1qM1AurgMJngTzWgoXdH2SaNfPAE+jXDmfy8ISz/I+UWlfHSpAf1tgX+nr/QmWVqEHuKVK
+                x9Yy4BFgdgBicz5wAvCEjLE3pd+7pA+SZOeujaFi3erltb2MrcPlGQQlE3/vo3Lh70JW/A6S3gl4EhUW
+                8BwwB1gg8qBLnlk2mfbDDplQh7KC7yYyYRbBUyvchrLgamgSpaFRdDwmhOGQgIvTMfKyF5o1KJN+F8r9
+                kRRhuJ7Nky4ORGUeTwnBGCkL3AjU7rj6HOo+F7i3wP3RKGTqJPl/jRCCTfI+Lu1bIQu8jRGoxJkpIU3D
+                UDmImqR9uciWv1K9LgkLuFzGShBC3CSEyyZdG6W/18k4cx7rs4bN03M4+75eymqQRXekjLdc+v7dPioT
+                3gTuAM4OeP1X5IXMj9VpMqFL5kwbm++itec/9CZgbZDPRpJbepUNwJVarGsSpaFRKsSBC0WbzPaYlwZg
+                krxKjTaUy6G1yPdpojzZtd8CflXlY2uBjK07ciSzjSjXbqkxF/htH5cL/w18Gdgly9/FUIlUy5FM1QS+
+                ByzVYr180LvzNPoi5qN2qFVL7E0PKgj8pa30ecwDvkZ1ZSnPhDtRcTPVgvdQKS/W93GZsBblYp1XRXX+
+                HvBPLc41idLQKAf+LYvHpxVez9WogPN/bKXP4WXgKLaumI5rUBapSj8+5TUZW0u0OACRBcdR+TsU21Eb
+                Q27Sj0yTKA2NcuJFVFD3X8kv71Kx8CgqduvxrbDvO1E79g4BPtsK23cdKnFqJS7Ibaj4rZnAIi0GNsN8
+                6ZdrqMzjb16ROXOLflSaRGloVAJWAWegMmk/hf8hxcVGArVd/ijgaAqbQdqqkAX8H/TmTOrcykn6AcB5
+                wAcVUJ9WlLtxP9T2+Q49/TOO0Yukn+6i+HGIQfAeKmfUgfS9hKgVDR1YXpn9Xu6DSmM+xLuc5NvA+1iU
+                GMG206fjKXntC5wo2t7kErZrIcrFeD/wbB7lhH367iZ5fkeh8hWVCi+jtoXfmweh8HuufrvSQnn+Phd0
+                S5/finIVfVXG1vAS9v1rqK3595JfItOwz3eB5p0F1JkJkkbI8VgtIpZJVyia0+QNcO9cZNZ7qFi9HVHJ
+                dw8HvlTC57ZaZMK/UMlce/TSqUmUhsIm1NZXM8Nkby5z/Vahtui7WS5MyhvrEUdtwc9EpFaSn2tujrwa
+                UbmOviLEajxqN9/QPEmuhQriXSvteB1lefqIwgT3xuUeZoaF5hEhi79B7UQ6CNgTtT1+OPkfktuDChBf
+                LcTwVSGFnxVg3MQ95o0h9/SyttkpKjItsmuKOG4TwN3yGoXahTdTFuUm+WxQgfpntfT3c0KgFpG/1cmS
+                8k2XPjYc33mzMMtkYLydR5um8cOdTgYzCRgYhsH1H/4fs9bPZ1O0PhciZd87leHZ5pNbbR5q995VqJ25
+                e4tcmIRKTTC8AAR8k8iElcD7qBxiH7J5qguNCoRhWZbuhVJ3+uyHGlGZjVMZNLoNlHfn2BhUAjjTRVha
+                stiUyw0TEwtKKIMwTxSASLmhTha6JlROpCZZ9IbLXyvDwm7n/GkTcrrOISyL4U7ZReqTaUGbj/suuEHS
+                vhFCpMagchGNlrGQqX0bHKRwk7R1HbC8CM+gBhjroXx0Sx+bhGPsvnEhL7/2BzrCX/DtfvSmtbBcft8p
+                vy81+gtJbxLlZbT8HSOLs5WhvevltQGVrHOt1H9ZEepYA0yV+ec271KiCGR0fcXMJB3hGi6efAz3jNyd
+                9lh/MGWIhMIMjHdw/1s3cvDnH9ITqaU9XJMNmRoiYz+RQaauFzJUyAUvJOPRVkAGO+RDowfZj6PyrnWI
+                HFjvkAl5KdCNyxfoBVaTqD5BonQnaGgUE+4kSqMMUO67JD1GmON2P5sXmqZDohOsNI4djjKwu5UfLX2B
+                iR1rOWn121gYdERiWLk6+foYNIkqPbQ7T0NDQ0OjaKg1k8RDIU6cfjYvjJgK8VZcQ5hSCVpiDfxqyomQ
+                6OLmsfvxs0VPc9AGdbRjZziqqZQLQljEzCS1qYTuDE2iNDQ0NCoHFhC1TPolu9MWfoukEaY9UrOVtNOg
+                f7KblBGiMxzDKJDXK2YliYfCnDD9bJ4bsRskOvCMAbdMiLeDYTBn2I58dfgUZn7+MT9d8DgHbfhE4qUK
+                5z0xgIHJLtrDMRJGuKpImoVB/1Q3CSPEK4O35foJB/GwnrKaRGloaGhUwgJVZ8apMZMsrB/GPdvM7I3f
+                ATDCjOrawGmr3iRuhDdblUOWsgzEQxG6Q9GCLvrFwuBkJ7eP3pvh8TaOWPchyVAoLzeohVigjDDHTz+b
+                50dMFQIVtAALUuos32eG78o7A8bx4Fs3sM/Gz2iO1uVFdhQxTlGbStAZqeGKbQ7h2DVz2aZrfbZxWGUZ
+                l7VmgpiZJITF00N35LZxB/Bg0zSskF7ONYnS0NDQKBMMLCKmCQbUphJ8Vj+MO8fszd/G7cuq+mHKSvLF
+                xSFIdHL1xJmkDMfu+VCEiR1ruGjJ84zq2sROrSvoitSSCIUwLEiFQpg+y7QBRJzxQhZYhuFICZCDoLdM
+                DMtyLacx3sH/jNuXs3c7g5pkN0esnctFi59h702L6ArHiIfCWcck1ZpJkkaIk6efJQQqj30oiQ42Rus5
+                ao/zeOStGzlg/XxMIQzd4SjxUMS3T52oMxO0RWq4b9SXuGKbQ1gwcDz3jNqTx968njFdGzGlf1JGmM5w
+                dPPnK31Zn4oTskySRpjucJSQZRK1UsRDEVKEMI3CUrGQZVFjJqhL9vDewHGsrR3MNRMO4NlhO5EM10Ky
+                C0ztziuL3NCB5WXodB1YrqFRXIRj7LnhE15/9So2RBs8l1gLqDcTWBYsrx9CLBVnWV0jJ+xxLutrG5VF
+                xHTZIW8YEIq47FUzIBxlTOsK9mldwfErX2fPliV0h2to6m5mYLKLlkgdSSO0Rb0GJLsxgcX1Q/liM6wR
+                oi7Zw9juTTRH6wPbtWxrWn0yzoq6wXRE6qhPdjO2eyMmBslQmLBpcuvYfTh36jfF0mZBOAapOMeseZef
+                LH6G3VqWqW2m4ZqMVjX7XrWpBCFMmiMNnDj9TJ5pmp6dBcrnmQ7ubmbW+nnEQxEIRThz2Uvsv+ETaswk
+                rZFa3+dcYybpDkc5fvrZvDhiN0h2K/IRqWX7lmVMa11OTygCoShTW5Zw7tIXGR5vozlaT0OyhzAmq2oG
+                cc3Eg1kyYBS7bVjIt1e8wtqaAbzQuD0nrJ3LgEQH/ZNxqU/w9dXCoF+qB7BoD6vf2nVOGiH+NWJXHm2a
+                zn8GjmdNv5Gq3mZyM3Jv3X6MnvuaRGkSpaGhka/qHmZMdwuPvXEdU9pXq4XRw2oyd8AYbht3ALeP2QvD
+                TMpCGhHtPherggWhqCIkiS5qzARWOMbxK99g97blnLzqLUb2tNASqSNsmdSaCUxC3DF6BksahvGn8Qco
+                i4hlQSjChM7P+cHiZ/n6qjeoNZP0GBFiVpKkYVuJrC+sWFErpbiQZfJS43a8M3gifxu5B58MGs+kluWc
+                seIVuiO17Ni6gtZILbOnfUcRqM12yxkQqSWcinPaqjc4Y+l/2Lt5Md1f9KNB1EphYpAyQtSaCV5o3I7X
+                G7ejLtHJ48N35tmmaflZoNz61IhAJKaaa4CRSnLE5x9w1pL/cMTnH5IwQliGsUXSTjvBZ1coyrF7nMtL
+                w3aCRFfa84pBOPJF2VgmY9vXcsGS5zlz+RweHjGVxQ3DuXbc/myqHQyhMKTi1Ca7SBphkuEoNZbJYes+
+                4sylL3DY+o9JGmHiRpiYlSRhRHAy7pijvxNGmBozyYMjppIyQpyw5l2SRoioleLzWH+O3/0cXmncTo3J
+                VM8X+bW26CFNojSJ0iRKQ0OjMEQqSmNPCyN7WjxdYRHLZEXtIFrqhqiF9QtOUijZaPSWGY5BpJYDV7/F
+                JZ8+wj6bPqM5Ws+Tw3bh0kmH8NHA8WqhTHZtzgBCYTDCbN+2gp9/9jQz13/M/IYR/Ga7I/m8ZqAiQEaI
+                gYkOfrnwCfql4twydl8eb9qNtppB4u5JqrLDMTBChOJthE2TRDi2ZboBZ92jddR3NzOxa0NvP4aiXLDo
+                aZbUDeGRUXsQSXazpG4IHXWNiviZcSjVbrFILSS72alrA4etfZ9vL5/DlLZVtEXrvggWr0vF6QxHOX73
+                c3lh+C7ByV0oDOEY2zcv5dN+TRCpU325mWvX6H1OAJEaQqk4B6//mF8sfIJJnet5fPguXDNxpvSzQcxM
+                8MuFTzIw2UVnOMYl2x5BPBRhXsMILMNgStcGvrb8FWJmkmsnHcrK2kFfxIh50kxNojSJ0iRKQ0OjkBYp
+                gsQSmaYHkSgCwjEwU5yw+i1W1wzk5eG7CPFIepA3cR+Go+y4aRHzBoxRbbOsXpJmAHagu2W6WJicxYV6
+                r/MVWmEIhTYnds7fG2Xow/S2hMKKOHdt5NSVr3HhkucZ36Vcl8vqGjlj19N4cfjU3NyLoShYSdXXgesT
+                BTPB5PbVzB80UZHKzZ5TqNeaZPebI/noFyfVWCl3d7ImUZpEaRKloaHRhyWBsqJYJqTSUygEWNRNL8LV
+                V6Hcn4Si1Pe0ctHiZ+kKRbl24kEkwjVlCL42HG7hErRek6iSQ+/O27rwX8As1MGZt5PfeVGlxgjge6gj
+                MG4CPtGPU2OrX/C/cNtlGXdV3TuxzkUd0fIUFDq1kaGsOWaKzkgtl+x4nOKZqe4y9Zmld81t5QjpLqhm
+                NZYBqDPdAPYDHgJORp3UXukEqlbqb6DO47oN+IUQ++VV8gyGog4n3ksrJBpFQI3Mka1JTvdHnWF3oMir
+                g4rHX0wV45bsCu6Gy14Ga8OEJlEaVYrLRBi9ARwr5Oll4BD5W8nYBXgFZW26WQTqaOAi4DzKd7hxtovB
+                vcBLQqJSekhqFBCjgOeABcCjqAOiqx0XAB8ANwD3AE8Ap4kSVY24HPiO4/8bgBP00NUkSqOyEQEuBX4m
+                ZCkC3Af8B/gK8G4VEKjHUSfUPwGchTLvHw1cU0XPYTawM/AT4E/o4JStAdsAEyugHhOAZ4A9gUeAI4D7
+                UZbPal1nzgKuBeYDG4FfixLyfaor7MCJLuAWeVZvAd+Q9mn0sQVZo/SIycsEuuWvU+DUO963pS3QKeBV
+                WcTvFzJyINAu14fSyqsLQJYNoAdIBBgvtVKfpPwmvV01UsdM1qQeIYHvyOvf8ruVGa6vlfumRGjlIsBr
+                2dL07tbmWiAqn3X7lDkHOAx4O4/nb/k8k6SjHhHpWzfY48jy6MMoEHd5ZuVCVNrjNgcMoEHeh4FWaZtz
+                bqQ/O/s5hwKMZeecSDn6+H75f4b8zaZMHPWtdfnccmmn1zy7GlgqC/RjwLAMz7/GMZYy1dFubxjoILPV
+                1HC01w89DvJjj+dUhnFoAkuAbwFPS/lHA+tlTPrNEUPkW6axHZZrspER9fIbQ36TliTriz6Le9TxEmnX
+                DOmPs4G5AfrWkOdg5Th+7Ta7yYEuNDSJ6gP4Lspt1QacinLL2QL4VuDLssg8iTKBOyd4IzAJ2Bv4gQiy
+                TplYFwPfBBY5Jtv/ATv4CO8IcBXwF596/xfKjWgCLULk5jm+/7F8tgKY6aJhTgJOAaYB50j9NqIC4btE
+                M7XS6nUdysK2DOWqNAP28Qjpi/2AsdKfVtoifilwp0No/xkV4/S8aM6ZcDHKfWoJETyD7Nx5P0G5MZI+
+                z+QFGScp4Hjgv13ab8jCtRRlmfxfWZyci8Vfgd1RFsALK2QOnIvaSNAuc+Bjx3O5xTEH/iXjPAVMQVld
+                EavGnx3lTQb+AfSTMXO9yz0PB06S8WcTnWaUFfcvQtw+d4yTnWV81AN/RG148MOBUjdclJ9lwPsoV9Z7
+                HmUsRLmLb5S2fC6ko8Xl2mlSxxTwqcwvpwIzQ+rdgIo1PCFDOaDir+4GxvnMszDwG+Aux3i25c7J0qfp
+                i34TKv7ph1J2u8y5q+W3r6b95ufA12SOxERmPpN2zRjgnw4L3WfAVwMS+MeB4UJaHhXZZWOYyKKRqHCD
+                azz6YZaMyxTKVZlJqWpAbfbZWX73AMqbYGMicIe05RqZA+k4ThS3XeVZmWl1+RA4US+vmkT1BYwGthUh
+                W5e2OM+W90tEGDsX5/GiLe/uUXZD2sTaSwSYH4K4MYYC2zv+/4WQARtjhSgNdrH8zJAFcIxLuV+WRfUI
+                0eZ6HARhO3kNzKJ/d5J7Tfa5blwaGdlenssKnz44X0iavdDeCLyZRf12FGLrh1ZHPw6T32XCdFRs3BGy
+                4HY4NNwdpF2TKmgOjJI64bAuuc2BGxxzoN7RbyNdLAu7OcpOJ5pXC4F0s7LMAL4NrBJriemYS7vK+6aA
+                7Roki6obdpVF/jyUG+tvHuX8TBQle7xcIJaPdLwj1o8TpG/OFsJnKwZXydgAuNKDQNnkYh8hon4YmzaP
+                tpVnkL6m9BNif5xHWUNcPhufNkdOcSFRh4nS4yRrQWCgwgoaHcrd3SiXnN1vu8qzHO1RzmGiANj4oRBk
+                N6tZSOSRLZMuQu1MfNVR96ky5ppcfnsLm8df+cl+DU2itmrYFoi4Q1s9GviVQzs+WTRLJyG6xkGg5ovV
+                ap3jmrhouzZ6xKJiE5AJQnxqUW60OxzXzg1Q73Rry8miqc1xaVe6JnqTg0A9INaRDiE8F8vC902px58c
+                v01kKNNLQF7jEFbvixBf53JtutaYSPvrhpMcBMq+3zeyJFHXouLBQLljfiaL0Jo0jXi1o8+dfX8D8Hqa
+                Rv59qddBYrF7MMt2lRoplzlwHCpWxm77CWlzwPIYi5a0L+ry3bFizbLn1mXy7Gvlu+8IOd4oL2eZKZl7
+                QS2NTuvAnSj3lU0mTgEOkPl4pVg8l7qUMQk4Ku2zU2XctKZ9HhdyOEOIzc9QcVSfoay9+8l1t8mc80Ib
+                cLqDRO0o4zGK2kl3v+PaN33kmY1LHQRqtYzdZT7z0FmmjYPFOteWJn/S+yIo4mnr4C9kLNjPPZ6hHk55
+                PNtFeZuVNvfc5It9z58Cx6Tds8FlrJ3oIFBdKO/CHJe6bdJLqyZRfQ22r3+8WDPseJwzULvu3LRYm/Ds
+                R+Y4AacgetTx/3YiFGtR7oS/51F3S8bPxVIvL/P/wQ5t+GWxXtm++xdEqD4i/5+eRqKyxZ70bpteINri
+                6gI9r6jD8rZRyt1JiNVv2NyN5oU30p7vN4VENQd8Jk+i3FxO1DkISFOVzYN2Ifg30huHci7e8WbphDBT
+                rFdIxpRNcH4shMLG42Ll+y+UJfIoHwtRNngx7XneKdaHg+Wes9LqYuPb8jxtF9FUscrMSiMyNlZJu/6J
+                clH9BPidzE2AxShXsB96hCzZ2F3IZ1TGa7byYqwQR1CuvgPwtvJmIqUhKetAh5yYKMQRB9HNBR1CXL4K
+                HIrKXRUE28j1tpwZLuR4tgeJcsrliIy5mS4WtnSc73h/Tpryq1Fm6N155UUCZVL+m8NK8yOx1KRjD3q3
+                An8oQnh7x2sH0WC9tgv3p9c9VJOnFcEW/ocKUfHCNMf7B9ky+PFZh8VhW9xdfkExzaEcPCpEx3aFOftr
+                R5TbMRvsh3KPgopvsN0mw4Gv51hfpwsk6HxM1/ZjbO762FhFcyApFrS/Ocjfj/FPwtgkSoHzmRoZ+nea
+                w9LiNrfudrz/UgHbVueyYDtjXWa4/GYQKv4NVJzYdxzWl2973OtuIVGgLKOPSL8mUe7DVTnUv5+jT2tz
+                +P0O9FptlwjR2T7tNYXN3bnpWC5KVlgIh42jRZ6tIzsrcDoeFqIaEfJpECzu8gxHvb/vILcHo1yFfuTa
+                3kVt58bLdM8h9LpOl6E2GURl7O/g6MfJooxraBLV53A9KnAascBcl+E6Z8zS8TIJ33S83hKNZmKJxs3N
+                ct8Qyg1p745xw2jH4r88gwb8mcPaMzqPug13vLfL/IH0j7O/3kYFrmaD70o7O0UbvMPRntPzJKbZ4Kco
+                F6X9ep5e18Yqet2rhYaR9ipUmdeKlQJUDM91AX53VtrzvAN3y3pUSLS9ILe6XLPIMXYbi/zslmWY0zYO
+                cxDie2Wc2oTyEB+S9yOUe9COr7HlyxNlkm1NaQrIe2nPzJZbMzzKaJZ+sPumzvEe1KaAj/Oo4xLg/8n7
+                g1DuNT8L/2B680HNQ1kz/yFjqB4VV+eFxcAV8v4rwJEe9xyJCiK3f9ciBOoVl378OxqaRPVBOM3QXQGt
+                D3Uo0/EAx6sfKq6oFC5aA+W6+q38vxfKNN0Z8Lden4fJL0DScilzkAg3Z3/VZaldT6LXTfgeyi1RK1Y0
+                UJbC/Us0ZvYXa4P9+rJDyH6dzOki8sFQlPXtAdG67xFhXmg5FDRuqyZtDjQEGBOZDptzfm6VYO4425AO
+                ewFuRyXbHCAkKCFz+1SPslcDv3T8PxflZq6E9SXqIrOCzENL5liPjLedhFjYc+3OPJ9ZA8o6/rJDQRnm
+                Mw6PpHeTxhNiEZtPrzX9FLyTo/aX+fOS/P9jUf6SPvIsIv9HZT72Txv/A/RyqklUX4Ml2uNc+f8nsii6
+                wWmOv0M0zelprz0c1pdiow5lWra13F+lWYGcWOdYQMa6fB+h14XXw5aBp9nAaWmwd3/9ztFH5zq+N7Mo
+                9xR63X+7iPb3Pptvqf5Oifr+JYcl7DFHmwdQvHio/qjYrWNQAbgnsHmAfa5IyRx4zzEHglgIb04b+6dm
+                WIScuXPGZSBb2zqUmWInfhyeZpFwYg96rdI1Yt14DxWEbitHJ3vMM1AxPfa4fhXv3XjFxlrH+xdRO1mn
+                u7zm+MiZNxzj41hRZupFWXg9T8UxLHL4V/Ls7Z2a3R4k2CmjvyF1e9kh20bh7d63191fy733QbkH3ZTo
+                NkddxqEspZ+gdqJOl/rOd8wljRJDB5aXFzGUi+Fc0TrrUOb3j9gyqPYdx/sdZAEvJ+xF57ci+Kehgi3d
+                MNfxfiZq95yZZlmZ4iBc+Zyd9z69gZuzRPtd6bDO5KI41KcJzn64bwM/XJ5NsQ9P/gO9Abag4tLuQcVP
+                /EkWpUJbozai4jfqHeRkaQHKrUG5VM5BuWZiwP+g3CRzPX63nM2z8/dksEi0yyJ8hJDgE9kyH9pxDgvR
+                xwXsM7dg99Md79OzW3/DYZ2K4h7j0oTayHCDh0ypFPm+REhAfyEA61A5r7KVMxtRuxz3lLE+S757Wsos
+                hBv9eZTb8GuoQO5M1q29UXFPNobinkn+66i4Ua8dgy/IvD0ZFZBuZVCeV6Ksb2Pl3nezeZ6xFjQ0ierD
+                lqj+wGuorcC/E2vCHUIsNjiufU+u20u0j8dRye420JvNuUe0z/YStuE1VEDrt8lswn4OZereXoTgn1GB
+                xC3y2eUOcnMX+WXVfkUW4F1Qpv97ZdG0cy5Ny6HMr9KbH+sDeVZJerOKfxcVr9IfFa92WZH7vNbF+vCa
+                1KFJLCuFJlEtRWqXcw5cjtpF1k/Gx0wy73iMulgsMlm67hQSZcg9TFFSIigL40kO0vN4Ads2XYg1YgGb
+                RW8sTYLNd2UNoTeuLYGK41sl8yIpVirbVXeaWOIq/biUT1E7SU9E7b58GpXqZBW9mcijQvrX+yib9wuJ
+                d+bIu8dhHSoELkcFrHvlpDs9TVbd47h/FPi9kN99RE6/5HPPS2Rs9s/wfVJk2B7y/3Uoq/0nMo6jVO9x
+                QJpEaeSMkKP/7Ql4pUy8I8Qqc7sIXFuT6UTtsnlQtLrDHQLaRqtoSpm0aYPsd4K51TtdcF2OcvM0ZhhX
+                LWJts60lZ6FiP7rZ3I//MlumNwhnOVZ7ULtlHpSyZzk0V6/2OO8VTpsjzl1RtzqEt41NQmBAJTu8AfcA
+                Zi9tO/2+QfveqfXbGJdD+eWcA/b7y2QOzES5q28TghN3aXcoi7F9Hyog+4eoeJe/0ntMktOydiGbW3gN
+                R58FnS/OOp4tLzfcypZpLoY7rCI3pl3/b5EHk2VxPpjM2/FDeczxXORFKMMctYT47Iqy0O6GsjKm41B6
+                82mllxkWojBPFMnd5PNlojDlOr7d2vUByhPwswzjbLyD6HaJ0vthWrlTUdnWAc5MI1Fu9fxIlLzve4zt
+                m1DpHQ6TMfIHHzmiUQZBplFadKJ2nWxwaJNJlBl5oZCOQ1DHYjjxjhCC60WTbkGZy+3XJrz94km5ZzO9
+                Ga2zQbf8tjlNC14o5Mf+bmMGa9SBUveFom3XSL3fQeW0OdpFI231KBMPy9cssUAskjLsPmp11LPLhew1
+                pxGgyaIFNku973G536uyCDSLFntolpaYFkedgvS9m4tggeP7kWnlb0AFHW+q8DkQF9KxQPrk0LQ5kHS0
+                sdNjbLt9d5FYcB6WfrDJ2wYhWUey5VEbSRl3bmVmQtxRx/RxtwHlsjw/bdGsF+XJHgc3Z+ivfzrKzXS8
+                iSnty3WOO5Hw6FMnOhxz1HIZl4egdqO9LXVrS3slPcpsFnLQI8/J/uwOxzxtCzB/0rExQx/ZhyS7jbOj
+                ZNw0o2JBP3Qp9y8oK3AzasPHKMc8tMtsS/vNZaL4Zhrb7Sg340+FeG9I67+WHNqvUSAYlqUPny95p89+
+                yD401BaOTuJT59CSwh4Twz7sN31B7iRzwHTYoXn7HbLrhii9rqQOtjw0tp+jHl4uxTqpf4Nc103m2IF6
+                eoM/c3FT1nlYsXrS7mvfy3mAckzKMPE+WNl+Hob0bdCDQO3DTsNyj44Afd/lsvA4v3fW0w7mnygkcGWF
+                TINc5oBz/KYfpuz1XTr6y/0jMqbaA8yXoIc3R8jsWrTY8rBbW5nt5yAg7fJ+pLyWysLprA8ui3H6PMxl
+                jufSfvuAa4stD9b1k1mZxrNdpinjw0rrW+dv7PFiZkEc+znmaneGe6e3u8FheOgm8w4++zr7cOOEvK+n
+                1z3b5XHPHg95GHXImS0ItHX7MR1oaBLVB0iU7gSNUuIclKXwHAqXjVuj+LgKFRt1Hu4H0mpobM7Sbz9G
+                d0KJ8f8HAB9sJe1+OCpQAAAAAElFTkSuQmCC
+</property>
+        </structure>
+    </list-property>
+</report>

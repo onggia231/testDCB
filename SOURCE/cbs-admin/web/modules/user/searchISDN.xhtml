@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <p:panel header="#{PP_SEARCHISDN.header}" styleClass="box-primary">
+                <p:focus context="pnSearchIsdn"/>
+                <h:panelGroup id="pnSearchIsdn">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="ui-material">
+                                <p:outputLabel for="search_isdn" value="#{PP_SEARCHISDN.isdn}"/>
+                                <p:inputText id="search_isdn" value="#{updateISDNController.isdn}"
+                                             maxlength="20" required="true"
+                                             requiredMessage="#{PP_SEARCHISDN.isdn}#{PP_COMMONS.can_not_be_empty}">
+<!--                                    <p:keyFilter regEx="/[\d\-]/"/>-->
+                                </p:inputText>
+                                <p:message for="search_isdn"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <center>
+                    <p:commandButton icon="fa fa-search" process="@this :form_main:pnSearchIsdn"
+                                     update=":form_main:pnSearchIsdn :form_main:pnInfoIsdn :form_main:pnInfoISDNTrans"
+                                     actionListener="#{updateISDNController.handleSearchISDN()}"
+                                     value="#{PP_COMMONS.search}"
+                                     styleClass="btn-primary" style="width:auto"/>
+                </center>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

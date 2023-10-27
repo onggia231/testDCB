@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                    <p:panel header="#{PP_SYSTEMLOG.folder}" styleClass="box-primary">
+                        <p:dataTable id="table_app" widgetVar="tableApp" value="#{systemLogController.mlistFolder}" var="folder"
+                                     selectionMode="single" selection="#{systemLogController.mselectedFolder}" rowKey="#{folder.path}"
+                                     emptyMessage="#{PP_COMMONS.empty_message}" styleClass="no-border">
+
+                            <p:ajax process="@this" event="rowSelect" listener="#{systemLogController.onFolderSelect()}" update=":form_main:table_file" oncomplete="clearFilters('tableFile')"/>
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column>
+                                #{folder.path}
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+
+                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                    <p:panel header="#{PP_SYSTEMLOG.file}" styleClass="box-info">
+                        <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_file" widgetVar="tableFile" filterDelay="500"
+                                     value="#{systemLogController.mlistFile}" var="file" emptyMessage="#{PP_COMMONS.empty_message}"
+                                     paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,50,#{systemLogController.mlistFile.size()}" styleClass="no-border">
+
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column style="width: 40px;">
+                                <p:commandLink value="" actionListener="#{systemLogController.viewFile(file)}" process="@this" update=":form_main:dlg_last_lines" styleClass="fa fa-eye" />
+                            </p:column>
+                            <p:column headerText="#{PP_SYSTEMLOG.file_name}" filterBy="#{file.name}" filterMatchMode="contains">
+                                #{file.name}
+                            </p:column>
+                            <p:column headerText="#{PP_SYSTEMLOG.file_size}" filterBy="#{systemLogController.getFileSize(file)}" filterMatchMode="contains">
+                                #{systemLogController.getFileSize(file)}
+                            </p:column>
+                            <p:column style="width: 40px;">
+                                <p:commandLink value="" styleClass="fa fa-download" ajax="false" onclick="PrimeFaces.monitorDownload(downloadStart, downloadStop);">
+                                    <p:fileDownload value="#{systemLogController.getFile(file)}"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+            </div>
+
+            <p:dialog id="dlg_last_lines" widgetVar="dlgLastLines" appendTo=":form_main" modal="true" header="#{PP_SYSTEMLOG.last_lines}" width="1000" height="600" draggable="true" resizable="false" responsive="true" closable="true" closeOnEscape="true" visible="false" styleClass="box-info" fitViewport="true">
+                <h:outputText id="result" value="#{systemLogController.mstrContent}" escape="false"/>
+            </p:dialog>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

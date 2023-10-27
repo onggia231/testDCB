@@ -1,0 +1,135 @@
+/* CSS Document */
+/*Report and Page Style*/
+.report
+{
+    font-family: "Times New Roman";
+    font-size: 12pt;
+}
+.page
+{
+
+}
+/*Data and Text Style*/
+.data
+{
+
+}
+.text
+{
+
+}
+
+.reportTitle {
+    font-size: 16pt;
+    font-weight: bold;
+    text-align:center;
+}
+
+/*Table-Style*/
+.table
+{
+
+}
+.table-cell{
+    border:1px solid black;
+    padding:3px;
+}
+.table-header {
+    font-weight: bold;
+    background-color: #FFFF80;
+}
+
+.table-header-cell{
+    text-align: center;
+    background-color: #FFFF80;
+
+}
+.table-footer {
+
+}
+.table-footer-cell{
+
+}
+.table-detail{
+
+}
+.table-detail-cell{
+
+
+}
+/*CrossTab Style*/
+.crosstab
+{
+}
+.crosstab-header
+{
+    background-color:#09F;
+}
+.crosstab-cell
+{
+    border:1px solid black;
+    padding:3px;	
+}
+.crosstab-column-header
+{
+    background:#FFFF80;
+}
+.crosstab-row-header
+{
+    background:#FFFF80;
+}
+.crosstab-row-grand-total
+{
+    font-weight:bold;
+}
+.crosstab-column-grand-total
+{
+    font-weight:bold;
+}
+.crosstab-row-sub-total
+{
+    font-weight:bold;
+}
+.crosstab-column-sub-total
+{
+    font-weight:bold;
+}
+/*Header and Content Style*/
+.reportHeader1 {
+    font-size: 13pt;
+    text-align:center;
+}
+.reportHeader2 {
+    font-size: 13pt;
+    font-weight: bold;
+    text-align:center;
+}
+.reportFooter1 {
+    font-size: 13pt;
+    font-weight: bold;
+    text-align:center;
+}
+.reportFooter2 {
+    font-size: 13pt;
+    text-align:center;
+}
+.reportFooter3 {
+    font-size: 13pt;
+    font-style: italic;	
+    text-align:center;
+}
+.reportHeaderDate {
+    font-size: 13pt;
+    font-style: italic;	
+}
+.center
+{
+    text-align:center;
+}
+.grid {
+    text-align: center;
+}
+
+
+
+

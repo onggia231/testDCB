@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jetty-all-9.4.24.v20191120-uber">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jetty-all-9.4.24.v20191120-uber/jetty-all-9.4.24.v20191120-osgi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-all-9.4.24.v20191120-uber/jetty-http-spi-9.4.24.v20191120.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

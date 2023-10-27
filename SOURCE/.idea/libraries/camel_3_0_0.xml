@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="camel-3.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-api-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-base-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-bean-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-bean-validator-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-beanio-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-core-engine-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-core-xml-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-direct-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-directvm-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-jaxp-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-language-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-management-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-management-api-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-support-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-util-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/spi-annotations-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-mock-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/camel-3.0.0/camel-test-3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

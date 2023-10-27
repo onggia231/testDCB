@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <p:focus context="pnl_change_pwd" />
+            <p:panel id="pnl_change_pwd" header="#{PP_MNGGROUP.change_password}" styleClass="box-primary">
+                <div class="ui-g">
+                    <ui:repeat value="#{centerProcess.mlistMessage}" var="message">
+                        <div class="ui-g-12">
+                            <div class="material">
+                                <p:staticMessage severity="info" detail="#{message}"/>
+                            </div>
+                        </div>
+                    </ui:repeat>
+
+                    <div class="ui-g-12">
+                        <div class="material">
+                            <p:outputLabel for="oldPassword" value="#{PP_MNGGROUP.old_password}"/>
+                            <p:password value="#{systemUserController.mstrOldPassword}" required="true"  id="oldPassword"/>
+                            <p:message for="oldPassword" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="material">
+                            <p:outputLabel for="newPassword" value="#{PP_MNGGROUP.new_password}"/>
+                            <p:password value="#{systemUserController.mstrNewPassword}" required="true"  id="newPassword"/>
+                            <p:message for="newPassword" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="material">
+                            <p:outputLabel for="rePassword" value="#{PP_MNGGROUP.re_new_password}"/>
+                            <p:password value="#{systemUserController.mstrConfirmPassword}" required="true"  id="rePassword"/>
+                            <p:message for="rePassword" />
+                        </div>
+                    </div>
+                </div>
+
+                <p:commandButton actionListener="#{systemUserController.handChangePassword()}" icon="fa fa-key" process="@form" id="changePwdButton" value="#{PP_MNGGROUP.change_password}" update="@form" styleClass="btn-danger"/>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

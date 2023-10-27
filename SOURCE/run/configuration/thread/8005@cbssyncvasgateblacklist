@@ -1,0 +1,23 @@
+ThreadName==CBS Sync Vasgate Black List .
+ClassName==com.telsoft.cbs.modules.selfcare.subsriberSync.CbsVasgateBlackListSyncThread
+StartupType==2
+Parameter
+	LogDir==log/CbsVasgateBlackListSyncThread
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+	List code==VASGATE-BLACKLIST
+	Store code==GPLAY
+	File Directory==../file/BlackList/
+	Back Up File Path==../file/BlackList/BlackListBackUp
+	Error File Path==../file/BlackList/BlackListError
+	Re-build index after sync==N
+	Wildcard==blacklistfolder1.txt
+	Date format==yyyy-MM-dd HH:mm:ss
+Status==2
+Schedule

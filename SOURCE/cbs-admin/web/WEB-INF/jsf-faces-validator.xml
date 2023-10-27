@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <validator> 
+        <validator-id>ValidatorUserName</validator-id> 
+        <validator-class>com.faplib.lib.validator.ValidatorUserName</validator-class> 
+    </validator>   
+    <validator> 
+        <validator-id>ValidatorUserEmail</validator-id> 
+        <validator-class>com.faplib.lib.validator.ValidatorUserEmail</validator-class> 
+    </validator>       
+    <validator> 
+        <validator-id>ValidatorNumber</validator-id> 
+        <validator-class>com.faplib.lib.validator.ValidatorNumber</validator-class> 
+    </validator>         
+    <validator> 
+        <validator-id>ValidatorAlphaNum</validator-id> 
+        <validator-class>com.faplib.lib.validator.ValidatorAlphaNum</validator-class> 
+    </validator>
+    <validator>
+        <validator-id>ValidatorTime</validator-id>
+        <validator-class>com.faplib.lib.validator.ValidatorTime</validator-class>
+    </validator>
+</faces-config>

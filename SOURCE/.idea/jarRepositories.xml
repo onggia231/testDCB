@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="handchina-rdc" />
+      <option name="name" value="HandChina RDC Repository" />
+      <option name="url" value="http://nexus.saas.hand-china.com/content/repositories/rdc/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="atlassian-3rdparty" />
+      <option name="name" value="Atlassian 3rdParty Repository" />
+      <option name="url" value="https://packages.atlassian.com/maven-3rdparty/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-redhat" />
+      <option name="name" value="Redhat GA Repository" />
+      <option name="url" value="https://maven.repository.redhat.com/ga/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="captcha" />
+      <option name="name" value="BotDetect Captcha Repository" />
+      <option name="url" value="https://git.captcha.com/botdetect-java-captcha.git/blob_plain/HEAD:/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="handchina-rdc" />
+      <option name="name" value="HandChina RDC Repository" />
+      <option name="url" value="https://nexus.saas.hand-china.com/content/repositories/rdc/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+  </component>
+</project>

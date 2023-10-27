@@ -1,0 +1,60 @@
+# Global config
+EncryptAlgorithm==SHA
+AuthenticationCacheDuration==7200
+DateFormat==dd/MM/yyyy
+ReloadTime==30
+TimeZone
+	Offset==25200000
+	Description==Asia/Saigon
+
+SystemProperties
+	mail.smtp.auth==true
+	com.telsoft.database.Database==0
+
+# Thread config
+ActionLog==log/general/action.log
+
+PortID==9103
+MaxConnectionAllowed==5
+
+# Number of second while gateway wait before check configuration change
+SynchronizeInterval==7200
+
+AppName==CarrierBilling
+Domain==CBS
+DetailPermission==0
+
+Factory
+	SessionLoggerClass==telsoft.gateway.core.gw.AsyncSessionLogger
+	DBPoolClass==telsoft.gateway.core.component.DBPoolerv2
+	AuthenticatorClass==telsoft.gateway.core.component.CachedGatewayAuthenticator
+EventChilds
+	telsoft.gateway.subsystem.management.GatewayEvent
+MaxQueueSize==101
+
+DBCacheGroup==CACHED
+DBDefaultGroup==DEFAULT
+Connection
+	INGW_MAIN
+		Url==jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.10.154) (PORT=1521))(CONNECT_DATA=(SERVICE_NAME=cbs)))
+		Driver==oracle.jdbc.driver.OracleDriver
+		UserName==CBS
+		Password==cbs
+		Validate==1
+		Priority==99
+		Group==DEFAULT,CACHED
+
+# Sequence definition
+Sequence
+	Folder==sequence/
+	Definition
+		Request
+			Source==request.seq
+			DB==0
+			Initial==1
+			Increment==1
+		Session
+			Source==session.seq
+			DB==0
+			Initial==1
+			Increment==1

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route customId="false" id="ACCOUNT_PROFILE">
+        <from customId="false" uri="direct:ACCOUNT_PROFILE"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <to customId="false" uri="cbs-check-input:?country-code=84&amp;min-isdn-length=9&amp;max-isdn-length=9"/>
+        <setBody customId="false">
+            <simple>&lt;cp_request&gt;
+                &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;/cp_request&gt;
+            </simple>
+        </setBody>
+        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result-account-profile"/>
+            </when>
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result:?code=105"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="false" id="CHECK_ELIGIBILITY">
+        <from customId="false" uri="direct:CHECK_ELIGIBILITY"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <to customId="false" uri="cbs-check-input:?country-code=84&amp;min-isdn-length=9&amp;max-isdn-length=9"/>
+        <setBody customId="false">
+            <simple>&lt;cp_request&gt;
+                &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;/cp_request&gt;
+            </simple>
+        </setBody>
+        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result:?code=0"/>
+            </when>
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result:?code=105"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=104"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="false" id="PAYMENT_STATUS">
+        <from customId="false" uri="direct:PAYMENT_STATUS"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <process customId="false" ref="generateId"/>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <process customId="false" ref="id_checkInput"/>
+    </route>
+    <route customId="false" id="REFUND">
+        <description/>
+        <from customId="false" uri="direct:REFUND"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <process customId="false" ref="generateId"/>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <process customId="false" ref="id_checkInput"/>
+    </route>
+    <route customId="false" id="SUBMIT_MT">
+        <from customId="false" uri="direct:SUBMIT_MT"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <process customId="false" ref="generateId"/>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <process customId="false" ref="id_checkInput"/>
+    </route>
+    <route customId="false" id="SUBSCRIBER_LOOKUP">
+        <from customId="false" uri="direct:SUBSCRIBER_LOOKUP"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <to customId="false" uri="cbs-check-input:?country-code=84&amp;min-isdn-length=9&amp;max-isdn-length=9"/>
+        <setBody customId="false">
+            <simple>&lt;cp_request&gt;
+                &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;/cp_request&gt;
+            </simple>
+        </setBody>
+        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result:?code=0"/>
+            </when>
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <to customId="false" uri="cbs-result:?code=105"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=104"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="false" id="CHARGE">
+        <from customId="false" uri="direct:CHARGE"/>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+        </onException>
+        <process customId="false" ref="generateId"/>
+        <log customId="false" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body} from Boku"/>
+        <process customId="false" ref="id_checkInput"/>
+        <process customId="false" ref="id_checkAccountStatus"/>
+        <process customId="false" ref="Id_checkBlacklist"/>
+        <process customId="false" ref="Id_checkRevenue"/>
+        <process customId="false" ref="id_checkTransactionLimits"/>
+        <setBody customId="false">
+            <simple>&lt;cp_request&gt; &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt; &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;&lt;/cp_request&gt;
+            </simple>
+        </setBody>
+        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                <setBody customId="false">
+                    <description/>
+                    <simple>command=debit,msisdn=${exchangeProperty.msisdn},amount=${exchangeProperty.amount}</simple>
+                </setBody>
+                <to customId="false" uri="queue:?id=CPS_DIAMETER"/>
+                <choice customId="false">
+                    <when customId="false">
+                        <simple>${body} contains "result=0"</simple>
+                        <process customId="false" ref="id_resultOk"/>
+                    </when>
+                    <otherwise customId="false">
+                        <process customId="false" ref="id_result_cannot_charge"/>
+                    </otherwise>
+                </choice>
+            </when>
+            <otherwise customId="false">
+                <process customId="false" ref="id_result_unknownSubscriber"/>
+            </otherwise>
+        </choice>
+    </route>
+</routes>

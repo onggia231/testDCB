@@ -1,0 +1,96 @@
+
+POST http://{{cbs_host}}:{{cbs_port}}{{cbs_path}}/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>SUBMIT_MO</name>
+    <isdn>931040219</isdn>
+    <store_code>GPLAY</store_code>
+    <transaction_id>sm_20210310160000_vt_02</transaction_id>
+    <source>google-app-01</source>
+    <parameter key="client_request_id">sm_20210310160000_vt_02</parameter>
+    <parameter key="isdn">931040219</parameter>
+    <parameter key="content">Test content</paracmeter>
+    <parameter key="channel_type">API</parameter>
+    <parameter key="short_code">9236</parameter>
+</request>
+
+###
+
+POST http://10.11.10.143:9696/fortumoclient/fortumoclient
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>SUBMIT_MO</name>
+    <transaction_id>1234567890123456</transaction_id>
+    <isdn>84936190294</isdn>
+    <parameter key="short_code">GPLAcY</parameter>
+    <parameter key="content">asdasdasdasdsadsadasdas</parameter>
+</request>
+
+###
+POST http://10.11.10.143:8005/fortumoclient/fortumoclient
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>ACCOUNT_CHANGE</name>
+    <transaction_id>1234567890123456</transaction_id>
+    <isdn>84904123123</isdn>
+</request>
+
+###
+
+POST http://mpay.mobifone.vn/checktrucloiapi/services/check
+Content-Type:application/json
+Accept:application/json
+
+{
+  "gamelistId": "0",
+  "hashstring": "bf7c23463b88d7023609abd8aba43f2071ea825c9b870fcddbbbf0a3b2a824eb",
+  "money": "0",
+  "msisdn": "0",
+  "partner_id": "000042",
+  "subId": "0"
+}
+
+
+###
+
+POST http://10.54.18.102/checktrucloiapi/services/check
+Content-Type:application/json
+Accept:application/json
+
+{
+  "gamelistId": "0",
+  "hashstring": "bf7c23463b88d7023609abd8aba43f2071ea825c9b870fcddbbbf0a3b2a824eb",
+  "money": "0",
+  "msisdn": "0",
+  "partner_id": "000042",
+  "subId": "0"
+}
+
+###
+
+POST http://localhost:8888/cbs/execute
+Content-Type:  application/xml; charset=UTF-8
+X-Forwarded-For: 10.10.10.1
+
+<request>
+    <name>CHARGE</name>
+    <isdn>84940000575</isdn>
+    <store_code>GPLAY</store_code>
+    <transaction_id>g1651681513206193228237396369794161020323</transaction_id>
+    <source>google-api-01</source>
+    <parameter key="store_transaction_id">g1651681513206193228237396369794161020323</parameter>
+    <parameter key="client_request_id">g1651681513206193228237396369794161020323</parameter>
+    <parameter key="purchase_time">20210305000010</parameter>
+    <parameter key="msisdn">84940000575</parameter>
+    <parameter key="content">GOOGLE - Book 1</parameter>
+    <parameter key="amount">100</parameter>
+    <parameter key="channel_type">API</parameter>
+</request>
+
+###

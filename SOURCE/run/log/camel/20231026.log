@@ -1,0 +1,733 @@
+26/10 14:52:10 Camel Thread started
+26/10 14:52:12 Start init detach response threads
+26/10 14:52:12 Receipt Thread 3 start
+26/10 14:52:12 Receipt Thread 1 start
+26/10 14:52:12 Receipt Thread 2 start
+26/10 14:52:12 [4]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 14:52:12 [3]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 14:52:12 [5]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 14:52:12 [6]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 14:52:12 [7]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 14:52:12 [6]Connected to server [CAMEL]
+26/10 14:52:12 [5]Connected to server [CAMEL]
+26/10 14:52:12 [4]Connected to server [CAMEL]
+26/10 14:52:12 [3]Connected to server [CAMEL]
+26/10 14:52:12 [7]Connected to server [CAMEL]
+26/10 14:54:11 [7]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_51,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_51,client_request_id=g00000000000000000000000000000000000000051_51,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 14:54:12 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_ITUNE      |CHARGE_ITUNE      |                                                                              |       222
+CHARGE_ITUNE      | onCompletion9    |onCompletion                                                                  |         3
+CHARGE_ITUNE      | to179            |cbs-generate-id                                                               |        17
+CHARGE_ITUNE      | log9             |log                                                                           |         1
+CHARGE_ITUNE      | to180            |cbs-extract-input                                                             |         1
+CHARGE_ITUNE      | to181            |cbs-request-insert                                                            |         7
+CHARGE_ITUNE      | to182            |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|        17
+CHARGE_ITUNE      | to183            |cbs-check-subscriber-status                                                   |         9
+CHARGE_ITUNE      | to184            |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         1
+CHARGE_ITUNE      | to185            |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_ITUNE      | to186            |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |         7
+CHARGE_ITUNE      | to187            |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         1
+CHARGE_ITUNE      | to188            |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |         6
+CHARGE_ITUNE      | choice46         |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|        45
+CHARGE_ITUNE      | setBody10        |setBody[simple{<cp_request>
+                <user_id type="MSISDN">${exchangeP|         4
+CHARGE_ITUNE      | to191            |queue:?id=CPS_RTEC                                                            |        18
+CHARGE_ITUNE      | to192            |cbs-read-ppm-display-result                                                   |         4
+CHARGE_ITUNE      | choice47         |when[simple{${exchangeProperty.sub_delta_active_date} < 90}]choice[]          |         1
+CHARGE_ITUNE      | to194            |cbs-content-classify                                                          |         0
+CHARGE_ITUNE      | to195            |cbs-build-cps-info                                                            |        11
+CHARGE_ITUNE      | to196            |cbs-check-limitation                                                          |        46
+CHARGE_ITUNE      |  to167           |cbs-exception                                                                 |         0
+CHARGE_ITUNE      |  choice39        |when[simple{${exchangeProperty.CBMsgContext.getProperty('map_full_request')[ex|         4
+CHARGE_ITUNE      |  stop11          |stop                                                                          |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-1
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 14:54:11 ICT 2023, CamelErrorHandlerHandled=false, CamelExternalRedelivered=false, CamelFailureEndpoint=cbs-exception, CamelFailureHandled=true, CamelFailureRouteId=CHARGE_ITUNE, CamelFatalFallbackErrorHandler=[], CamelRouteStop=true, CamelToEndpoint=cbs-exception, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_51,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_51,client_request_id=g00000000000000000000000000000000000000051_51,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4161,4161,84940000575,26/10/2023 02:54:11,237, cbs_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_51, client_transaction_id=g00000000000000000000000000000000000000051_51, command=CHARGE, content_description=Film, cps_cpid=001, cps_shortcode=333, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_51, cps_spid=001, exception_message=USER_UNKNOWN, content_type=0000000001, cps_shortcode=333, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 14:54:11 ICT 2023, sub_delta_active_date=180, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_51-20231026145411-5500-0000000001, sub_id=190702, cps_contentid=0000080189, cbs_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=001, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_51, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_51, sub_delta_active_date=180, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=USER_UNKNOWN,cbs_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161})
+]
+
+26/10 14:54:12 [7]RESPONSE:CBResponse(command=CHARGE, parameters={code=USER_UNKNOWN,cbs_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161})
+26/10 14:54:33 [5]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 14:54:33 [5]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_ITUNE      |CHARGE_ITUNE      |                                                                              |       283
+CHARGE_ITUNE      | onCompletion9    |onCompletion                                                                  |         0
+CHARGE_ITUNE      | to179            |cbs-generate-id                                                               |         1
+CHARGE_ITUNE      | log9             |log                                                                           |         0
+CHARGE_ITUNE      | to180            |cbs-extract-input                                                             |         0
+CHARGE_ITUNE      | to181            |cbs-request-insert                                                            |        38
+CHARGE_ITUNE      | to182            |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|         9
+CHARGE_ITUNE      | to183            |cbs-check-subscriber-status                                                   |        28
+CHARGE_ITUNE      | to184            |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         0
+CHARGE_ITUNE      | to185            |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_ITUNE      | to186            |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |        37
+CHARGE_ITUNE      | to187            |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_ITUNE      | to188            |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |        41
+CHARGE_ITUNE      | choice46         |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|         1
+CHARGE_ITUNE      | setBody10        |setBody[simple{<cp_request>
+                <user_id type="MSISDN">${exchangeP|         4
+CHARGE_ITUNE      | to191            |queue:?id=CPS_RTEC                                                            |        22
+CHARGE_ITUNE      | to192            |cbs-read-ppm-display-result                                                   |         2
+CHARGE_ITUNE      | choice47         |when[simple{${exchangeProperty.sub_delta_active_date} < 90}]choice[]          |         0
+CHARGE_ITUNE      | to194            |cbs-content-classify                                                          |         0
+CHARGE_ITUNE      | to195            |cbs-build-cps-info                                                            |        46
+CHARGE_ITUNE      | to196            |cbs-check-limitation                                                          |        46
+CHARGE_ITUNE      |  to167           |cbs-exception                                                                 |         0
+CHARGE_ITUNE      |  choice39        |when[simple{${exchangeProperty.CBMsgContext.getProperty('map_full_request')[ex|         1
+CHARGE_ITUNE      |  stop11          |stop                                                                          |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-5
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 14:54:33 ICT 2023, CamelErrorHandlerHandled=false, CamelExternalRedelivered=false, CamelFailureEndpoint=cbs-exception, CamelFailureHandled=true, CamelFailureRouteId=CHARGE_ITUNE, CamelFatalFallbackErrorHandler=[], CamelRouteStop=true, CamelToEndpoint=cbs-exception, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4162,4162,84940000575,26/10/2023 02:54:33,290, cbs_transaction_id=24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_52, client_transaction_id=g00000000000000000000000000000000000000051_52, command=CHARGE, content_description=Film, cps_cpid=001, cps_shortcode=333, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_52, cps_spid=001, exception_message=USER_UNKNOWN, content_type=0000000001, cps_shortcode=333, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 14:54:33 ICT 2023, sub_delta_active_date=180, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_52-20231026145433-5500-0000000001, sub_id=190702, cps_contentid=0000080190, cbs_transaction_id=24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=001, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_52, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_52, sub_delta_active_date=180, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=USER_UNKNOWN,cbs_transaction_id=24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162})
+]
+
+26/10 14:54:33 [5]RESPONSE:CBResponse(command=CHARGE, parameters={code=USER_UNKNOWN,cbs_transaction_id=24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162})
+26/10 14:54:47 [6]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_51,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_51,client_request_id=g00000000000000000000000000000000000000051_51,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 14:54:47 [6]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_ITUNE      |REFUND_ITUNE      |                                                                              |       177
+REFUND_ITUNE      | onCompletion10   |onCompletion                                                                  |         0
+REFUND_ITUNE      | to228            |cbs-generate-id                                                               |         0
+REFUND_ITUNE      | log10            |log                                                                           |         0
+REFUND_ITUNE      | to229            |cbs-extract-input                                                             |         0
+REFUND_ITUNE      | to230            |cbs-request-insert                                                            |        40
+REFUND_ITUNE      | to231            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|        30
+REFUND_ITUNE      | to232            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |        34
+REFUND_ITUNE      | choice58         |when[simple{${exchangeProperty.payment_amount} < ${exchangeProperty.amount}}]c|         3
+REFUND_ITUNE      |   to235          |cbs-result:?code=OK                                                           |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-9
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 14:54:47 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_51,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_51,client_request_id=g00000000000000000000000000000000000000051_51,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4163,4163,84940000575,26/10/2023 02:54:47,183, cbs_transaction_id=26iCQjsozZ7iyrKg7YkSDzBF4FF4163, client_request_id=g00000000000000000000000000000000000000051_51, client_transaction_id=g00000000000000000000000000000000000000051_51, command=REFUND, content_description=Film, cps_contentid=0000080189, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={amount=5000, payment_result_code=105, cps_contentid=0000080189, sub_id=190702, cbs_transaction_id=26iCQjsozZ7iyrKg7YkSDzBF4FF4163, payment_status=0, payment_request_status=2, payment_command=CHARGE, payment_amount=5500, client_transaction_id=g00000000000000000000000000000000000000051_51, content_description=Film, payment_request_time=2023-10-26 14:54:11.788, payment_delta_hours=0, store_transaction_id=g00000000000000000000000000000000000000051_51, payment_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 14:54:47 ICT 2023}, msisdn=84940000575, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=2, payment_request_time=2023-10-26 14:54:11.788, payment_result_code=105, payment_status=0, payment_transaction_id=21B82eieS4PVDHKw16b7KtUF1F84940000575F4161, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_51, sub_id=190702}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBRequest
+	Body                CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_51,store_code=ITUNE,store_transaction_id=g00000000000000000000000000000000000000051_51,client_request_id=g00000000000000000000000000000000000000051_51,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+]
+
+26/10 14:54:47 [6]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=26iCQjsozZ7iyrKg7YkSDzBF4FF4163})
+26/10 14:56:17 [4]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 14:56:17 [4]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_GPLAY      |CHARGE_GPLAY      |                                                                              |       900
+CHARGE_GPLAY      | onCompletion1    |onCompletion                                                                  |         0
+CHARGE_GPLAY      | to14             |cbs-generate-id                                                               |         0
+CHARGE_GPLAY      | log1             |log                                                                           |         0
+CHARGE_GPLAY      | to15             |cbs-extract-input                                                             |         1
+CHARGE_GPLAY      | to16             |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=96&min-isdn-length=11&max-isdn-|         4
+CHARGE_GPLAY      | to17             |cbs-request-insert                                                            |        30
+CHARGE_GPLAY      | to18             |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|        44
+CHARGE_GPLAY      | to19             |cbs-check-subscriber-status                                                   |        22
+CHARGE_GPLAY      | to20             |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         0
+CHARGE_GPLAY      | to21             |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to22             |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |        36
+CHARGE_GPLAY      | to23             |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to24             |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |        41
+CHARGE_GPLAY      | choice8          |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|         1
+CHARGE_GPLAY      | setBody3         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         3
+CHARGE_GPLAY      | to29             |queue:?id=CPS_RTEC                                                            |        12
+CHARGE_GPLAY      | to30             |cbs-read-ppm-display-result                                                   |         1
+CHARGE_GPLAY      | to31             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+CHARGE_GPLAY      | to32             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |        28
+CHARGE_GPLAY      | choice9          |when[simple{${exchangeProperty.sub_prepaid_main_balance} == null || ${exchange|         1
+CHARGE_GPLAY      | to34             |cbs-check-limitation                                                          |        45
+CHARGE_GPLAY      | doTry2           |doTry                                                                         |       627
+CHARGE_GPLAY      |  pipeline2       |pipeline                                                                      |       552
+CHARGE_GPLAY      |   setBody4       |setBody[simple{command=direct_debit,
+                        seq=${exchangePro|         5
+CHARGE_GPLAY      |   to35           |queue:?id=CPS_DIAMETER                                                        |       545
+CHARGE_GPLAY      |   to36           |cbs-read-diameter-result                                                      |         0
+CHARGE_GPLAY      |   choice10       |when[simple{${body} !contains "result="}]choice[when[simple{${body} contains "|         2
+CHARGE_GPLAY      |     to39         |cbs-result:?code=OK                                                           |         0
+CHARGE_GPLAY      |     to40         |cbs-write-cdr-for-cps:?cpsCategory=CHARGE&channelType=API&position=0&status=SU|         1
+CHARGE_GPLAY      |   to50           |cbs-clear-reserved                                                            |        71
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-13
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 14:56:17 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-clear-reserved, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4164,4164,84940000575,26/10/2023 02:56:17,905, cbs_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_52, client_transaction_id=g00000000000000000000000000000000000000051_52, command=CHARGE, content_description=Film, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_52, cps_spid=001, content_type=0000000001, cps_shortcode=049236, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 14:56:17 ICT 2023, sub_delta_active_date=180, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_52-20231026145617-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 14:56:17 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000001, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, command=direct_debit, cps_r_response_time=Thu Oct 26 14:56:17 ICT 2023}], subscriber_limit_profile=0, sub_id=190702, cps_contentid=0000080191, cbs_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_52, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000001, cps_cdr_contentid=0000080191, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026145617, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 14:56:17 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_52-20231026145617-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_52, sub_delta_active_date=180, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164})
+]
+
+26/10 14:56:17 [4]RESPONSE:CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164})
+26/10 14:56:27 [4]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 14:56:27 [4]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |       176
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |         0
+REFUND_GPLAY      | log4             |log                                                                           |         0
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |         0
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |        26
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |         0
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|        12
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |         5
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|       131
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|         6
+REFUND_GPLAY      |     to119        |cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&currentPaymentStatus=|         6
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |       124
+REFUND_GPLAY      |     setProperty6 |setProperty[insert_refund]                                                    |         0
+REFUND_GPLAY      |     doTry5       |doTry                                                                         |       113
+REFUND_GPLAY      |      pipeline5   |pipeline                                                                      |       113
+REFUND_GPLAY      |       to121      |direct:LOCAL_REFUND                                                           |       113
+LOCAL_REFUND      | setBody5         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         2
+LOCAL_REFUND      | to91             |queue:?id=CPS_RTEC                                                            |        13
+LOCAL_REFUND      | to92             |cbs-read-ppm-display-result                                                   |         1
+LOCAL_REFUND      | to93             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+LOCAL_REFUND      | to94             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         1
+LOCAL_REFUND      | choice29         |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[su|        96
+LOCAL_REFUND      |   doTry4         |doTry                                                                         |        95
+LOCAL_REFUND      |    pipeline4     |pipeline                                                                      |        95
+LOCAL_REFUND      |     choice21     |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         2
+LOCAL_REFUND      |       setBody6   |setBody[simple{command=refund,
+seq=${exchangeProperty.CBMsgContext.getProperty|         2
+LOCAL_REFUND      |     to95         |queue:?id=CPS_DIAMETER                                                        |        92
+LOCAL_REFUND      |     choice22     |when[simple{${body} !contains "CPS-0000"}]choice[]                            |         1
+LOCAL_REFUND      |       choice24   |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         1
+LOCAL_REFUND      |         to98     |cbs-write-cdr-for-cps:?cpsCategory=REFUND&position=0&status=SUCCESS           |         1
+REFUND_GPLAY      |     to125        |cbs-update-payment-status:?newPaymentStatus=REFUNDED&currentPaymentStatus=DOIN|        10
+REFUND_GPLAY      |     to126        |cbs-result:?code=OK                                                           |         0
+REFUND_GPLAY      |     setProperty7 |setProperty[update_total_spent]                                               |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-18
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 14:56:27 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4165,4165,84940000575,26/10/2023 02:56:27,180, cbs_transaction_id=1BxmWn3oYN3zvxSK3TEcQTUF4FF4165, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_52, client_transaction_id=g00000000000000000000000000000000000000051_52, command=REFUND, content_description=Film, cps_contentid=0000080191, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, insert_refund=TRUE, map_full_request={payment_result_code=0, payment_request_status=1, payment_command=CHARGE, subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_52, cps_spid=001, payment_request_time=2023-10-26 14:56:17.086, payment_delta_hours=0, content_type=0000000001, cps_shortcode=049236, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 14:56:27 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, sub_delta_active_date=180, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_52-20231026145627-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 14:56:27 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000002, command=refund, cps_r_response_time=Thu Oct 26 14:56:27 ICT 2023}], cps_contentid=0000080191, sub_id=190702, cbs_transaction_id=1BxmWn3oYN3zvxSK3TEcQTUF4FF4165, payment_status=3, payment_amount=5500, tax=500, content_description=Film, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_52, payment_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000002, cps_cdr_contentid=0000080191, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026145627, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 14:56:27 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_52-20231026145627-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, origin_payment_status=0, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 14:56:17.086, payment_result_code=0, payment_status=3, payment_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_52, sub_delta_active_date=180, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500, update_total_spent=TRUE}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1BxmWn3oYN3zvxSK3TEcQTUF4FF4165})
+]
+
+26/10 14:56:27 [4]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1BxmWn3oYN3zvxSK3TEcQTUF4FF4165})
+26/10 15:08:31 [6]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 15:08:31 [6]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |        47
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |         0
+REFUND_GPLAY      | log4             |log                                                                           |         1
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |         0
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |        16
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |         0
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|        24
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |         5
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|         1
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|         0
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |         0
+REFUND_GPLAY      |     choice35     |when[simple{${exchangeProperty.payment_status} == 3}]choice[when[simple{${exch|         0
+REFUND_GPLAY      |       to127      |cbs-result:?code=OK                                                           |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-22
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 15:08:31 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4166,4166,84940000575,26/10/2023 03:08:31,50, cbs_transaction_id=21DjwkWTWYuwWjkUT72BEKUF4FF4166, client_request_id=g00000000000000000000000000000000000000051_52, client_transaction_id=g00000000000000000000000000000000000000051_52, command=REFUND, content_description=Film, cps_contentid=0000080191, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={amount=5000, payment_result_code=0, cps_contentid=0000080191, sub_id=190702, cbs_transaction_id=21DjwkWTWYuwWjkUT72BEKUF4FF4166, payment_status=3, payment_request_status=1, payment_command=CHARGE, payment_amount=5500, client_transaction_id=g00000000000000000000000000000000000000051_52, content_description=Film, payment_request_time=2023-10-26 14:56:17.086, payment_delta_hours=0, store_transaction_id=g00000000000000000000000000000000000000051_52, payment_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, refund_reason=Product was not delivered, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 15:08:31 ICT 2023}, msisdn=84940000575, origin_payment_status=3, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 14:56:17.086, payment_result_code=0, payment_status=3, payment_transaction_id=1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_52, sub_id=190702}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBRequest
+	Body                CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_52,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_52,client_request_id=g00000000000000000000000000000000000000051_52,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+]
+
+26/10 15:08:31 [6]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=21DjwkWTWYuwWjkUT72BEKUF4FF4166})
+26/10 15:16:07 [7]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_53,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_53,client_request_id=g00000000000000000000000000000000000000051_53,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 15:16:07 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_GPLAY      |CHARGE_GPLAY      |                                                                              |       355
+CHARGE_GPLAY      | onCompletion1    |onCompletion                                                                  |         1
+CHARGE_GPLAY      | to14             |cbs-generate-id                                                               |         0
+CHARGE_GPLAY      | log1             |log                                                                           |         1
+CHARGE_GPLAY      | to15             |cbs-extract-input                                                             |         0
+CHARGE_GPLAY      | to16             |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=96&min-isdn-length=11&max-isdn-|         1
+CHARGE_GPLAY      | to17             |cbs-request-insert                                                            |         5
+CHARGE_GPLAY      | to18             |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|         6
+CHARGE_GPLAY      | to19             |cbs-check-subscriber-status                                                   |         6
+CHARGE_GPLAY      | to20             |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         0
+CHARGE_GPLAY      | to21             |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to22             |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |        14
+CHARGE_GPLAY      | to23             |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to24             |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |         6
+CHARGE_GPLAY      | choice8          |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|         1
+CHARGE_GPLAY      | setBody3         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         1
+CHARGE_GPLAY      | to29             |queue:?id=CPS_RTEC                                                            |        13
+CHARGE_GPLAY      | to30             |cbs-read-ppm-display-result                                                   |         1
+CHARGE_GPLAY      | to31             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+CHARGE_GPLAY      | to32             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         7
+CHARGE_GPLAY      | choice9          |when[simple{${exchangeProperty.sub_prepaid_main_balance} == null || ${exchange|         0
+CHARGE_GPLAY      | to34             |cbs-check-limitation                                                          |         8
+CHARGE_GPLAY      | doTry2           |doTry                                                                         |       282
+CHARGE_GPLAY      |  pipeline2       |pipeline                                                                      |       273
+CHARGE_GPLAY      |   setBody4       |setBody[simple{command=direct_debit,
+                        seq=${exchangePro|         2
+CHARGE_GPLAY      |   to35           |queue:?id=CPS_DIAMETER                                                        |       271
+CHARGE_GPLAY      |   to36           |cbs-read-diameter-result                                                      |         0
+CHARGE_GPLAY      |   choice10       |when[simple{${body} !contains "result="}]choice[when[simple{${body} contains "|         0
+CHARGE_GPLAY      |     to39         |cbs-result:?code=OK                                                           |         0
+CHARGE_GPLAY      |     to40         |cbs-write-cdr-for-cps:?cpsCategory=CHARGE&channelType=API&position=0&status=SU|         0
+CHARGE_GPLAY      |   to50           |cbs-clear-reserved                                                            |         8
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-26
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 15:16:07 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-clear-reserved, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_53,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_53,client_request_id=g00000000000000000000000000000000000000051_53,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4167,4167,84940000575,26/10/2023 03:16:07,359, cbs_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_53, client_transaction_id=g00000000000000000000000000000000000000051_53, command=CHARGE, content_description=Film, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_53, cps_spid=001, content_type=0000000001, cps_shortcode=049236, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 15:16:07 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_53-20231026151607-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 15:16:07 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000001, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, command=direct_debit, cps_r_response_time=Thu Oct 26 15:16:07 ICT 2023}], subscriber_limit_profile=0, sub_id=190702, cps_contentid=0000080192, cbs_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_53, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000001, cps_cdr_contentid=0000080192, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026151607, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 15:16:07 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_53-20231026151607-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_53, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167})
+]
+
+26/10 15:16:07 [7]RESPONSE:CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167})
+26/10 15:16:09 [3]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_53,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_53,client_request_id=g00000000000000000000000000000000000000051_53,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 15:16:10 [3]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |       747
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |         0
+REFUND_GPLAY      | log4             |log                                                                           |         0
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |         0
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |        26
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |         0
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|        27
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |        23
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|       668
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|        27
+REFUND_GPLAY      |     to119        |cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&currentPaymentStatus=|        27
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |       641
+REFUND_GPLAY      |     setProperty6 |setProperty[insert_refund]                                                    |         0
+REFUND_GPLAY      |     doTry5       |doTry                                                                         |       588
+REFUND_GPLAY      |      pipeline5   |pipeline                                                                      |       588
+REFUND_GPLAY      |       to121      |direct:LOCAL_REFUND                                                           |       588
+LOCAL_REFUND      | setBody5         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         4
+LOCAL_REFUND      | to91             |queue:?id=CPS_RTEC                                                            |        12
+LOCAL_REFUND      | to92             |cbs-read-ppm-display-result                                                   |         1
+LOCAL_REFUND      | to93             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+LOCAL_REFUND      | to94             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         0
+LOCAL_REFUND      | choice29         |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[su|       570
+LOCAL_REFUND      |   doTry4         |doTry                                                                         |       569
+LOCAL_REFUND      |    pipeline4     |pipeline                                                                      |       569
+LOCAL_REFUND      |     choice21     |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         1
+LOCAL_REFUND      |       setBody6   |setBody[simple{command=refund,
+seq=${exchangeProperty.CBMsgContext.getProperty|         1
+LOCAL_REFUND      |     to95         |queue:?id=CPS_DIAMETER                                                        |       568
+LOCAL_REFUND      |     choice22     |when[simple{${body} !contains "CPS-0000"}]choice[]                            |         0
+LOCAL_REFUND      |       choice24   |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         0
+LOCAL_REFUND      |         to98     |cbs-write-cdr-for-cps:?cpsCategory=REFUND&position=0&status=SUCCESS           |         0
+REFUND_GPLAY      |     to125        |cbs-update-payment-status:?newPaymentStatus=REFUNDED&currentPaymentStatus=DOIN|        52
+REFUND_GPLAY      |     to126        |cbs-result:?code=OK                                                           |         0
+REFUND_GPLAY      |     setProperty7 |setProperty[update_total_spent]                                               |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-31
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 15:16:09 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_53,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_53,client_request_id=g00000000000000000000000000000000000000051_53,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4168,4168,84940000575,26/10/2023 03:16:09,750, cbs_transaction_id=25jYiq13J9MKJvUSPWP2wLcF4FF4168, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_53, client_transaction_id=g00000000000000000000000000000000000000051_53, command=REFUND, content_description=Film, cps_contentid=0000080192, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, insert_refund=TRUE, map_full_request={payment_result_code=0, payment_request_status=1, payment_command=CHARGE, subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_53, cps_spid=001, payment_request_time=2023-10-26 15:16:07.079, payment_delta_hours=0, content_type=0000000001, cps_shortcode=049236, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 15:16:09 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_53-20231026151609-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 15:16:09 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000002, command=refund, cps_r_response_time=Thu Oct 26 15:16:10 ICT 2023}], cps_contentid=0000080192, sub_id=190702, cbs_transaction_id=25jYiq13J9MKJvUSPWP2wLcF4FF4168, payment_status=3, payment_amount=5500, tax=500, content_description=Film, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_53, payment_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000002, cps_cdr_contentid=0000080192, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026151609, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 15:16:09 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_53-20231026151609-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, origin_payment_status=0, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 15:16:07.079, payment_result_code=0, payment_status=3, payment_transaction_id=25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_53, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500, update_total_spent=TRUE}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=25jYiq13J9MKJvUSPWP2wLcF4FF4168})
+]
+
+26/10 15:16:10 [3]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=25jYiq13J9MKJvUSPWP2wLcF4FF4168})
+26/10 15:22:12 [4][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:12 [6][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:12 [5][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:12 [3][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:12 [7][NOTIFICATION] CONNECTION : Is alive
+26/10 15:22:19 [NOTIFICATION] THREAD : Is running
+26/10 15:24:33 [5][NOTIFICATION] COMMAND : No transaction
+26/10 15:26:27 [4][NOTIFICATION] COMMAND : No transaction
+26/10 15:38:31 [6][NOTIFICATION] COMMAND : No transaction
+26/10 15:46:07 [7][NOTIFICATION] COMMAND : No transaction
+26/10 15:46:09 [3][NOTIFICATION] COMMAND : No transaction
+26/10 15:50:03 [6]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 15:50:03 [6]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_GPLAY      |CHARGE_GPLAY      |                                                                              |       504
+CHARGE_GPLAY      | onCompletion1    |onCompletion                                                                  |         0
+CHARGE_GPLAY      | to14             |cbs-generate-id                                                               |         0
+CHARGE_GPLAY      | log1             |log                                                                           |         0
+CHARGE_GPLAY      | to15             |cbs-extract-input                                                             |         0
+CHARGE_GPLAY      | to16             |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=96&min-isdn-length=11&max-isdn-|         0
+CHARGE_GPLAY      | to17             |cbs-request-insert                                                            |        74
+CHARGE_GPLAY      | to18             |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|        39
+CHARGE_GPLAY      | to19             |cbs-check-subscriber-status                                                   |        31
+CHARGE_GPLAY      | to20             |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         1
+CHARGE_GPLAY      | to21             |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to22             |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |        11
+CHARGE_GPLAY      | to23             |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         1
+CHARGE_GPLAY      | to24             |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |        20
+CHARGE_GPLAY      | choice8          |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|         2
+CHARGE_GPLAY      | setBody3         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         4
+CHARGE_GPLAY      | to29             |queue:?id=CPS_RTEC                                                            |        27
+CHARGE_GPLAY      | to30             |cbs-read-ppm-display-result                                                   |         1
+CHARGE_GPLAY      | to31             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+CHARGE_GPLAY      | to32             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |        86
+CHARGE_GPLAY      | choice9          |when[simple{${exchangeProperty.sub_prepaid_main_balance} == null || ${exchange|         0
+CHARGE_GPLAY      | to34             |cbs-check-limitation                                                          |        81
+CHARGE_GPLAY      | doTry2           |doTry                                                                         |       121
+CHARGE_GPLAY      |  pipeline2       |pipeline                                                                      |        83
+CHARGE_GPLAY      |   setBody4       |setBody[simple{command=direct_debit,
+                        seq=${exchangePro|         3
+CHARGE_GPLAY      |   to35           |queue:?id=CPS_DIAMETER                                                        |        79
+CHARGE_GPLAY      |   to36           |cbs-read-diameter-result                                                      |         0
+CHARGE_GPLAY      |   choice10       |when[simple{${body} !contains "result="}]choice[when[simple{${body} contains "|         0
+CHARGE_GPLAY      |     to39         |cbs-result:?code=OK                                                           |         0
+CHARGE_GPLAY      |     to40         |cbs-write-cdr-for-cps:?cpsCategory=CHARGE&channelType=API&position=0&status=SU|         0
+CHARGE_GPLAY      |   to50           |cbs-clear-reserved                                                            |        38
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-35
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 15:50:03 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-clear-reserved, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4169,4169,84940000575,26/10/2023 03:50:03,507, cbs_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_55, client_transaction_id=g00000000000000000000000000000000000000051_55, command=CHARGE, content_description=Film, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_55, cps_spid=001, content_type=0000000001, cps_shortcode=049236, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 15:50:03 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_55-20231026155003-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 15:50:03 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000001, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, command=direct_debit, cps_r_response_time=Thu Oct 26 15:50:03 ICT 2023}], subscriber_limit_profile=0, sub_id=190702, cps_contentid=0000080194, cbs_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_55, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000001, cps_cdr_contentid=0000080194, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026155003, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 15:50:03 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_55-20231026155003-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_55, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169})
+]
+
+26/10 15:50:03 [6]RESPONSE:CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169})
+26/10 15:50:14 [4]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 15:50:14 [4]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |       227
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |         0
+REFUND_GPLAY      | log4             |log                                                                           |         0
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |         0
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |         9
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |         0
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|         5
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |         5
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|       206
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|         4
+REFUND_GPLAY      |     to119        |cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&currentPaymentStatus=|         4
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |       202
+REFUND_GPLAY      |     setProperty6 |setProperty[insert_refund]                                                    |         0
+REFUND_GPLAY      |     doTry5       |doTry                                                                         |       177
+REFUND_GPLAY      |      pipeline5   |pipeline                                                                      |       177
+REFUND_GPLAY      |       to121      |direct:LOCAL_REFUND                                                           |       177
+LOCAL_REFUND      | setBody5         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         1
+LOCAL_REFUND      | to91             |queue:?id=CPS_RTEC                                                            |        13
+LOCAL_REFUND      | to92             |cbs-read-ppm-display-result                                                   |         0
+LOCAL_REFUND      | to93             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         1
+LOCAL_REFUND      | to94             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         0
+LOCAL_REFUND      | choice29         |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[su|       162
+LOCAL_REFUND      |   doTry4         |doTry                                                                         |       162
+LOCAL_REFUND      |    pipeline4     |pipeline                                                                      |       162
+LOCAL_REFUND      |     choice21     |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         1
+LOCAL_REFUND      |       setBody6   |setBody[simple{command=refund,
+seq=${exchangeProperty.CBMsgContext.getProperty|         1
+LOCAL_REFUND      |     to95         |queue:?id=CPS_DIAMETER                                                        |       159
+LOCAL_REFUND      |     choice22     |when[simple{${body} !contains "CPS-0000"}]choice[]                            |         2
+LOCAL_REFUND      |       choice24   |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         2
+LOCAL_REFUND      |         to98     |cbs-write-cdr-for-cps:?cpsCategory=REFUND&position=0&status=SUCCESS           |         1
+REFUND_GPLAY      |     to125        |cbs-update-payment-status:?newPaymentStatus=REFUNDED&currentPaymentStatus=DOIN|        24
+REFUND_GPLAY      |     to126        |cbs-result:?code=OK                                                           |         0
+REFUND_GPLAY      |     setProperty7 |setProperty[update_total_spent]                                               |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698306851802-0-40
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 15:50:14 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4170,4170,84940000575,26/10/2023 03:50:14,234, cbs_transaction_id=1owu8T5d6NnmcydSVNP4RvmF4FF4170, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_55, client_transaction_id=g00000000000000000000000000000000000000051_55, command=REFUND, content_description=Film, cps_contentid=0000080194, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@4a0a67cf, insert_refund=TRUE, map_full_request={payment_result_code=0, payment_request_status=1, payment_command=CHARGE, subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_55, cps_spid=001, payment_request_time=2023-10-26 15:50:03.265, payment_delta_hours=0, content_type=0000000001, cps_shortcode=049236, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 15:50:14 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_55-20231026155014-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 15:50:14 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000002, command=refund, cps_r_response_time=Thu Oct 26 15:50:14 ICT 2023}], cps_contentid=0000080194, sub_id=190702, cbs_transaction_id=1owu8T5d6NnmcydSVNP4RvmF4FF4170, payment_status=3, payment_amount=5500, tax=500, content_description=Film, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_55, payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000002, cps_cdr_contentid=0000080194, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026155014, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 15:50:14 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_55-20231026155014-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, origin_payment_status=0, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 15:50:03.265, payment_result_code=0, payment_status=3, payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_55, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500, update_total_spent=TRUE}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1owu8T5d6NnmcydSVNP4RvmF4FF4170})
+]
+
+26/10 15:50:14 [4]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1owu8T5d6NnmcydSVNP4RvmF4FF4170})
+26/10 15:52:12 [4][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:12 [7][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:12 [6][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:12 [5][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:12 [3][NOTIFICATION] CONNECTION : Is alive
+26/10 15:52:25 [NOTIFICATION] THREAD : Is running
+26/10 15:54:33 [5][NOTIFICATION] COMMAND : No transaction
+26/10 16:30:29 Camel Thread started
+26/10 16:30:31 Start init detach response threads
+26/10 16:30:31 Receipt Thread 1 start
+26/10 16:30:31 Receipt Thread 2 start
+26/10 16:30:31 Receipt Thread 3 start
+26/10 16:30:31 [4]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 16:30:31 [6]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 16:30:31 [5]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 16:30:31 [8]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 16:30:31 [7]Start connecting to server [CAMEL],ID:[CAMEL]
+26/10 16:30:31 [4]Connected to server [CAMEL]
+26/10 16:30:31 [7]Connected to server [CAMEL]
+26/10 16:30:31 [5]Connected to server [CAMEL]
+26/10 16:30:31 [6]Connected to server [CAMEL]
+26/10 16:30:31 [8]Connected to server [CAMEL]
+26/10 16:30:35 [7]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 16:33:47 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |    191525
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         3
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |      6601
+REFUND_GPLAY      | log4             |log                                                                           |         2
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |      5428
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         3
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |      8684
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |     32553
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|     49533
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |     79813
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         2
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|      8885
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|         2
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |      8871
+REFUND_GPLAY      |     choice35     |when[simple{${exchangeProperty.payment_status} == 3}]choice[when[simple{${exch|      8870
+REFUND_GPLAY      |       to127      |cbs-result:?code=OK                                                           |      8869
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698312635511-0-1
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 16:30:35 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4181,4181,84940000575,26/10/2023 04:30:35,191542, cbs_transaction_id=1PwWSTz3AQhizMxDcNhSxrgF4FF4181, client_request_id=g00000000000000000000000000000000000000051_55, client_transaction_id=g00000000000000000000000000000000000000051_55, command=REFUND, content_description=Film, cps_contentid=0000080194, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@221d863e, map_full_request={payment_result_code=0, payment_request_status=1, payment_command=CHARGE, client_transaction_id=g00000000000000000000000000000000000000051_55, flow_status=PROCESS_TIMEOUT, payment_request_time=2023-10-26 15:50:03.265, payment_delta_hours=0, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 16:30:42 ICT 2023, amount=5000, cps_contentid=0000080194, sub_id=190702, cbs_transaction_id=1PwWSTz3AQhizMxDcNhSxrgF4FF4181, payment_status=3, payment_amount=5500, content_description=Film, store_transaction_id=g00000000000000000000000000000000000000051_55, timeout_response=CBResponse(command=REFUND, parameters={code=PROCESS_TIMEOUT,msg=PROCESS_TIMEOUT,cbs_transaction_id=1PwWSTz3AQhizMxDcNhSxrgF4FF4181}), payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010}, msisdn=84940000575, origin_payment_status=3, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 15:50:03.265, payment_result_code=0, payment_status=3, payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_55, sub_id=190702}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBRequest
+	Body                CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+]
+
+26/10 16:33:47 [7]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1PwWSTz3AQhizMxDcNhSxrgF4FF4181})
+26/10 16:33:47 [7]Error occurred: Cannot send message to client - (Channel 4181 isn't existed or destroyed)
+{
+        (RequestId : 4181, Session : 4181, User : null, Gateway : 1004)
+        REQUEST  : CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+        RESPONSE : CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1PwWSTz3AQhizMxDcNhSxrgF4FF4181})
+}
+26/10 16:40:18 [7]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 16:40:23 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |      5046
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |      1612
+REFUND_GPLAY      | log4             |log                                                                           |         0
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |       559
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |       528
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |       741
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|       487
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |       559
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|       558
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|         0
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |       558
+REFUND_GPLAY      |     choice35     |when[simple{${exchangeProperty.payment_status} == 3}]choice[when[simple{${exch|       557
+REFUND_GPLAY      |       to127      |cbs-result:?code=OK                                                           |       557
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698312635511-0-5
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 16:40:18 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4182,4182,84940000575,26/10/2023 04:40:18,5050, cbs_transaction_id=1opwnqPP4Cm53g4VLPPuAn6F4FF4182, client_request_id=g00000000000000000000000000000000000000051_55, client_transaction_id=g00000000000000000000000000000000000000051_55, command=REFUND, content_description=Film, cps_contentid=0000080194, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@221d863e, map_full_request={amount=5000, payment_result_code=0, cps_contentid=0000080194, sub_id=190702, cbs_transaction_id=1opwnqPP4Cm53g4VLPPuAn6F4FF4182, payment_status=3, payment_request_status=1, payment_command=CHARGE, payment_amount=5500, client_transaction_id=g00000000000000000000000000000000000000051_55, content_description=Film, payment_request_time=2023-10-26 15:50:03.265, payment_delta_hours=0, store_transaction_id=g00000000000000000000000000000000000000051_55, payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, refund_reason=Product was not delivered, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 16:40:20 ICT 2023}, msisdn=84940000575, origin_payment_status=3, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 15:50:03.265, payment_result_code=0, payment_status=3, payment_transaction_id=1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_55, sub_id=190702}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBRequest
+	Body                CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_55,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_55,client_request_id=g00000000000000000000000000000000000000051_55,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+]
+
+26/10 16:40:23 [7]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1opwnqPP4Cm53g4VLPPuAn6F4FF4182})
+26/10 16:45:17 [7]REQUEST:CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_57,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_57,client_request_id=g00000000000000000000000000000000000000051_57,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API})
+26/10 16:45:20 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+CHARGE_GPLAY      |CHARGE_GPLAY      |                                                                              |      2790
+CHARGE_GPLAY      | onCompletion1    |onCompletion                                                                  |         0
+CHARGE_GPLAY      | to14             |cbs-generate-id                                                               |       548
+CHARGE_GPLAY      | log1             |log                                                                           |         0
+CHARGE_GPLAY      | to15             |cbs-extract-input                                                             |       583
+CHARGE_GPLAY      | to16             |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=96&min-isdn-length=11&max-isdn-|         2
+CHARGE_GPLAY      | to17             |cbs-request-insert                                                            |       580
+CHARGE_GPLAY      | to18             |cbs-check-duplicate-limit-time:?idempotentTime=96&hintIndex=RAW(/*+ index(CB_R|        35
+CHARGE_GPLAY      | to19             |cbs-check-subscriber-status                                                   |        15
+CHARGE_GPLAY      | to20             |cbs-check-access:?name=ISDN-WHITELIST&errorCode=USER_BARRED                   |         0
+CHARGE_GPLAY      | to21             |cbs-check-access:?name=APP-WHITELIST&errorCode=CONTENT_IS_BLOCKED             |         0
+CHARGE_GPLAY      | to22             |cbs-check-access:?name=ISDN-BLACKLIST&errorCode=USER_BARRED                   |         7
+CHARGE_GPLAY      | to23             |cbs-check-access:?name=APP-BLACKLIST&errorCode=CONTENT_IS_BLOCKED             |         2
+CHARGE_GPLAY      | to24             |cbs-check-access:?name=VASGATE-BLACKLIST&errorCode=USER_BARRED                |         4
+CHARGE_GPLAY      | choice8          |when[simple{${exchangeProperty.CBMsgContext.getProperty("store").getAttributes|        54
+CHARGE_GPLAY      | setBody3         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         3
+CHARGE_GPLAY      | to29             |queue:?id=CPS_RTEC                                                            |        17
+CHARGE_GPLAY      | to30             |cbs-read-ppm-display-result                                                   |         4
+CHARGE_GPLAY      | to31             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         1
+CHARGE_GPLAY      | to32             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         9
+CHARGE_GPLAY      | choice9          |when[simple{${exchangeProperty.sub_prepaid_main_balance} == null || ${exchange|         2
+CHARGE_GPLAY      | to34             |cbs-check-limitation                                                          |        11
+CHARGE_GPLAY      | doTry2           |doTry                                                                         |       902
+CHARGE_GPLAY      |  pipeline2       |pipeline                                                                      |       894
+CHARGE_GPLAY      |   setBody4       |setBody[simple{command=direct_debit,
+                        seq=${exchangePro|        10
+CHARGE_GPLAY      |   to35           |queue:?id=CPS_DIAMETER                                                        |       156
+CHARGE_GPLAY      |   to36           |cbs-read-diameter-result                                                      |         0
+CHARGE_GPLAY      |   choice10       |when[simple{${body} !contains "result="}]choice[when[simple{${body} contains "|       728
+CHARGE_GPLAY      |     to39         |cbs-result:?code=OK                                                           |       722
+CHARGE_GPLAY      |     to40         |cbs-write-cdr-for-cps:?cpsCategory=CHARGE&channelType=API&position=0&status=SU|         5
+CHARGE_GPLAY      |   to50           |cbs-clear-reserved                                                            |         5
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698312635511-0-9
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 16:45:17 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-clear-reserved, cb_request=CBRequest(command=CHARGE, parameters={msisdn=84940000575,originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_57,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_57,client_request_id=g00000000000000000000000000000000000000051_57,purchase_time=20231025000000,amount=5000,content=Film,merchant_information=,channel_type=API}), CBMsgContext=charge,4183,4183,84940000575,26/10/2023 04:45:17,2799, cbs_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_57, client_transaction_id=g00000000000000000000000000000000000000051_57, command=CHARGE, content_description=Film, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@221d863e, map_full_request={subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_57, cps_spid=001, content_type=0000000001, cps_shortcode=049236, amount_full_tax=5500, msisdn=84940000575, channel_type=API, payment_date=Wed Oct 25 07:00:00 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, store_request_time=Thu Oct 26 16:45:18 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_57-20231026164518-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 16:45:19 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000001, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, command=direct_debit, cps_r_response_time=Thu Oct 26 16:45:19 ICT 2023}], subscriber_limit_profile=0, sub_id=190702, cps_contentid=0000080196, cbs_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183, tax=500, content_description=Film, subscriber_vas_status=OPEN_2_WAY, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_57, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000001, cps_cdr_contentid=0000080196, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026164519, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 16:45:19 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_57-20231026164518-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, store_transaction_id=g00000000000000000000000000000000000000051_57, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183})
+]
+
+26/10 16:45:20 [7]RESPONSE:CBResponse(command=CHARGE, parameters={code=OK,cbs_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183})
+26/10 16:46:02 [7]REQUEST:CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_57,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_57,client_request_id=g00000000000000000000000000000000000000051_57,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API})
+26/10 16:46:08 [7]
+Message History
+---------------
+RouteId           |ProcessorId       |Processor                                                                     |Elapsed (ms)
+REFUND_GPLAY      |REFUND_GPLAY      |                                                                              |      6282
+REFUND_GPLAY      | onCompletion4    |onCompletion                                                                  |         0
+REFUND_GPLAY      | to110            |cbs-generate-id                                                               |      2068
+REFUND_GPLAY      | log4             |log                                                                           |         0
+REFUND_GPLAY      | to111            |cbs-extract-input                                                             |       662
+REFUND_GPLAY      | to112            |cbs-check-input:?PurchaseTimeCheckMaxDeltaHour=4320&min-isdn-length=11&max-isd|         0
+REFUND_GPLAY      | to113            |cbs-request-insert                                                            |       686
+REFUND_GPLAY      | to114            |cbs-fill-payment-time:?mappingTableName=MI_MAP_ID_RQTIME_CHARGE               |       706
+REFUND_GPLAY      | to115            |cbs-check-duplicate-limit-time-refund:?idempotentTime=96&hintIndex=RAW(/*+ ind|       665
+REFUND_GPLAY      | to116            |cbs-get-payment-info:?reverseMaxTime=96&refundMaxTime=4320                    |       663
+REFUND_GPLAY      | setProperty4     |setProperty[origin_payment_status]                                            |         0
+REFUND_GPLAY      | choice36         |when[simple{${exchangeProperty.payment_delta_hours} >= 4320}]choice[when[simpl|       829
+REFUND_GPLAY      |   choice32       |when[simple{${exchangeProperty.payment_status} == 0}]choice[when[simple{${exch|        29
+REFUND_GPLAY      |     to119        |cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&currentPaymentStatus=|        29
+REFUND_GPLAY      |   choice33       |when[simple{${body} contains "UPDATE_SUCCESS"}]choice[]                       |       800
+REFUND_GPLAY      |     setProperty6 |setProperty[insert_refund]                                                    |         0
+REFUND_GPLAY      |     doTry5       |doTry                                                                         |       113
+REFUND_GPLAY      |      pipeline5   |pipeline                                                                      |       112
+REFUND_GPLAY      |       to121      |direct:LOCAL_REFUND                                                           |       112
+LOCAL_REFUND      | setBody5         |setBody[simple{<cp_request>
+	<user_id type="MSISDN">${exchangeProperty.msisdn}|         3
+LOCAL_REFUND      | to91             |queue:?id=CPS_RTEC                                                            |        16
+LOCAL_REFUND      | to92             |cbs-read-ppm-display-result                                                   |         1
+LOCAL_REFUND      | to93             |cbs-content-classify:?contentRegex=RAW(^GOOGLE[\s\S]+)                        |         0
+LOCAL_REFUND      | to94             |cbs-build-cps-info:?maxLengthCorrelationId=100                                |         0
+LOCAL_REFUND      | choice29         |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[su|        92
+LOCAL_REFUND      |   doTry4         |doTry                                                                         |        91
+LOCAL_REFUND      |    pipeline4     |pipeline                                                                      |        90
+LOCAL_REFUND      |     choice21     |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         1
+LOCAL_REFUND      |       setBody6   |setBody[simple{command=refund,
+seq=${exchangeProperty.CBMsgContext.getProperty|         1
+LOCAL_REFUND      |     to95         |queue:?id=CPS_DIAMETER                                                        |        87
+LOCAL_REFUND      |     choice22     |when[simple{${body} !contains "CPS-0000"}]choice[]                            |         1
+LOCAL_REFUND      |       choice24   |when[simple{${exchangeProperty.CBMsgContext.getProperty("map_full_request")[ch|         0
+LOCAL_REFUND      |         to98     |cbs-write-cdr-for-cps:?cpsCategory=REFUND&position=0&status=SUCCESS           |         0
+REFUND_GPLAY      |     to125        |cbs-update-payment-status:?newPaymentStatus=REFUNDED&currentPaymentStatus=DOIN|        42
+REFUND_GPLAY      |     to126        |cbs-result:?code=OK                                                           |       644
+REFUND_GPLAY      |     setProperty7 |setProperty[update_total_spent]                                               |         0
+---------------
+
+Exchange
+---------------
+Exchange[
+	Id                  ID-DESKTOP-S3DBOET-1698312635511-0-14
+	ExchangePattern     InOut
+	Properties          {amount=5000, amount_full_tax=5500, CamelCreatedTimestamp=Thu Oct 26 16:46:02 ICT 2023, CamelExternalRedelivered=false, CamelToEndpoint=cbs-result, cb_request=CBRequest(command=REFUND, parameters={originator=fortumo-app-01,client_transaction_id=g00000000000000000000000000000000000000051_57,store_code=GPLAY,store_transaction_id=g00000000000000000000000000000000000000051_57,client_request_id=g00000000000000000000000000000000000000051_57,purchase_time=20231025000000,refund_reason=Product was not delivered,channel_type=API}), CBMsgContext=refund,4184,4184,84940000575,26/10/2023 04:46:02,6288, cbs_transaction_id=1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184, charge_account=MAIN, client_request_id=g00000000000000000000000000000000000000051_57, client_transaction_id=g00000000000000000000000000000000000000051_57, command=REFUND, content_description=Film, cps_contentid=0000080196, cps_cpid=002, cps_shortcode=049236, cps_spid=001, GATEWAY_MANAGER=com.telsoft.cbs.CBApp@221d863e, insert_refund=TRUE, map_full_request={payment_result_code=0, payment_request_status=1, payment_command=CHARGE, subscriber_pay_type=PREPAID, sub_prepaid_main_balance=60063, client_transaction_id=g00000000000000000000000000000000000000051_57, cps_spid=001, payment_request_time=2023-10-26 16:45:17.537, payment_delta_hours=0, content_type=0000000001, cps_shortcode=049236, refund_reason=Product was not delivered, channel_type=API, msisdn=84940000575, amount_full_tax=5500, payment_date=Wed Oct 25 07:00:00 ICT 2023, store_request_time=Thu Oct 26 16:46:04 ICT 2023, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, sub_delta_active_date=181, amount=5000, cps_extra_info=g00000000000000000000000000000000000000051_57-20231026164604-5500-0000000001, list_cps_diameter_cdr=[{cps_request_time=Thu Oct 26 16:46:08 ICT 2023, cps_r_in_result_code=2001, cps_r_result_code=CPS-0000, cps_categoryid=000002, command=refund, cps_r_response_time=Thu Oct 26 16:46:08 ICT 2023}], cps_contentid=0000080196, sub_id=190702, cbs_transaction_id=1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184, payment_status=3, payment_amount=5500, tax=500, content_description=Film, cps_cpid=002, charge_account=MAIN, store_transaction_id=g00000000000000000000000000000000000000051_57, payment_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183, cps_cdr_list=[{cps_cdr_channel_type=API, cps_cdr_eventid=000002, cps_cdr_contentid=0000080196, cps_cdr_km2=0, cps_cdr_km3=0, cps_cdr_a_number=84940000575, cps_cdr_b_number=049236, cps_cdr_cost=5500, cps_cdr_status=1, cps_cdr_cost_tk1=0, cps_cdr_datetime=20231026164608, cps_cdr_cpid=002, cps_cdr_cps_call_time=Thu Oct 26 16:46:08 ICT 2023, cps_cdr_information=g00000000000000000000000000000000000000051_57-20231026164604-5500-0000000001, cps_cdr_spid=001}], refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, cps_b_isdn=0000000001}, msisdn=84940000575, origin_payment_status=0, payment_amount=5000, payment_amount_full_tax=5500, payment_command=CHARGE, payment_delta_hours=0, payment_request_status=1, payment_request_time=2023-10-26 16:45:17.537, payment_result_code=0, payment_status=3, payment_transaction_id=1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183, refund_information=01007cps.com02047googleplay-L.0.g231507328071157137.0.0.041268.0050101568826190085683c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d2249534f2d383835392d31223f3e3c636f73745f6c73743e3c636c69656e742069643d2230223e3c636c69656e745f69643e3739353430363733373c2f636c69656e745f69643e3c6163632069643d2230223e3c6163635f69643e3739353430363733373c2f6163635f69643e3c636172645f6e756d6265723e3739353430363733373c2f636172645f6e756d6265723e3c6d7369643e3435323031393933313038383334373c2f6d7369643e3c63737465743e32363438383c2f63737465743e3c63737469743e32363438383c2f63737469743e3c6e5f7461723e303c2f6e5f7461723e3c2f6163633e3c2f636c69656e743e3c2f636f73745f6c73743e210010, refund_reason=Product was not delivered, store_transaction_id=g00000000000000000000000000000000000000051_57, sub_delta_active_date=181, sub_id=190702, sub_prepaid_main_balance=60063, subscriber_active_date=Fri Apr 28 15:00:11 ICT 2023, tax=500, update_total_spent=TRUE}
+	Headers             {}
+	BodyType            com.telsoft.cbs.domain.CBResponse
+	Body                CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184})
+]
+
+26/10 16:46:08 [7]RESPONSE:CBResponse(command=REFUND, parameters={code=OK,cbs_transaction_id=1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184})
+26/10 17:00:31 [4][NOTIFICATION] COMMAND : No transaction
+26/10 17:00:31 [4][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:31 [5][NOTIFICATION] COMMAND : No transaction
+26/10 17:00:31 [8][NOTIFICATION] COMMAND : No transaction
+26/10 17:00:31 [5][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:31 [8][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:31 [7][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:31 [6][NOTIFICATION] COMMAND : No transaction
+26/10 17:00:31 [6][NOTIFICATION] CONNECTION : Is alive
+26/10 17:00:37 [NOTIFICATION] THREAD : Is running
+26/10 17:16:02 [7][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:31 [4][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:31 [4][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:31 [6][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:31 [6][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:31 [8][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:31 [5][NOTIFICATION] COMMAND : No transaction
+26/10 17:30:31 [7][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:31 [5][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:31 [8][NOTIFICATION] CONNECTION : Is alive
+26/10 17:30:45 [NOTIFICATION] THREAD : Is running

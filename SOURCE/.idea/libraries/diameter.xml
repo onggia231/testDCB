@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="diameter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/diameter/mobicent_diameter.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/diameter/mod_lib_diameter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

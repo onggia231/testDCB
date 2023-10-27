@@ -1,0 +1,210 @@
+26/10 14:54:12,124 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:11.463
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_51</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_51</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 14:54:12.121
+| Response: <AuthResponse><result status="ERROR"><reasonCode>105</reasonCode><message>User unknown</message></result><issuerPaymentId>21B82eieS4PVDHKw16b7KtUF1F84940000575F4161</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:11.463
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_51</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_51</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_51</transaction_id><store_code>ITUNE</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 14:54:12.106
+| Response: <response><parameter key="cbs_transaction_id">21B82eieS4PVDHKw16b7KtUF1F84940000575F4161</parameter><name>CHARGE</name><code>105</code><description>USER_UNKNOWN</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_51</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 14:54:33,738 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:33.392
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_52</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_52</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 14:54:33.735
+| Response: <AuthResponse><result status="ERROR"><reasonCode>105</reasonCode><message>User unknown</message></result><issuerPaymentId>24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:33.392
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><store_code>ITUNE</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 14:54:33.730
+| Response: <response><parameter key="cbs_transaction_id">24WJBB2LriXxhhQBEj2MZmcF1F84940000575F4162</parameter><name>CHARGE</name><code>105</code><description>USER_UNKNOWN</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 14:54:47,893 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:47.671
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_51</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_51</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 14:54:47.891
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>26iCQjsozZ7iyrKg7YkSDzBF4FF4163</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 14:54:47.671
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_51</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_51</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_51</transaction_id><store_code>ITUNE</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 14:54:47.887
+| Response: <response><parameter key="cbs_transaction_id">26iCQjsozZ7iyrKg7YkSDzBF4FF4163</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_51</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 14:56:18,014 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 14:56:17.056
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_52</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_52</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 14:56:18.012
+| Response: <AuthResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerPaymentId>1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 14:56:17.056
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 14:56:18.009
+| Response: <response><parameter key="cbs_transaction_id">1AQ7kgLmCog6gc798o2RJkUF1F84940000575F4164</parameter><name>CHARGE</name><code>0</code><description>OK</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 14:56:27,464 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 14:56:27.253
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_52</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_52</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 14:56:27.462
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>1BxmWn3oYN3zvxSK3TEcQTUF4FF4165</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 14:56:27.253
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 14:56:27.458
+| Response: <response><parameter key="cbs_transaction_id">1BxmWn3oYN3zvxSK3TEcQTUF4FF4165</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 15:08:31,179 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 15:08:31.091
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_52</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_52</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 15:08:31.178
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>21DjwkWTWYuwWjkUT72BEKUF4FF4166</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 15:08:31.091
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_52</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 15:08:31.175
+| Response: <response><parameter key="cbs_transaction_id">21DjwkWTWYuwWjkUT72BEKUF4FF4166</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_52</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 15:16:07,459 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 15:16:07.061
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_53</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_53</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 15:16:07.457
+| Response: <AuthResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerPaymentId>25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 15:16:07.061
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_53</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_53</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_53</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 15:16:07.454
+| Response: <response><parameter key="cbs_transaction_id">25JikD2CkD9Jjrtx1MHJpdmF1F84940000575F4167</parameter><name>CHARGE</name><code>0</code><description>OK</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_53</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 15:16:10,618 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 15:16:09.840
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_53</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_53</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 15:16:10.616
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>25jYiq13J9MKJvUSPWP2wLcF4FF4168</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 15:16:09.840
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_53</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_53</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_53</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 15:16:10.614
+| Response: <response><parameter key="cbs_transaction_id">25jYiq13J9MKJvUSPWP2wLcF4FF4168</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_53</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 15:50:03,796 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 15:50:03.236
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_55</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_55</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 15:50:03.793
+| Response: <AuthResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerPaymentId>1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 15:50:03.236
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 15:50:03.790
+| Response: <response><parameter key="cbs_transaction_id">1nBE2u1mq9qUN4ZNUHBeLsLF1F84940000575F4169</parameter><name>CHARGE</name><code>0</code><description>OK</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 15:50:14,985 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 15:50:14.720
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_55</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_55</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 15:50:14.982
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>1owu8T5d6NnmcydSVNP4RvmF4FF4170</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 15:50:14.720
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 15:50:14.978
+| Response: <response><parameter key="cbs_transaction_id">1owu8T5d6NnmcydSVNP4RvmF4FF4170</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 16:30:56,275 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 16:30:35.160
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_55</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_55</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 16:30:56.271
+| Response: <RefundResponse><result status="ERROR"><reasonCode>7</reasonCode><message>Unknown status</message></result><issuerRefundId>1PwWSTz3AQhizMxDcNhSxrgF4FF4181</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 16:30:35.160
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 16:30:56.252
+| Response: <response><parameter key="cbs_transaction_id">1PwWSTz3AQhizMxDcNhSxrgF4FF4181</parameter><name>REFUND</name><code>5000</code><description>PROCESS_TIMEOUT</description><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 16:40:23,882 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 16:40:18.758
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_55</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_55</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 16:40:23.879
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>1opwnqPP4Cm53g4VLPPuAn6F4FF4182</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 16:40:18.758
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_55</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 16:40:23.871
+| Response: <response><parameter key="cbs_transaction_id">1opwnqPP4Cm53g4VLPPuAn6F4FF4182</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_55</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 16:45:20,360 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 16:45:17.502
+| Request: <AuthRequest><account refType="MSISDN">84940000575</account><purchaseAmount><currency>VND</currency><amount>5000</amount></purchaseAmount><correlationId>g00000000000000000000000000000000000000051_57</correlationId><purchaseTime>20231025000000</purchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_57</storeTransactionId><productDescription>Film</productDescription><merchantInfo></merchantInfo></AuthRequest>
+| Response Time: 2023-10-26 16:45:20.357
+| Response: <AuthResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerPaymentId>1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183</issuerPaymentId></AuthResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 16:45:17.502
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_57</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_57</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="msisdn">84940000575</parameter><parameter key="amount">5000</parameter><parameter key="content">Film</parameter><parameter key="merchant_information"></parameter><parameter key="channel_type">API</parameter><name>CHARGE</name><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_57</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 16:45:20.353
+| Response: <response><parameter key="cbs_transaction_id">1SYi4hZbJoD68h7qCRJ4e46F1F84940000575F4183</parameter><name>CHARGE</name><code>0</code><description>OK</description><isdn>84940000575</isdn><transaction_id>g00000000000000000000000000000000000000051_57</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+
+26/10 16:46:08,852 
++----------+
+======FORTUMO COMMUNICATION====== 
+| Request Time: 2023-10-26 16:46:02.509
+| Request: <RefundRequest><authCorrelationId>g00000000000000000000000000000000000000051_57</authCorrelationId><authPurchaseTime>20231025000000</authPurchaseTime><storeTransactionId>g00000000000000000000000000000000000000051_57</storeTransactionId><refundReason>Product was not delivered</refundReason></RefundRequest>
+| Response Time: 2023-10-26 16:46:08.846
+| Response: <RefundResponse><result status="OK"><reasonCode>0</reasonCode><message>Success</message></result><issuerRefundId>1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184</issuerRefundId></RefundResponse>
+| ======END======
+======CBS CORE COMMUNICATION====== 
+| Request Time: 2023-10-26 16:46:02.509
+| Request: <request><parameter key="store_transaction_id">g00000000000000000000000000000000000000051_57</parameter><parameter key="client_request_id">g00000000000000000000000000000000000000051_57</parameter><parameter key="purchase_time">20231025000000</parameter><parameter key="refund_reason">Product was not delivered</parameter><parameter key="channel_type">API</parameter><name>REFUND</name><transaction_id>g00000000000000000000000000000000000000051_57</transaction_id><store_code>GPLAY</store_code><source>fortumo-app-01</source></request>
+| Response Time: 2023-10-26 16:46:08.839
+| Response: <response><parameter key="cbs_transaction_id">1ZiHHX1o4LgZK7iV2eiAGqXF4FF4184</parameter><name>REFUND</name><code>0</code><description>OK</description><transaction_id>g00000000000000000000000000000000000000051_57</transaction_id><source>fortumo-app-01</source></response>
+| ======END======
++----------+

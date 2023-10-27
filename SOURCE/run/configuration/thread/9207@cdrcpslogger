@@ -1,0 +1,91 @@
+ThreadName==CDR CPS logger
+ClassName==com.telsoft.cbs.cdr.DBCPSLogger
+Parameter
+	DBDriver==oracle.jdbc.driver.OracleDriver
+	DBUrl==jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.10.154) (PORT=1521))(CONNECT_DATA=(SERVICE_NAME=cbs)))
+	DBUserName==CBS
+	DBPassword==cbs
+	MaxConnections==5
+	IdleConnections==2
+	DBProperties
+	MappingCDRFields=^
+		0=^
+			0==cps_cdr_cps_call_time
+			1==cps_call_time
+			2==DATE
+		1=^
+			0==cps_cdr_datetime
+			1==cdr_field_01
+			2==STRING
+		2=^
+			0==cps_cdr_a_number
+			1==cdr_field_02
+			2==STRING
+		3=^
+			0==cps_cdr_b_number
+			1==cdr_field_03
+			2==STRING
+		4=^
+			0==cps_cdr_eventid
+			1==cdr_field_04
+			2==STRING
+		5=^
+			0==cps_cdr_spid
+			1==cdr_field_05
+			2==STRING
+		6=^
+			0==cps_cdr_cpid
+			1==cdr_field_06
+			2==STRING
+		7=^
+			0==cps_cdr_contentid
+			1==cdr_field_07
+			2==STRING
+		8=^
+			0==cps_cdr_status
+			1==cdr_field_08
+			2==STRING
+		9=^
+			0==cps_cdr_cost
+			1==cdr_field_09
+			2==STRING
+		10=^
+			0==cps_cdr_channel_type
+			1==cdr_field_10
+			2==STRING
+		11=^
+			0==cps_cdr_information
+			1==cdr_field_11
+			2==STRING
+		12=^
+			0==cps_cdr_cost_tk1
+			1==cdr_field_12
+			2==STRING
+		13=^
+			0==cps_cdr_km2
+			1==cdr_field_13
+			2==STRING
+		14=^
+			0==cps_cdr_km3
+			1==cdr_field_14
+			2==STRING
+	StorageLevel==0
+	CheckEmptyFrom==00:00:00
+	CheckEmptyUntil==23:59:59
+	EmptyDuration==3000
+	FailureAction==Attach record to next level storage
+	SuccessAction==Attach record to next level storage
+	DisplayStackTrace==Y
+	ReloadCommand==0
+	LoggerClasses=^
+	LogDir==log/cdr_cps_logger
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval==300
+	NotificationString==Logger is running
+StartupType==1
+Status==1
+Schedule

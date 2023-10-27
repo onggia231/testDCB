@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>
+                login
+            </from-outcome>
+            <to-view-id>
+                /login.xhtml
+            </to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>
+                app-main
+            </from-outcome>
+            <to-view-id>
+                /index.xhtml
+            </to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>
+                exceptionNavigation 
+            </from-outcome>
+            <to-view-id>
+                /faces/exception.xhtml
+            </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

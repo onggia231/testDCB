@@ -1,0 +1,38 @@
+ThreadName==Fortumo
+ClassName==com.telsoft.cbs.module.fortumo.service.FortumoStarter
+StartupType==1
+Parameter
+	LogDir==log/fortumo
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ContextPath==/mobifone
+	ServletContext==/*
+	Port==6969
+	Tcp-Acceptors==3
+	Jetty-MaxQueueSize==50
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath==../../key/2ssl/keystore.p12
+	KeyStorePassword==123456
+	KeyManagerPassword==123456
+	TrustStorePath==../../key/2ssl/truststore.jks
+	TrustStorePassword==123456
+	MSISDN==84977506566
+	CBSUrl==http://127.0.0.1:8888/cbs
+	Source==fortumo-app-01
+	StoreCode==GPLAY
+	Tcp-SoLingerTime==-1
+	ConfigFile==/Volumes/DATA/source_mbf/source_new/SOURCE/run/fortumo/configuration/hazelcast-client.xml
+	Cluster==dev
+	MapName==test-map
+	TTL==600
+	ApiUrl==https://localhost:8887/mobifone/
+Status==1
+Schedule

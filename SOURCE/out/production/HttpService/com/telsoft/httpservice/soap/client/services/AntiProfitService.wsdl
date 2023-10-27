@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services.client.soap.httpservice.telsoft.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services.client.soap.httpservice.telsoft.com" xmlns:intf="http://services.client.soap.httpservice.telsoft.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services.client.soap.httpservice.telsoft.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="msisdn" type="xsd:string"/>
+   <element name="antiProfitReturn" type="xsd:int"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="antiProfitRequest">
+
+      <wsdl:part element="impl:msisdn" name="msisdn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="antiProfitResponse">
+
+      <wsdl:part element="impl:antiProfitReturn" name="antiProfitReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="AntiProfitService">
+
+      <wsdl:operation name="antiProfit" parameterOrder="msisdn">
+
+         <wsdl:input message="impl:antiProfitRequest" name="antiProfitRequest"/>
+
+         <wsdl:output message="impl:antiProfitResponse" name="antiProfitResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="AntiProfitServiceSoapBinding" type="impl:AntiProfitService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="antiProfit">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="antiProfitRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="antiProfitResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="AntiProfitServiceService">
+
+      <wsdl:port binding="impl:AntiProfitServiceSoapBinding" name="AntiProfitService">
+
+         <wsdlsoap:address location="http://localhost:8080//services/com/telsoft/httpservice/soap/client/services/AntiProfitService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,20 @@
+<AuthRequest>
+    <account refType="MSISDN">84940000575</account>
+    <purchaseAmount>
+        <currency>VND</currency>
+        <amount>6000</amount>
+    </purchaseAmount>
+    <correlationId>GPlay_2023_0329_20</correlationId>
+    <purchaseTime>20230329000000</purchaseTime>
+    <storeTransactionId>g90283617126364827163474328237871</storeTransactionId>
+    <productDescription>Test app</productDescription>
+</AuthRequest>
+
+<AuthResponse>
+<issuerPaymentId>issuerPayId12345</issuerPaymentId>
+<result status="ERROR">
+    <reasonCode>103</reasonCode>
+    <message>Insufficient funds</message>
+</result>
+</AuthResponse>
+

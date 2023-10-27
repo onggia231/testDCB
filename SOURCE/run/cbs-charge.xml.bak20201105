@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route customId="true" id="PAYMENT_STATUS">
+        <from customId="false" uri="direct:PAYMENT_STATUS"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to uri="cbs-get-transaction"/>
+        <to uri="cbs-result:?code=OK"/>
+    </route>
+    <route customId="true" id="REFUND">
+        <description/>
+        <from customId="false" uri="direct:REFUND"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <removeProperty propertyName="result_extras"/>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to uri="cbs-check-duplicate"/>
+        <to uri="cbs-get-transaction"/>
+        <to uri="cbs-set-refund-reserved"/>
+        <choice>
+            <description/>
+            <when>
+                <simple>${body.get("status")} == "REFUNDED"</simple>
+                <throwException exceptionType="com.telsoft.cbs.domain.CBException" message="TRANSACTION_ALREADY_REFUNDED"/>
+            </when>
+            <otherwise>
+                <removeProperty propertyName="result_extras"/>
+                <setBody>
+                    <simple>command=buy,msisdn=${body.get("isdn")},amount=${exchangeProperty.amount},ref1=${exchangeProperty.payment_transaction_id},ref2=${exchangeProperty.client_transaction_id}</simple>
+                </setBody>
+                <to uri="queue:?id=EVS_SOAP"/>
+                <choice>
+                    <when>
+                        <simple>${body} contains "OK"</simple>
+                        <to uri="cbs-result:?code=OK"/>
+                        <to uri="cbs-clear-reserved">
+                            <description>Update refund reserved</description>
+                        </to>
+                    </when>
+                    <otherwise>
+                        <to uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+                        <to uri="cbs-clear-reserved">
+                            <description>Clear refund reserved</description>
+                        </to>
+                    </otherwise>
+                </choice>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="SUBMIT_MT">
+        <from customId="false" uri="direct:SUBMIT_MT"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to uri="cbs-mt-queue"/>
+        <choice customId="false">
+            <when customId="false">
+                <simple>${body} == "OK"</simple>
+                <to customId="false" uri="cbs-result:?code=OK"/>
+            </when>
+            <otherwise customId="false">
+                <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="CHARGE">
+        <from customId="false" uri="direct:CHARGE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to customId="false" uri="cbs-check-input:?min-isdn-length=11&amp;max-isdn-length=11"/>
+        <to uri="cbs-check-duplicate"/>
+        <to uri="cbs-sub-registered"/>
+        <to uri="cbs-check-access:?name=ALLOWED_ISDN&amp;errorCode=USER_BARRED"/>
+        <to customId="false" uri="cbs-check-access:?name=BLOCKED_CONTENT&amp;errorCode=USER_BARRED"/>
+        <to uri="cbs-check-limitation"/>
+        <doTry>
+            <pipeline>
+                <setBody customId="false">
+                    <simple>&lt;cp_request&gt; &lt;user_id&gt;${exchangeProperty.msisdn}&lt;/user_id&gt; &lt;application&gt;7&lt;/application&gt;
+                        &lt;action&gt;0&lt;/action&gt;&lt;/cp_request&gt;
+                    </simple>
+                </setBody>
+                <to customId="false" uri="queue:?id=CPS_RTEC"/>
+                <choice customId="false">
+                    <when customId="false">
+                        <simple>${body} contains "&lt;result&gt;CPS-0000&lt;/result&gt;"</simple>
+                        <setBody customId="false">
+                            <description/>
+                            <simple>command=direct_debit,msisdn=${exchangeProperty.msisdn},amount=${exchangeProperty.amount},seq=${exchangeProperty.transaction_id}</simple>
+                        </setBody>
+                        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+                        <choice customId="false">
+                            <when customId="false">
+                                <simple>${body} contains "CPS-0000"</simple>
+                                <to customId="false" uri="cbs-result:?code=OK"/>
+                                <to uri="cbs-transaction-log"/>
+                            </when>
+                            <otherwise customId="false">
+                                <to customId="false" uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+                            </otherwise>
+                        </choice>
+                    </when>
+                    <otherwise customId="false">
+                        <to customId="false" uri="cbs-result:?code=USER_UNKNOWN"/>
+                    </otherwise>
+                </choice>
+            </pipeline>
+            <doCatch>
+                <description/>
+                <exception>java.lang.Exception</exception>
+                <to uri="cbs-exception"/>
+            </doCatch>
+            <doFinally>
+                <to uri="cbs-clear-reserved"/>
+            </doFinally>
+        </doTry>
+    </route>
+</routes>

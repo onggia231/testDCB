@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <script type="text/javascript">
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+        </script>
+        <div class="ui-fluid">
+            <p:panel id="pnInfoIsdn" header="#{PP_INFOISDN.header}" styleClass="box-primary">
+                <h:panelGroup rendered="#{updateISDNController.bDISPLAYInfoISDN}">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="info_isdn" value="#{PP_INFOISDN.isdn}"/>
+                                <p:inputText id="info_isdn" value="#{beanInput[isdn]}"
+                                             disabled="true"
+                                             maxlength="20" required="false"
+                                             requiredMessage="#{PP_INFOISDN.isdn}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="info_isdn"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="info_subType" value="#{PP_INFOISDN.subType}"/>
+                                <p:inputText id="info_subType"
+                                             value="#{beanInput[subType]}"
+                                             disabled="true"
+                                             maxlength="20" required="false"
+                                             requiredMessage="#{PP_INFOISDN.subType}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="info_subType"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel for="info_status" value="#{PP_INFOISDN.status}"/>
+                                <p:selectOneMenu id="info_status"
+                                                 value="#{beanInput[status]}"
+                                                 required="true"
+                                                 requiredMessage="#{PP_INFOISDN.isdn}#{PP_COMMONS.can_not_be_empty}"
+                                                 disabled="#{!updateISDNController.isAllowUpdate}">
+                                    <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                </p:selectOneMenu>
+                                <p:message for="info_status"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                            <div class="ui-material">
+                                <p:commandButton process="@this :form_main:pnInfoIsdn"
+                                                 update=":form_main:pnInfoIsdn :form_main:pnListSubscriber"
+                                                 actionListener="#{bean[actionMethod]}"
+                                                 oncomplete="scrollToTop();"
+                                                 value="#{PP_COMMONS.save}"
+                                                 styleClass="right btn-success" icon="fa fa-check" style="width:auto"
+                                                 rendered="#{updateISDNController.isAllowUpdate}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

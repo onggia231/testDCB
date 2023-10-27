@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel header="#{PP_CBITEMISDN.header}" styleClass="box-primary">
+                    <p:focus context="panel_center"/>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="cblist" value="#{PP_CBITEMISDN.cb_list}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="cblist" required="true"
+                                                 requiredMessage="#{PP_CBITEMISDN.cb_list}#{PP_CBITEMISDN.selectOne}"
+                                                 value="#{cbItemIsdnController.listId}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="#{PP_CBITEMISDN.cbList0}"/>
+                                    <!--                                    <f:selectItem itemLabel="#{PP_CBITEMISDN.cbList0}" itemValue="0"/>-->
+                                    <f:selectItems value="#{cbItemIsdnController.mList}" var="item"
+                                                   itemValue="#{item.listId}" itemLabel="#{item.listName}"/>
+                                </p:selectOneMenu>
+                                <p:message for="cblist"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="isdn" value="#{PP_CBITEMISDN.isdn}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:inputText id="isdn" maxlength="20" required="true"
+                                             requiredMessage="#{PP_CBITEMISDN.isdn}#{PP_COMMONS.can_not_be_empty}"
+                                             value="#{cbItemIsdnController.isdn}">
+                                    <p:ajax event="keyup" listener="#{cbItemIsdnController.setSearchClick(false)}"
+                                            update=":form_main:infoPanel" process="@this" global="false"/>
+                                    <p:keyFilter regEx="/[\d\-]/" preventPaste="false"/>
+                                </p:inputText>
+                                <p:message for="isdn"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:commandButton id="btn_search" actionListener="#{cbItemIsdnController.search}"
+                                             process="@form"
+                                             rendered="#{!cbItemIsdnController.getIsDisplayBtnConfirm()}"
+                                             value="#{PP_COMMONS.search}"
+                                             styleClass="btn-primary"
+                                             update=":form_main:panel_center"
+                                             icon="fa fa-search"/>
+                            <p:tooltip for="btn_search" value="#{PP_COMMONS.search}"/>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                            <p:outputLabel value="#{PP_CBITEMISDN.notFound}" style="color: red"
+                                           rendered="#{!cbItemIsdnController.found}"/>
+                        </div>
+                    </div>
+                    <h:panelGroup id="infoPanel">
+                        <h:panelGroup rendered="#{cbItemIsdnController.searchClick}">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="reason" value="#{PP_CBITEMISDN.reason}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="material">
+                                        <p:inputTextarea id="reason" maxlength="500"
+                                                         disabled="#{cbItemIsdnController.getIsView()}"
+                                                         value="#{cbItemIsdnController.cbItemIsdn.reason}"/>
+                                        <!--                                disabled="#{cbItemIsdnController.getIsView()}"-->
+                                        <p:message for="reason"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="issueTime" value="#{PP_CBITEMISDN.issueTime}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="material">
+                                        <p:inputText id="issueTime" maxlength="50" disabled="true"
+                                                     value="#{cbItemIsdnController.cbItemIsdn.issueTimeString}"/>
+                                        <p:message for="issueTime"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                                    <p:outputLabel for="cbStore" value="#{PP_CBITEMISDN.cbStore}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                    <div class="material">
+                                        <p:selectOneMenu filter="true" filterMatchMode="contains" id="cbStore"
+                                                         disabled="#{cbItemIsdnController.getIsView()}"
+                                                         value="#{cbItemIsdnController.cbItemIsdn.storeId}">
+                                            <f:selectItem itemLabel="#{PP_CBITEMISDN.cbStore0}" itemValue="0"/>
+                                            <f:selectItems value="#{cbItemIsdnController.cbStoreList}" var="item"
+                                                           itemValue="#{item.id}" itemLabel="#{item.name}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="cbStore"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-2"></div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                    <p:commandButton id="btn_add" actionListener="#{cbItemIsdnController.handleOK()}"
+                                                     process="@form" rendered="#{cbItemIsdnController.isAllowInsert}"
+                                                     disabled="#{cbItemIsdnController.getIsView()}"
+                                                     styleClass="btn-primary " value="#{PP_COMMONS.add}"
+                                                     update=":form_main:panel_center"
+                                                     resetValues="true" icon="fa fa-plus"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                    <p:commandButton id="btn_delete"
+                                                     actionListener="#{cbItemIsdnController.handleDelete()}"
+                                                     rendered="#{cbItemIsdnController.isAllowDelete}"
+                                                     process="@form" disabled="#{!cbItemIsdnController.getIsView()}"
+                                                     styleClass="btn-danger " value="#{PP_CBITEMISDN.remove}"
+                                                     update=":form_main:panel_center"
+                                                     icon="fa fa-trash" resetValues="true">
+                                        <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                   message="#{PP_COMMONS.confirm_delete}"/>
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </p:panel>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

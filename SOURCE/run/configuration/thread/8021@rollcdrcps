@@ -1,0 +1,16 @@
+ThreadName==Roll CDR CPS
+ClassName==com.telsoft.cbs.thread.RollLogFileLog4jThread
+StartupType==1
+Parameter
+	LogDir==log/RollCdrCps
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==300
+	NotificationInterval
+	NotificationString
+	LoggerName==CDR_CPS
+	LogContent
+Status==1
+Schedule

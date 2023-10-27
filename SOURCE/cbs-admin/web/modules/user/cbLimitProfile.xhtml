@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+    <title>#{PP_CB_LIMIT_PROFILE.title}</title>
+</h:head>
+<h:body>
+    <ui:composition>
+        <script type="text/javascript">
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+        </script>
+
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel header="#{PP_CB_LIMIT_PROFILE.header}" styleClass="box-primary">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.code}" for="code"/>
+                                <p:inputText id="code" maxlength="200"
+                                             value="#{cbLimitProfileController.limitProfile.limitProfileCode}"
+                                             required="true"
+                                             requiredMessage="#{PP_CB_LIMIT_PROFILE.code}#{PP_COMMONS.can_not_be_empty}"
+                                             disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="code"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.name}" for="name"/>
+                                <p:inputText id="name" maxlength="500"
+                                             value="#{cbLimitProfileController.limitProfile.limitProfileName}"
+                                             required="true"
+                                             requiredMessage="#{PP_CB_LIMIT_PROFILE.name}#{PP_COMMONS.can_not_be_empty}"
+                                             disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="name"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.yearlimit}" for="year_limit"/>
+                                <p:inputNumber id="year_limit"
+                                               value="#{cbLimitProfileController.limitProfile.yearlyLimit}"
+                                               required="true"
+                                               requiredMessage="#{PP_CB_LIMIT_PROFILE.yearlimit}#{PP_COMMONS.can_not_be_empty}"
+                                               maxlength="10" maxValue="9999999999"
+                                               decimalPlaces="0" minValue="0"
+                                               padControl="false"
+                                               disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="year_limit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.monthlimit}" for="month_limit"/>
+                                <p:inputNumber id="month_limit"
+                                               value="#{cbLimitProfileController.limitProfile.monthlyLimit}"
+                                               required="true"
+                                               requiredMessage="#{PP_CB_LIMIT_PROFILE.monthlimit}#{PP_COMMONS.can_not_be_empty}"
+                                               maxlength="10" maxValue="9999999999"
+                                               decimalPlaces="0" minValue="0"
+                                               padControl="false"
+                                               disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="month_limit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.weeklimit}" for="week_limit"/>
+                                <p:inputNumber id="week_limit"
+                                               value="#{cbLimitProfileController.limitProfile.weeklyLimit}"
+                                               required="true"
+                                               requiredMessage="#{PP_CB_LIMIT_PROFILE.weeklimit}#{PP_COMMONS.can_not_be_empty}"
+                                               maxlength="10" maxValue="9999999999"
+                                               decimalPlaces="0" minValue="0"
+                                               padControl="false"
+                                               disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="week_limit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.daylimit}" for="day_limit"/>
+                                <p:inputNumber id="day_limit"
+                                               value="#{cbLimitProfileController.limitProfile.dailyLimit}"
+                                               required="true"
+                                               requiredMessage="#{PP_CB_LIMIT_PROFILE.daylimit}#{PP_COMMONS.can_not_be_empty}"
+                                               maxlength="10" maxValue="9999999999"
+                                               decimalPlaces="0" minValue="0"
+                                               padControl="false"
+                                               disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="day_limit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_CB_LIMIT_PROFILE.translimit}" for="trans_limit"/>
+                                <p:inputNumber id="trans_limit"
+                                               value="#{cbLimitProfileController.limitProfile.transLimit}"
+                                               required="true"
+                                               requiredMessage="#{PP_CB_LIMIT_PROFILE.translimit}#{PP_COMMONS.can_not_be_empty}"
+                                               maxlength="10" maxValue="9999999999"
+                                               decimalPlaces="0" minValue="0"
+                                               padControl="false"
+                                               disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="trans_limit"/>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="ui-material">
+                                <p:outputLabel value="#{PP_COMMONS.description}" for="description"/>
+                                <p:inputText id="description" maxlength="1000"
+                                             required="true"
+                                             requiredMessage="#{PP_COMMONS.description}#{PP_COMMONS.can_not_be_empty}"
+                                             value="#{cbLimitProfileController.limitProfile.limitProfileDesc}"
+                                             disabled="#{not cbLimitProfileController.isDisplayBtnConfirm}"/>
+                                <p:message for="description"/>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
+            </h:panelGroup>
+            <h:panelGroup id="pnlControl">
+                <div class="ui-g">
+                    <h:panelGroup rendered="#{not cbLimitProfileController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_add" process="@this"
+                                             actionListener="#{cbLimitProfileController.changeStateAdd}"
+                                             rendered="#{cbLimitProfileController.isAllowInsert}"
+                                             styleClass="btn-info"
+                                             value="#{PP_COMMONS.add}"
+                                             icon="fa fa-plus-square"
+                                             update=":form_main:panel_center :form_main:pnlControl :form_main:pnl_table"
+                                             oncomplete="scrollToTop();"
+                                             resetValues="true"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{cbLimitProfileController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_save" actionListener="#{cbLimitProfileController.handleOK}"
+                                             process="@this :form_main:panel_center"
+                                             styleClass="btn-success" icon="fa fa-check-circle"
+                                             value="#{PP_COMMONS.ok}"
+                                             update=":form_main:panel_center :form_main:pnlControl :form_main:pnl_table"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_cancel"
+                                             actionListener="#{cbLimitProfileController.handleCancel}"
+                                             process="@this" value="#{PP_COMMONS.back}"
+                                             icon="fa fa-undo"
+                                             update=":form_main:panel_center :form_main:pnlControl :form_main:pnl_table"
+                                             resetValues="true"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                    </h:panelGroup>
+                </div>
+            </h:panelGroup>
+            <p:panel id="pnl_table" header="#{PP_CB_LIMIT_PROFILE.headerList}" styleClass="box-info">
+                <p:dataTable id="table_limit_profile" widgetVar="table_limit_profile"
+                             var="limitProfile"
+                             disabledSelection="#{cbLimitProfileController.isDisplayBtnConfirm}"
+                             value="#{cbLimitProfileController.listLimitProfile}"
+                             rowKey="#{limitProfile.limitProfileId}"
+                             selection="#{cbLimitProfileController.limitProfileSelected}"
+                             filteredValue="#{cbLimitProfileController.listLimitProfileFiltered}"
+                             rowIndexVar="rowIndex"
+                             selectionMode="single" filterDelay="500"
+                             emptyMessage="#{PP_COMMONS.empty_message}"
+                             paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30,#{cbLimitProfileController.listLimitProfile.size()}"
+                             paginator="true" rows="10"
+                             styleClass="no-border">
+
+                    <p:ajax global="false" event="rowSelect"
+                            listener="#{cbLimitProfileController.onRowSelect}"
+                            process="table_limit_profile" update=":form_main:panel_center"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{cbLimitProfileController.onRowUnselect}"
+                            process="table_limit_profile" update=":form_main:panel_center"/>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column headerText="#{PP_CB_LIMIT_PROFILE.code}"
+                              sortBy="#{limitProfile.limitProfileCode}"
+                              filterBy="#{limitProfile.limitProfileCode}" filterMatchMode="contains">
+                        <h:outputText title="#{limitProfile.limitProfileCode}"
+                                      value="#{limitProfile.limitProfileCode}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_CB_LIMIT_PROFILE.name}"
+                              sortBy="#{limitProfile.limitProfileName}"
+                              filterBy="#{limitProfile.limitProfileName}" filterMatchMode="contains">
+                        <h:outputText title="#{limitProfile.limitProfileName}"
+                                      value="#{limitProfile.limitProfileName}"/>
+
+                    </p:column>
+                    <p:column headerText="#{PP_COMMONS.description}"
+                              sortBy="#{limitProfile.limitProfileDesc}"
+                              filterBy="#{limitProfile.limitProfileDesc}" filterMatchMode="contains">
+                        <h:outputText title="#{limitProfile.limitProfileDesc}"
+                                      value="#{limitProfile.limitProfileDesc}"/>
+
+                    </p:column>
+                    <p:column headerText="#{PP_COMMONS.action}" width="80" style="text-align: center !important;">
+                        <p:commandLink id="btn_edit"
+                                       actionListener="#{cbLimitProfileController.changeStateEdit(limitProfile)}"
+                                       rendered="#{cbLimitProfileController.isAllowUpdate}"
+                                       process="@this" styleClass="fa fa-pencil"
+                                       disabled="#{cbLimitProfileController.isDisplayBtnConfirm}"
+                                       update=":form_main:panel_center :form_main:pnlControl :form_main:pnl_table"
+                                       oncomplete="scrollToTop();"
+                                       resetValues="true"/>&nbsp;&nbsp;
+                        <p:tooltip for="btn_edit" value="#{PP_COMMONS.edit}"/>
+                        <p:commandLink id="btn_del"
+                                       actionListener="#{cbLimitProfileController.handleDelete(limitProfile)}"
+                                       rendered="#{cbLimitProfileController.isAllowDelete}"
+                                       disabled="#{cbLimitProfileController.isDisplayBtnConfirm or limitProfile.limitProfileId lt 100}"
+                                       process="@this"
+                                       styleClass="fa fa-trash"
+                                       oncomplete="PF('table_limit_profile').clearFilters();"
+                                       update=":form_main:panel_center :form_main:pnl_table">
+                            <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                       message="#{PP_COMMONS.confirm_delete}"/>
+                        </p:commandLink>
+                        <p:tooltip for="btn_del" value="#{PP_COMMONS.del}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+        </div>
+    </ui:composition>
+</h:body>
+</html>

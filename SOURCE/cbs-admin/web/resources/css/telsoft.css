@@ -1,0 +1,368 @@
+/*Base CSS*/
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: url("#{resource['primefaces:fonts/open-sans-v13-latin-300.eot']}");
+    src: local("Open Sans Light"),
+    local("OpenSans-Light"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-300.eot']}#iefix") format("embedded-opentype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-300.woff2']}") format("woff2"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-300.woff']}") format("woff"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-300.ttf']}") format("truetype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-300.svg']}#OpenSans") format("svg")
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.eot']}");
+    src: local("Open Sans"),
+    local("OpenSans"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.eot']}#iefix") format("embedded-opentype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.woff2']}") format("woff2"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.woff']}") format("woff"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.ttf']}") format("truetype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-regular.svg']}#OpenSans") format("svg")
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url("#{resource['primefaces:fonts/open-sans-v13-latin-700.eot']}");
+    src: local("Open Sans Bold"),
+    local("OpenSans-Bold"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-700.eot']}#iefix") format("embedded-opentype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-700.woff2']}") format("woff2"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-700.woff']}") format("woff"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-700.ttf']}") format("truetype"),
+    url("#{resource['primefaces:fonts/open-sans-v13-latin-700.svg']}#OpenSans") format("svg")
+}
+
+.clear {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.btn-auto {
+    width: auto !important;
+}
+
+.btn-fix {
+    width: 120px !important;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 2px solid #eee;
+}
+
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-pad-x {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-pad-y {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.no-pad-left {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-pad-right {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-pad-top {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-pad-bottom {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.grid-padding {
+    padding: 0 0.5em 0 0.5em;
+}
+
+/*Layout CSS*/
+body, .treeview-menu > li > a, .control-sidebar-subheading {
+    font-size: 13px;
+}
+
+.sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px;
+}
+
+.sidebar-form, .sidebar-menu > li.header {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+#userImage {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+ul.dropdown-menu {
+    width: 250px;
+}
+
+ul.dropdown-menu > li.user-header {
+    height: auto !important;
+}
+
+.dropdown-menu > li > a {
+    white-space: normal !important;
+}
+
+a.dropdown-toggle {
+    background-color: #3c8dbc !important;
+}
+
+a#logout {
+    color: #3c8dbc !important;
+    background: transparent;
+}
+
+@media (max-width: 768px) {
+    body .control-sidebar {
+        padding-top: 100px;
+    }
+}
+
+#left-menu .ui-panelmenu-header {
+    border: 0px;
+    background: #1a2226;
+}
+
+#left-menu .ui-panelmenu-header a {
+    color: #4b646f;
+    text-transform: uppercase;
+}
+
+#left-menu .ui-panelmenu-header.ui-state-active a {
+    color: #ffffff;
+}
+
+#left-menu .ui-panelmenu-content {
+    display: block;
+    background: unset;
+    border: unset;
+}
+
+#left-menu .ui-menuitem {
+    margin-right: 8px;
+}
+
+#left-menu .ui-menuitem .ui-state-hover {
+    background: #344248;
+}
+
+#adminStatusDialog_content {
+    padding: 2px;
+}
+
+#adminStatusDialog_content img {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.menu-hover {
+    background-color: #e1e3e9 !important;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+    top: 42px;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+    width: 250px;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > .pull-right-container {
+    left: 253px !important;
+}
+
+.ui-g.pnl-control {
+    opacity: 0;
+}
+
+/*Primefaces override*/
+body .ui-widget:not(.pi):not(.fa),
+body .ui-widget .ui-widget:not(.pi):not(.fa),
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+div.wrapper {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.ui-widget .ui-widget {
+    font-size: 13px;
+}
+
+body div.material input.ui-inputfield.ui-state-disabled ~ label, body .ui-widget div.material input.ui-inputfield.ui-state-disabled ~ label, body div.ui-fluid div.material input.ui-inputfield.ui-state-disabled ~ label, body div.ui-material input.ui-inputfield.ui-state-disabled ~ label, body .ui-widget div.ui-material input.ui-inputfield.ui-state-disabled ~ label, body div.ui-fluid div.ui-material input.ui-inputfield.ui-state-disabled ~ label, body div.material textarea.ui-inputtextarea.ui-state-disabled ~ label, body .ui-widget div.material textarea.ui-inputtextarea.ui-state-disabled ~ label, body div.ui-fluid div.material textarea.ui-inputtextarea.ui-state-disabled ~ label, body div.ui-material textarea.ui-inputtextarea.ui-state-disabled ~ label, body .ui-widget div.ui-material textarea.ui-inputtextarea.ui-state-disabled ~ label, body div.ui-fluid div.ui-material textarea.ui-inputtextarea.ui-state-disabled ~ label, body div.material div.ui-selectonemenu.ui-state-disabled ~ label, body .ui-widget div.material div.ui-selectonemenu.ui-state-disabled ~ label, body div.ui-fluid div.material div.ui-selectonemenu.ui-state-disabled ~ label, body div.ui-material div.ui-selectonemenu.ui-state-disabled ~ label, body .ui-widget div.ui-material div.ui-selectonemenu.ui-state-disabled ~ label, body div.ui-fluid div.ui-material div.ui-selectonemenu.ui-state-disabled ~ label, body div.material .ui-autocomplete.ui-state-disabled ~ label, body .ui-widget div.material .ui-autocomplete.ui-state-disabled ~ label, body div.ui-fluid div.material .ui-autocomplete.ui-state-disabled ~ label, body div.ui-material .ui-autocomplete.ui-state-disabled ~ label, body .ui-widget div.ui-material .ui-autocomplete.ui-state-disabled ~ label, body div.ui-fluid div.ui-material .ui-autocomplete.ui-state-disabled ~ label, body div.material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body .ui-widget div.material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body div.ui-fluid div.material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body div.ui-material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body .ui-widget div.ui-material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body div.ui-fluid div.ui-material .ui-selectcheckboxmenu.ui-state-disabled ~ label, body div.material .ui-calendar.ui-state-disabled ~ label, body .ui-widget div.material .ui-calendar.ui-state-disabled ~ label, body div.ui-fluid div.material .ui-calendar.ui-state-disabled ~ label, body div.ui-material .ui-calendar.ui-state-disabled ~ label, body .ui-widget div.ui-material .ui-calendar.ui-state-disabled ~ label, body div.ui-fluid div.ui-material .ui-calendar.ui-state-disabled ~ label {
+    color: #333;
+}
+
+.ui-button {
+    margin-right: 5px !important;
+}
+
+.ui-growl {
+    right: 20px !important;
+    left: unset !important;
+}
+
+.ui-outputlabel-rfi {
+    display: inline-block;
+    color: red;
+}
+
+.ui-outputlabel {
+    font-weight: bold !important;
+}
+
+.ui-state-disabled {
+    opacity: 0.8 !important;
+}
+
+.ui-widget-overlay {
+    opacity: 0.2 !important;
+    background: #d4d4d4 !important;
+}
+
+.treeview-menu {
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+.pnl-blank .ui-panelgrid-content {
+    border: 0 !important;
+    background: transparent !important;
+}
+
+.ui-datatable.no-border td[role="gridcell"], body .ui-treetable.no-border td[role="gridcell"] {
+    text-align: left !important;
+}
+
+.ui-datatable thead th, .ui-datatable tfoot td {
+    text-align: left !important;
+}
+
+.ui-commandlink {
+    text-decoration: none !important;
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight,
+.form-control .ui-state-highlight {
+    background: #589cd6 !important;
+}
+
+.ui-datatable-data tr:hover {
+    background-color: #ffffc9;
+}
+
+.ui-panel {
+    margin-bottom: 10px !important;
+}
+
+.ui-selection-column {
+    width: 40px !important;
+    text-align: center;
+}
+
+.ui-sticky {
+    background: #ecf0f5 !important;
+}
+
+.ui-tree ul.ui-tree-container {
+    overflow: auto !important;
+}
+
+.ui-selectcheckboxmenu, .ui-selectonemenu {
+    height: 31px !important;
+}
+
+.ui-tree .ui-treenode-leaf-icon {
+    width: 26px !important;
+}
+
+.ui-panel .ui-panel-title {
+    width: 100% !important;
+}
+
+.ui-datatable .ui-selection-column .ui-radiobutton .ui-radiobutton-box .ui-icon-bullet {
+    margin-left: 3px !important;
+}
+
+.ui-paginator-bottom {
+    padding-top: 5px !important;
+}
+
+.ui-datepicker {
+    width: 18em !important;
+}
+
+
+div.ui-message-error {
+    color: #b94a48 !important;
+    background: transparent !important;
+    border: none !important;
+    margin-left: -5px !important;
+}
+
+.customborder .ui-inputtext {
+    border-top: hidden !important;
+    border-right: hidden !important;
+    border-left: hidden !important;
+}
+
+button.ui-autocomplete-dropdown span.ui-icon-triangle-1-s {
+    display: contents!important;
+}
+
+.main-sidebar {
+    width: 300px !important;
+}
+
+.main-header .logo {
+    width: 300px !important;
+}
+
+.main-header .navbar {
+    margin-left: 300px !important;
+}
+
+.content-wrapper {
+    margin-left: 300px !important;
+}

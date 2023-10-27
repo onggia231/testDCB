@@ -1,0 +1,27 @@
+ThreadName==SMS Handler - Add blacklist GG
+ClassName==com.telsoft.cbs.sms.HandleBlacklistSms
+StartupType==2
+Parameter
+	ThreadName==Add_blacklist_gg_1
+	Process amount==5
+	Store code
+	Channel type==SYS
+	Blacklist name==ISDN-BLACKLIST
+	Blacklist Reason==HUY GG
+	Process SMS Command Code==ADD_BLACKLIST_GG
+	Success SMS Command Code==ADD_BLACKLIST_GG_SUCC
+	Fail SMS Command Code==INVALID_FORMAT
+	Interval Process(ms)==5000
+	Interval Sync Config(s)==180
+	LogDir==log/SmsHandlerAddBlacklistGG
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	LogDefinition
+	DelayTime==5
+	NotificationInterval
+	NotificationString
+	ConnectDB==Y
+Status==1
+Schedule

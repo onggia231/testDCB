@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="p_date" id="37">
+            <text-property name="promptText">Từ ngày</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">01/04/2020</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">dd/MM/yyyy</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="p_to_date" id="38">
+            <text-property name="promptText">Đến ngày</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">17/04/2020</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">dd/MM/yyyy</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="35">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">oracle.jdbc.OracleDriver</property>
+            <property name="odaURL">jdbc:oracle:thin:@10.11.10.141:1521:DEV</property>
+            <property name="odaUser">cbs</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">Y2Jz</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="36">
+            <list-property name="columnHints"/>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">param_1</property>
+                    <property name="paramName">p_date</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">1</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">param_2</property>
+                    <property name="paramName">p_to_date</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">0</property>
+                    <property name="position">2</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">TRUNC(SUM_DATE,'DD')</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ISDN</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">COMMAND</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">SUCCESS</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">FAILED</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">TOTAL</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">TOTAL_AMOUNT</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">TRUNC(SUM_DATE,'DD')</property>
+                    <property name="nativeName">TRUNC(SUM_DATE,'DD')</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ISDN</property>
+                    <property name="nativeName">ISDN</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">COMMAND</property>
+                    <property name="nativeName">COMMAND</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">SUCCESS</property>
+                    <property name="nativeName">SUCCESS</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">FAILED</property>
+                    <property name="nativeName">FAILED</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">TOTAL</property>
+                    <property name="nativeName">TOTAL</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">TOTAL_AMOUNT</property>
+                    <property name="nativeName">TOTAL_AMOUNT</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT trunc(sum_date,'dd'),ISDN,
+        COMMAND,
+       sum(decode(STATUS,2,TRANS_COUNT,0)) SUCCESS,
+       sum(decode(STATUS,1,TRANS_COUNT,0)) FAILED,
+       SUM(TRANS_COUNT) TOTAL,
+       sum(decode(STATUS,2,AMOUNT,0)) TOTAL_AMOUNT
+       FROM RPT_TRANSACTION
+WHERE SUM_DATE>=? AND SUM_DATE<? AND ISDN = '84936190293' GROUP BY trunc(sum_date,'dd'),ISDN,COMMAND
+]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2"/>
+    </page-setup>
+    <body>
+        <grid id="668">
+            <property name="marginRight">2pt</property>
+            <column id="669"/>
+            <column id="670"/>
+            <column id="671"/>
+            <column id="672"/>
+            <column id="673"/>
+            <column id="674"/>
+            <column id="675"/>
+            <column id="676"/>
+            <row id="677">
+                <cell id="678">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <label id="666">
+                        <property name="fontFamily">"Times New Roman"</property>
+                        <property name="fontSize">14pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">Báo cáo tổng hợp giao dịch theo thuê bao</text-property>
+                    </label>
+                </cell>
+            </row>
+            <row id="686">
+                <cell id="687">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text-data id="667">
+                        <property name="fontFamily">"Times New Roman"</property>
+                        <property name="textAlign">center</property>
+                        <expression name="valueExpr">'Từ ngày '+Formatter.format(params["p_date"].value,'dd/MM/yyyy')+' đến ngày ' + Formatter.format(params["p_to_date"].value,'dd/MM/yyyy')</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+            <row id="695">
+                <cell id="696">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <table id="601">
+                        <property name="fontFamily">"Times New Roman"</property>
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRUNC(SUM_DATE,'DD')</property>
+                                <text-property name="displayName">TRUNC(SUM_DATE,'DD')</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRUNC(SUM_DATE,'DD')"]</expression>
+                                <property name="dataType">date-time</property>
+                            </structure>
+                            <structure>
+                                <property name="name">ISDN</property>
+                                <text-property name="displayName">ISDN</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["ISDN"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">COMMAND</property>
+                                <text-property name="displayName">COMMAND</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["COMMAND"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SUCCESS</property>
+                                <text-property name="displayName">SUCCESS</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["SUCCESS"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">FAILED</property>
+                                <text-property name="displayName">FAILED</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["FAILED"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">TOTAL</property>
+                                <text-property name="displayName">TOTAL</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TOTAL"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">TOTAL_AMOUNT</property>
+                                <text-property name="displayName">TOTAL_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TOTAL_AMOUNT"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <property name="dataType">integer</property>
+                                <property name="aggregateFunction">RUNNINGCOUNT</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                        <expression name="value" type="javascript">row["ISDN"]</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="650"/>
+                        <column id="640"/>
+                        <column id="641"/>
+                        <column id="642"/>
+                        <column id="643"/>
+                        <column id="644"/>
+                        <column id="645"/>
+                        <column id="646"/>
+                        <header>
+                            <row id="602">
+                                <property name="backgroundColor">#FFFF80</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">thin</property>
+                                <property name="borderLeftStyle">solid</property>
+                                <property name="borderLeftWidth">thin</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">thin</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">thin</property>
+                                <property name="verticalAlign">middle</property>
+                                <cell id="647">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="651">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">STT</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="603">
+                                    <label id="604">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Ngày</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="605">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="606">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Thuê bao</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="607">
+                                    <label id="608">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Lệnh</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="609">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="610">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Thành công</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="611">
+                                    <label id="612">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Không thành công</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="613">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="614">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Tổng</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="615">
+                                    <label id="616">
+                                        <property name="fontFamily">"Times New Roman"</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Tổng tiền</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="617">
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">thin</property>
+                                <property name="borderLeftStyle">solid</property>
+                                <property name="borderLeftWidth">thin</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">thin</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">thin</property>
+                                <cell id="648">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="652">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
+                                <cell id="618">
+                                    <data id="619">
+                                        <structure name="dateTimeFormat">
+                                            <property name="category">Custom</property>
+                                            <property name="pattern">dd/MM/yyyy</property>
+                                        </structure>
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">TRUNC(SUM_DATE,'DD')</property>
+                                    </data>
+                                </cell>
+                                <cell id="620">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="621">
+                                        <property name="resultSetColumn">ISDN</property>
+                                    </data>
+                                </cell>
+                                <cell id="622">
+                                    <data id="623">
+                                        <property name="resultSetColumn">COMMAND</property>
+                                    </data>
+                                </cell>
+                                <cell id="624">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="625">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">SUCCESS</property>
+                                    </data>
+                                </cell>
+                                <cell id="626">
+                                    <data id="627">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">FAILED</property>
+                                    </data>
+                                </cell>
+                                <cell id="628">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="629">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">TOTAL</property>
+                                    </data>
+                                </cell>
+                                <cell id="630">
+                                    <data id="631">
+                                        <property name="textAlign">right</property>
+                                        <property name="resultSetColumn">TOTAL_AMOUNT</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

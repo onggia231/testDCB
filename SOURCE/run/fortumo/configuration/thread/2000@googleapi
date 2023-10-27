@@ -1,0 +1,31 @@
+ThreadName==GoogleAPI
+ClassName==com.telsoft.httpservice.soap.server.SoapStarter
+StartupType==1
+Parameter
+	LogDir==log/google
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ContextPath==/mobifone_google
+	ServletContext==/*
+	Port==9887
+	Tcp-Acceptors==3
+	Tcp-SoLingerTime==-1
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath==../../key/2ssl/server.jks
+	KeyStorePassword==mobifone
+	KeyManagerPassword==mobifone
+	TrustStorePath==../../key/2ssl/trust.jks
+	TrustStorePassword==mobifone
+	CBSUrl==http://127.0.0.1:8888/cbs
+	Source==fortumo-app-01
+	StoreCode==ITUNE
+Status==1
+Schedule

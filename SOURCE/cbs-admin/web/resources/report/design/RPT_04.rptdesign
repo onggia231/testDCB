@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="p_user1" id="73">
+            <property name="hidden">false</property>
+            <method name="validate"><![CDATA[if(params["p_user"] == ''){
+// thong bao loi
+    throw  new Exception("Trường Người sử dụng bắt buộc nhập");
+}
+
+// validate dung
+true;]]></method>
+            <text-property name="promptText">Người sử dụng</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">dsUSER</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["USER_ID"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["USER_NAME"]</expression>
+            <expression name="sortByColumn">dataSetRow["USER_NAME"]</expression>
+            <property name="sortDirection">asc</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">false</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="p_from_date" id="74">
+            <property name="hidden">true</property>
+            <text-property name="promptText">Từ ngày</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.today()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">dd/MM/yyyy</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="p_date" id="75">
+            <property name="hidden">false</property>
+            <text-property name="promptText">Từ ngày</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.today()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">dd/MM/yyyy</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="p_text" id="76">
+            <property name="hidden">true</property>
+            <text-property name="promptText">Nhập text</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">Nhập giá trị đầu vào</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">true</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">></property>
+                <property name="pattern">></property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="p_tien" id="77">
+            <property name="hidden">true</property>
+            <text-property name="promptText">Số tiền</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">decimal</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Currency</property>
+                <property name="pattern">$ #,##0.00{RoundingMode=HALF_UP}</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">oracle.jdbc.OracleDriver</property>
+            <property name="odaURL">jdbc:oracle:thin:@10.10.10.12:1521:app</property>
+            <property name="odaUser">adminv2</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4yMDE5MDYxMA==</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="dsUSER" id="49">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">USER_ID</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">USER_ID</text-property>
+                    <text-property name="heading">USER_ID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">USER_NAME</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">USER_NAME</text-property>
+                    <text-property name="heading">USER_NAME</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">FULL_NAME</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">FULL_NAME</text-property>
+                    <text-property name="heading">FULL_NAME</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">USER_ID</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">USER_NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">FULL_NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">USER_ID</property>
+                    <property name="nativeName">USER_ID</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">USER_NAME</property>
+                    <property name="nativeName">USER_NAME</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">FULL_NAME</property>
+                    <property name="nativeName">FULL_NAME</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select USER_ID, USER_NAME, FULL_NAME
+from AM_USER
+]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table name="tableUser" id="50">
+            <property name="dataSet">dsUSER</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">USER_ID</property>
+                    <text-property name="displayName">USER_ID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["USER_ID"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">USER_NAME</property>
+                    <text-property name="displayName">USER_NAME</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["USER_NAME"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">FULL_NAME</property>
+                    <text-property name="displayName">FULL_NAME</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["FULL_NAME"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="63"/>
+            <column id="64"/>
+            <column id="65"/>
+            <header>
+                <row id="51">
+                    <cell id="52">
+                        <label id="66">
+                            <text-property name="text">USER_ID</text-property>
+                        </label>
+                    </cell>
+                    <cell id="53">
+                        <label id="68">
+                            <text-property name="text">USER_NAME</text-property>
+                        </label>
+                    </cell>
+                    <cell id="54">
+                        <label id="70">
+                            <text-property name="text">FULL_NAME</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="55">
+                    <cell id="56">
+                        <data id="67">
+                            <property name="resultSetColumn">USER_ID</property>
+                        </data>
+                    </cell>
+                    <cell id="57">
+                        <data id="69">
+                            <property name="resultSetColumn">USER_NAME</property>
+                        </data>
+                    </cell>
+                    <cell id="58">
+                        <data id="71">
+                            <property name="resultSetColumn">FULL_NAME</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="59">
+                    <cell id="60"/>
+                    <cell id="61"/>
+                    <cell id="62"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

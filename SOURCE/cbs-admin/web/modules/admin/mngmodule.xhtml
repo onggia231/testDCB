@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <style type="text/css">
+            .ui-tree-container {
+                max-height: 400px !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            $(document).ready(function () {
+
+            });
+
+            function handleSubmitRequest(xhr, status, args) {
+                if (args.isM) {
+                    PF('confirmDialog2').show();
+
+                } else if (args.isDisable) {
+                    PF('confirmDialog3').show();
+                }
+            }
+
+            //]]>
+        </script>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:sticky target="pnl_control" />
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not systemModuleController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_add" actionListener="#{systemModuleController.changeStateAdd()}" rendered="#{systemModuleController.getPermission('I')}" process="@this" styleClass="btn-primary" value="#{PP_COMMONS.add}" update="panel_center" icon="fa fa-plus" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_copy" actionListener="#{systemModuleController.changeStateCopy()}" rendered="#{systemModuleController.getPermission('I')}" disabled="#{not systemModuleController.isSelectedModule}" process="@form" styleClass="btn-info " value="#{PP_COMMONS.copy}" update="panel_center" icon="fa fa-clone" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{systemModuleController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel" actionListener="#{systemModuleController.handleCancel()}" process="@this"  value="#{PP_COMMONS.back}" update="panel_center, panel_dialog" icon="fa fa-undo" resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok" actionListener="#{systemModuleController.handleOK()}" process="@this :form_main:table_module_detail :form_main:table_module_right" styleClass="btn-success" value="#{PP_COMMONS.ok}" update="panel_center, panel_dialog" oncomplete="handleSubmitRequest(xhr, status, args);" icon="fa fa-check-circle" resetValues="true"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="ui-g no-pad-top">
+                    <div class="ui-g-12 ui-md-12 ui-lg-4 no-pad-y">
+                        <p:panel styleClass="box-info">
+                            <f:facet name="header">
+                                <div class="ui-g no-padding pnl-control">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6 no-pad-y">
+                                        #{PP_MNGMODULE.module}
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3 no-pad-y">
+                                        <p:commandButton id="btn_edit" actionListener="#{systemModuleController.changeStateEdit()}" rendered="#{systemModuleController.isAllowUpdate and not systemModuleController.isDisplayBtnConfirm}" disabled="#{not systemModuleController.isSelectedModule}" process="@this" styleClass="btn-warning btn-xs" icon="fa fa-pencil" update=":form_main:panel_center" resetValues="true"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-3 no-pad-y">
+                                        <p:commandButton id="btn_del" actionListener="#{systemModuleController.handleDelete()}" rendered="#{systemModuleController.isAllowDelete and not systemModuleController.isDisplayBtnConfirm}" disabled="#{not systemModuleController.isSelectedModule}" process="@this" styleClass="btn-danger btn-xs" icon="fa fa-trash" update=":form_main:panel_center" resetValues="true">
+                                            <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </f:facet>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <p:autoComplete id="module_search" disabled="#{systemModuleController.isDisplayBtnConfirm}" minQueryLength="1" maxResults="10" queryDelay="500" value="#{systemModuleController.mstrModuleSearch}" completeMethod="#{systemModuleController.completeModuleSearch}" onfocus="this.select();" onmouseup="return false;">
+                                        <p:ajax event="itemSelect" listener="#{systemModuleController.onModuleSearchSelect}" process="@this, module_search" update="panel_center"/>
+                                    </p:autoComplete>
+                                    <p:watermark for="module_search" value="#{PP_MNGMODULE.type_keyword}"/>
+                                </div>
+                            </div>
+
+                            <p:tree id="tree_module" value="#{systemModuleController.mtreeModule}" var="nodeModule" animate="true" widgetVar="treeModule"
+                                    selection="#{systemModuleController.mselectedModuleNode}" selectionMode="single" style="border: 0;">
+
+                                <p:ajax event="select" listener="#{systemModuleController.onNodeSelect}"
+                                        update=":form_main:table_module_detail :form_main:pnl_control :form_main:table_module_right"/>
+
+                                <p:treeNode expandedIcon="fa fa-folder-open" collapsedIcon="fa fa-folder">
+                                    <span id="module_#{nodeModule.objectId}">#{nodeModule.name}</span>
+                                </p:treeNode>
+                                <p:treeNode type="app" icon="fa fa-object-group">
+                                    <span id="module_#{nodeModule.objectId}">#{nodeModule.name}</span>
+                                </p:treeNode>
+                                <p:treeNode type="m" icon="#{nodeModule.icon}">
+                                    <span id="module_#{nodeModule.objectId}">#{nodeModule.name}</span>
+                                </p:treeNode>
+                                <p:treeNode type="h" icon="#{nodeModule.icon}">
+                                    <span id="module_#{nodeModule.objectId}">#{nodeModule.name}</span>
+                                </p:treeNode>
+                            </p:tree>
+                        </p:panel>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-8 no-pad-y">
+                        <p:panel id="table_module_detail" styleClass="box-info">
+                            <f:facet name="header">
+                                #{PP_MNGMODULE.module_detail}
+                            </f:facet>
+
+                            <p:focus context="table_module_detail"/>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_name" value="#{PP_MNGMODULE.module_name}"/>
+                                        <p:inputText maxlength="128" disabled="#{systemModuleController.isDISABLE}" required="true" requiredMessage="#{PP_MNGMODULE.module_name}#{PP_COMMONS.can_not_be_empty}" id="module_name" value="#{systemModuleController.mtmpModule.name}"/>
+                                        <p:message for="module_name"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="app" value="#{PP_MNGMODULE.module_app}"/>
+                                        <p:selectOneMenu filter="true" filterMatchMode="contains" disabled="#{systemModuleController.isDISABLE}" id="app" value="#{systemModuleController.mselectedApp.appId}" effect="fade">
+                                            <p:ajax global="false" event="change" process="@this" listener="#{systemModuleController.onSelectedApp}" update=":form_main:module_parent"/>
+                                            <f:selectItem itemLabel="" itemValue=""/>
+                                            <f:selectItems value="#{systemModuleController.mlistApp}" var="app" itemLabel="[#{app.code}] #{app.name}" itemValue="#{app.appId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="app"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_parent" value="#{PP_MNGMODULE.parent_module}"/>
+                                        <p:selectOneMenu filter="true" filterMatchMode="contains" disabled="#{systemModuleController.isDISABLE}" id="module_parent" value="#{systemModuleController.mtmpModule.parentId}" effect="fade">
+                                            <f:selectItem itemLabel="ROOT" itemValue="0"/>
+                                            <f:selectItems value="#{systemModuleController.mlistParentModule}" var="module" itemLabel="#{module.name}" itemValue="#{module.objectId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="module_parent"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_type" value="#{PP_MNGMODULE.module_type}"/>
+                                        <p:selectOneMenu disabled="#{systemModuleController.isDISABLE}" id="module_type" value="#{systemModuleController.mtmpModule.objType}">
+                                            <f:selectItem itemLabel="#{PP_MNGMODULE.module}" itemValue="M"/>
+                                            <f:selectItem itemLabel="#{PP_MNGMODULE.group_module}" itemValue="G"/>
+                                            <f:selectItem itemLabel="#{PP_MNGMODULE.hyperlink}" itemValue="H"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="module_type"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_path" value="#{PP_MNGMODULE.facelet_url}"/>
+                                        <p:inputText maxlength="512" disabled="#{systemModuleController.isDISABLE}" required="true" requiredMessage="#{PP_MNGMODULE.facelet_url}#{PP_COMMONS.can_not_be_empty}" id="module_path" value="#{systemModuleController.mtmpModule.path}"/>
+                                        <p:message for="module_path"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_ord" value="#{PP_MNGMODULE.order}"/>
+                                        <p:inputText disabled="#{systemModuleController.isDISABLE}" id="module_ord" value="#{systemModuleController.mtmpModule.order}" maxlength="5">
+                                            <p:keyFilter regEx="/[\d\-]/"/>
+                                        </p:inputText>
+                                        <p:message for="module_ord"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="module_status" value="#{PP_COMMONS.status}"/>
+                                        <p:selectOneMenu disabled="#{systemModuleController.isDISABLE}" id="module_status" value="#{systemModuleController.mtmpModule.status}">
+                                            <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="module_status"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="is_render" value="#{PP_MNGMODULE.is_show_menu}"/>
+                                        <p:selectOneMenu disabled="#{systemModuleController.isDISABLE}" id="is_render" value="#{systemModuleController.mtmpModule.render}">
+                                            <f:selectItem itemLabel="#{PP_COMMONS.yes}" itemValue="#{true}"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.no}" itemValue="#{false}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="is_render"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="icon" value="#{PP_MNGMODULE.icon}"/>
+                                        <p:inputText id="icon" maxlength="128" disabled="#{systemModuleController.isDISABLE}" required="false" requiredMessage="#{PP_MNGMODULE.icon}#{PP_COMMONS.can_not_be_empty}" value="#{systemModuleController.mtmpModule.icon}"/>
+                                        <p:message for="icon"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="description" value="#{PP_MNGMODULE.description}"/>
+                                        <p:inputText id="description" maxlength="128" disabled="#{systemModuleController.isDISABLE}" value="#{systemModuleController.mtmpModule.description}"/>
+                                        <p:message for="description"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:panel>
+
+                        <p:dataTable value="#{systemModuleController.mtmpModule.listAccessRight}" var="accessRight"
+                                     id="table_module_right" widgetVar="tableModuleRight" rowIndexVar="index"
+                                     style="margin-bottom: 10px" styleClass="box-info ui-material">
+
+                            <f:facet name="header">
+                                <div align="left">#{PP_MNGMODULE.module_access_right}</div>
+                            </f:facet>
+
+                            <p:column headerText="#{PP_MNGMODULE.right}">
+                                #{accessRight.name}
+                            </p:column>
+                            <p:column headerText="#{PP_MNGMODULE.access_default}">
+                                <p:selectOneMenu id="accessRightD" disabled="#{systemModuleController.isDISABLE}" style="width: 80%;" value="#{systemModuleController.mtmpModule.listAccessRight.get(index).access}">
+                                    <f:selectItem itemLabel="#{PP_COMMONS.allow}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{PP_COMMONS.deny}" itemValue="0"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="#{PP_COMMONS.active}">
+                                <p:selectBooleanCheckbox id="activeRightD" disabled="#{systemModuleController.isDISABLE}" value="#{systemModuleController.mtmpModule.listAccessRight.get(index).active}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+
+                <h:panelGroup rendered="#{systemModuleController.isDisplayBtnConfirm}">
+                    <script type="text/javascript">
+                        $(".ui-treenode").click(function () {
+                            return false;
+                        });
+                    </script>
+                </h:panelGroup>
+            </h:panelGroup>
+
+            <h:panelGroup id="panel_dialog">
+                <p:confirmDialog id="confirmDialog2" message="#{PP_MNGMODULE.parent_module_change_to_group_module}" header="#{PP_MNGMODULE.confirm_change}" severity="alert" widgetVar="confirmDialog2">
+                    <p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+                        <p:commandButton icon="fa fa-check-circle" process="@this" id="confirm2" value="#{PP_COMMONS.yes}" update=":form_main:panel_center" actionListener="#{systemModuleController.changeModuleType}" oncomplete="PF('confirmDialog2').hide(); "/>
+                        <p:commandButton icon="fa fa-undo" type="button"  id="decline2" value="#{PP_COMMONS.no}" onclick="PF('confirmDialog2').hide()"/>
+                    </p:panelGrid>
+                </p:confirmDialog>
+
+                <p:confirmDialog id="confirmDialog3" message="#{PP_MNGMODULE.locked_module_not_display_on_menu}" header="#{PP_MNGMODULE.confirm_change}" severity="alert" widgetVar="confirmDialog3">
+                    <p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+                        <p:commandButton icon="fa fa-check-circle" process="@this" id="confirm3" value="#{PP_COMMONS.yes}" update=":form_main:panel_center" actionListener="#{systemModuleController.confirmDisableModule()}" oncomplete="PF('confirmDialog3').hide(); "/>
+                        <p:commandButton icon="fa fa-undo" type="button"  id="decline3" value="#{PP_COMMONS.no}" onclick="PF('confirmDialog3').hide()"/>
+                    </p:panelGrid>
+                </p:confirmDialog>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

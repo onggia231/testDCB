@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route customId="true" id="PAYMENT_STATUS_GPLAY">
+        <from customId="false" uri="direct:PAYMENT_STATUS_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-get-payment-info:?reverseMaxTime=96&amp;refundMaxTime=4320"/>
+        <to uri="cbs-result-by-payment-result"/>
+    </route>
+    <route customId="true" id="REFUND_STATUS_GPLAY">
+        <from customId="false" uri="direct:REFUND_STATUS_GPLAY"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-get-refund-info:?scanTime=96"/>
+        <to uri="cbs-result-by-payment-result"/>
+    </route>
+    <route customId="true" id="PAYMENT_STATUS_ITUNE">
+        <from customId="false" uri="direct:PAYMENT_STATUS_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-get-payment-info:?reverseMaxTime=96&amp;refundMaxTime=4320"/>
+        <to uri="cbs-result-by-payment-result"/>
+    </route>
+    <route customId="true" id="REFUND_STATUS_ITUNE">
+        <from customId="false" uri="direct:REFUND_STATUS_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-get-refund-info:?scanTime=96"/>
+        <to uri="cbs-result-by-payment-result"/>
+    </route>
+    <route customId="true" id="CHARGE_ITUNE">
+        <from uri="direct:CHARGE_ITUNE"/>
+        <onCompletion parallelProcessing="true">
+            <choice>
+                <when>
+                    <simple>${exchangeProperty.CBMsgContext.getProperty("map_full_request")[flow_status]} == 'PROCESS_TIMEOUT'</simple>
+                    <to uri="cbs-request-update"/>
+                    <choice>
+                        <when>
+                            <description/>
+                            <simple>${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]} != null &amp;&amp; ${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]} != ''</simple>
+                            <choice>
+                                <when>
+                                    <simple>${exchangeProperty.CBMsgContext.getProperty("map_full_request")[subscriber_pay_type]} == 'PREPAID'</simple>
+                                    <doTry>
+                                        <pipeline>
+                                            <setBody>
+                                                <description/>
+                                                <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;command&gt;refund_v2&lt;/command&gt;
+	&lt;charge_id&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]}&lt;/charge_id&gt;
+	&lt;refund_amount&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[amount_full_tax]}&lt;/refund_amount&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_shortcode]}&lt;/shortcode&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_spid]}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_cpid]}&lt;/cpid&gt;
+	&lt;EXTRA_INFO&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_extra_info]}&lt;/EXTRA_INFO&gt;
+&lt;/cp_request&gt;</simple>
+                                            </setBody>
+                                            <to uri="queue:?id=CPS_RTEC"/>
+                                            <choice>
+                                                <when>
+                                                    <simple>${body} !contains "CPS-0000"</simple>
+                                                    <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=SYS&amp;position=1&amp;status=NEED_REFUND_UNDER_5_DAY_WHEN_REFUND_ONLINE_ERROR"/>
+                                                </when>
+                                                <otherwise>
+                                                    <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=SYS&amp;position=1&amp;status=SUCCESS"/>
+                                                </otherwise>
+                                            </choice>
+                                        </pipeline>
+                                        <doCatch>
+                                            <exception>java.lang.Exception</exception>
+                                            <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=SYS&amp;position=0&amp;status=NEED_REFUND_UNDER_5_DAY_WHEN_REFUND_ONLINE_ERROR"/>
+                                        </doCatch>
+                                        <doFinally/>
+                                    </doTry>
+                                </when>
+                                <otherwise>
+                                    <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=SYS&amp;position=0&amp;status=NEED_REFUND_UNDER_60_DAY"/>
+                                </otherwise>
+                            </choice>
+                        </when>
+                    </choice>
+                </when>
+                <otherwise>
+                    <to uri="cbs-request-update"/>
+                    <choice>
+                        <when>
+                            <simple>${exchangeProperty.CBMsgContext.getProperty("map_full_request")[reference_idempotent_id]} == null &amp;&amp; ${exchangeProperty.CBMsgContext.getStatus()} == '0'</simple>
+                            <to uri="cbs-update-total-spent"/>
+                            <to uri="cbs-send-sms:?dateFormat=dd/MM/yyyy&amp;channelType=API&amp;apParamSMSType=CHARGE_SUCCESS_GPLAY"/>
+                        </when>
+                    </choice>
+                </otherwise>
+            </choice>
+            <to uri="cbs-transaction-charge-log"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <choice>
+                <when>
+                    <simple>${exchangeProperty.CBMsgContext.getProperty('map_full_request')[exception_message]} contains 'SPEND_LIMIT_REACHED_MONTH' &amp;&amp; ${exchangeProperty.CBMsgContext.getProperty('map_full_request')[subscriber_pay_type]} == 'POSTPAID' &amp;&amp; ${exchangeProperty.CBMsgContext.getProperty('map_full_request')[subscriber_limit_profile]} != 3</simple>
+                    <to uri="cbs-send-sms:?dateFormat=dd/MM/yyyy&amp;channelType=SYS&amp;apParamSMSType=5M_NOTIFICATION"/>
+                </when>
+            </choice>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-check-duplicate-limit-time:?idempotentTime=96&amp;hintIndex=RAW(/*+ index(CB_REQUEST CB_REQUEST_INDX_01) */)"/>
+        <to uri="cbs-check-subscriber-status"/>
+        <to uri="cbs-check-access:?name=ISDN-WHITELIST&amp;errorCode=USER_BARRED"/>
+        <to uri="cbs-check-access:?name=APP-WHITELIST&amp;errorCode=CONTENT_IS_BLOCKED"/>
+        <to uri="cbs-check-access:?name=ISDN-BLACKLIST&amp;errorCode=USER_BARRED"/>
+        <to uri="cbs-check-access:?name=APP-BLACKLIST&amp;errorCode=CONTENT_IS_BLOCKED"/>
+        <to uri="cbs-check-access:?name=VASGATE-BLACKLIST&amp;errorCode=USER_BARRED"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("anti_profit")} != 'DISABLE'</simple>
+                <setBody>
+                    <simple>command=check,msisdn=${exchangeProperty.msisdn}</simple>
+                </setBody>
+                <to uri="queue:?id=ANTI_PROFIT"/>
+                <choice>
+                    <when>
+                        <simple>${body} contains "result=0"</simple>
+                        <to uri="cbs-throw-cbexception:?code=USER_BARRED"/>
+                    </when>
+                    <otherwise/>
+                </choice>
+            </when>
+        </choice>
+        <setBody customId="false">
+            <description/>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;
+            </simple>
+        </setBody>
+        <to customId="false" uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.sub_delta_active_date} &lt; 90</simple>
+                <to uri="cbs-throw-cbexception:?code=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+            </when>
+        </choice>
+        <to uri="cbs-content-classify"/>
+        <to uri="cbs-build-cps-info"/>
+        <to uri="cbs-check-limitation"/>
+        <doTry>
+            <pipeline>
+                <setBody>
+                    <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;command&gt;debit_v2&lt;/command&gt;
+	&lt;account_name&gt;${exchangeProperty.charge_account}&lt;/account_name&gt;
+	&lt;transaction_price&gt;${exchangeProperty.amount_full_tax}&lt;/transaction_price&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_shortcode]}&lt;/shortcode&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_spid]}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_cpid]}&lt;/cpid&gt;
+	&lt;EXTRA_INFO&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_extra_info]}&lt;/EXTRA_INFO&gt;
+&lt;/cp_request&gt;</simple>
+                </setBody>
+                <to uri="queue:?id=CPS_RTEC"/>
+                <to uri="cbs-read-rtec-debit-v2-result"/>
+                <choice>
+                    <when>
+                        <simple>${body} contains "CPS-0000"</simple>
+                        <to uri="cbs-result:?code=OK"/>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=CHARGE&amp;channelType=API&amp;position=0&amp;status=SUCCESS"/>
+                    </when>
+                    <when>
+                        <simple>${body} contains "CPS-1001"</simple>
+                        <to uri="cbs-result:?code=INSUFFICIENT_FUNDS"/>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=CHARGE&amp;channelType=API&amp;position=0&amp;status=NOT_SUCCESS"/>
+                    </when>
+                    <when>
+                        <simple>${body} contains "CPE-"</simple>
+                        <to uri="cbs-result:?code=USER_BARRED"/>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=CHARGE&amp;channelType=API&amp;position=0&amp;status=NOT_SUCCESS"/>
+                    </when>
+                    <when>
+                        <simple>${body} contains "CPS-1007"</simple>
+                        <to uri="cbs-result:?code=USER_IN_INACTIVE_STATE"/>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=CHARGE&amp;channelType=API&amp;position=0&amp;status=NOT_SUCCESS"/>
+                    </when>
+                    <otherwise>
+                        <to uri="cbs-result:?code=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=CHARGE&amp;channelType=API&amp;position=0&amp;status=NOT_SUCCESS"/>
+                    </otherwise>
+                </choice>
+            </pipeline>
+            <doCatch>
+                <exception>java.lang.Exception</exception>
+                <to uri="cbs-exception"/>
+            </doCatch>
+            <doFinally>
+                <to uri="cbs-clear-reserved"/>
+            </doFinally>
+        </doTry>
+    </route>
+    <route customId="true" id="LOCAL_PARTIAL_REFUND">
+        <from uri="direct:LOCAL_PARTIAL_REFUND"/>
+        <setBody>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <to uri="cbs-content-classify"/>
+        <to uri="cbs-build-cps-info"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]} != null &amp;&amp; ${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]} != ''</simple>
+                <doTry>
+                    <pipeline>
+                        <setBody>
+                            <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;command&gt;refund_v2&lt;/command&gt;
+	&lt;charge_id&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[refund_information]}&lt;/charge_id&gt;
+	&lt;refund_amount&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[amount_full_tax]}&lt;/refund_amount&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_shortcode]}&lt;/shortcode&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_spid]}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_cpid]}&lt;/cpid&gt;
+	&lt;EXTRA_INFO&gt;${exchangeProperty.CBMsgContext.getProperty("map_full_request")[cps_extra_info]}&lt;/EXTRA_INFO&gt;
+&lt;/cp_request&gt;</simple>
+                        </setBody>
+                        <to uri="queue:?id=CPS_RTEC"/>
+                        <choice>
+                            <when>
+                                <simple>${body} !contains "CPS-0000"</simple>
+                                <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_UNDER_5_DAY_WHEN_REFUND_ONLINE_ERROR"/>
+                            </when>
+                            <otherwise>
+                                <to uri="cbs-write-cdr-for-cps:?cpsCategory=CANCEL&amp;channelType=API&amp;position=1&amp;status=SUCCESS"/>
+                            </otherwise>
+                        </choice>
+                    </pipeline>
+                    <doCatch>
+                        <exception>java.lang.Exception</exception>
+                        <choice>
+                            <when>
+                                <simple>${exchangeProperty.payment_delta_hours} &lt; 120</simple>
+                                <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_UNDER_5_DAY_WHEN_REFUND_ONLINE_ERROR"/>
+                            </when>
+                            <when>
+                                <simple>${exchangeProperty.payment_delta_hours} &lt; 1440</simple>
+                                <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_UNDER_60_DAY"/>
+                            </when>
+                            <otherwise>
+                                <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_OVER_60_DAY"/>
+                            </otherwise>
+                        </choice>
+                    </doCatch>
+                    <doFinally/>
+                </doTry>
+            </when>
+            <otherwise>
+                <choice>
+                    <when>
+                        <simple>${exchangeProperty.payment_delta_hours} &lt; 120</simple>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_UNDER_5_DAY_WHEN_REFUND_ONLINE_ERROR"/>
+                    </when>
+                    <when>
+                        <simple>${exchangeProperty.payment_delta_hours} &lt; 1440</simple>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_UNDER_60_DAY"/>
+                    </when>
+                    <otherwise>
+                        <to uri="cbs-write-cdr-for-cps:?cpsCategory=REFUND&amp;channelType=API&amp;position=1&amp;status=NEED_REFUND_OVER_60_DAY"/>
+                    </otherwise>
+                </choice>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="REFUND_ITUNE">
+        <from uri="direct:REFUND_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update-with-ref-payment"/>
+            <choice>
+                <when>
+                    <simple>${exchangeProperty.insert_refund} == 'TRUE'</simple>
+                    <to uri="cbs-transaction-charge-log"/>
+                </when>
+            </choice>
+            <choice>
+                <when>
+                    <simple>${exchangeProperty.update_total_spent} == 'TRUE'</simple>
+                    <to uri="cbs-update-total-spent"/>
+                </when>
+            </choice>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <to uri="cbs-check-duplicate-limit-time-refund:?idempotentTime=96&amp;hintIndex=RAW(/*+ index(CB_REQUEST CB_REQUEST_INDX_01) */)"/>
+        <to uri="cbs-get-payment-info:?reverseMaxTime=96&amp;refundMaxTime=4320"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.payment_amount} &lt; ${exchangeProperty.amount}</simple>
+                <to uri="cbs-result:?code=REFUND_AMOUNT_EXCEEDS_ORIGINAL"/>
+            </when>
+            <when>
+                <simple>${exchangeProperty.payment_delta_hours} &gt;= 4320</simple>
+                <setProperty name="insert_refund">
+                    <simple>TRUE</simple>
+                </setProperty>
+                <to uri="cbs-result:?code=REFUND_WINDOW_EXPIRED"/>
+            </when>
+            <when>
+                <simple>${exchangeProperty.payment_result_code} != '0'</simple>
+                <to uri="cbs-result:?code=OK"/>
+            </when>
+            <otherwise>
+                <choice>
+                    <when>
+                        <simple>${exchangeProperty.payment_status} == 0</simple>
+                        <to uri="cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&amp;currentPaymentStatus=CHARGED"/>
+                    </when>
+                    <when>
+                        <simple>${exchangeProperty.payment_status} == 1</simple>
+                        <to uri="cbs-update-payment-status:?newPaymentStatus=DOING_REFUND&amp;currentPaymentStatus=CAPTURED"/>
+                    </when>
+                </choice>
+                <choice>
+                    <when>
+                        <simple>${body} contains "UPDATE_SUCCESS"</simple>
+                        <setProperty name="insert_refund">
+                            <simple>TRUE</simple>
+                        </setProperty>
+                        <to uri="direct:LOCAL_PARTIAL_REFUND"/>
+                        <to uri="cbs-update-payment-status:?newPaymentStatus=REFUNDED&amp;currentPaymentStatus=DOING_REFUND"/>
+                        <to uri="cbs-result:?code=OK"/>
+                        <setProperty name="update_total_spent">
+                            <simple>TRUE</simple>
+                        </setProperty>
+                    </when>
+                    <otherwise>
+                        <choice>
+                            <when>
+                                <simple>${exchangeProperty.payment_status} == 2 || ${exchangeProperty.payment_status} == 3</simple>
+                                <to uri="cbs-result:?code=OK"/>
+                            </when>
+                            <when>
+                                <simple>${exchangeProperty.payment_status} == 0 || ${exchangeProperty.payment_status} == 1</simple>
+                                <to uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+                            </when>
+                            <when>
+                                <simple>${exchangeProperty.payment_status} == 13</simple>
+                                <to uri="cbs-result:?code=IN_PROGRESS"/>
+                            </when>
+                            <otherwise>
+                                <to uri="cbs-result:?code=IN_OTHER_PROGRESS"/>
+                            </otherwise>
+                        </choice>
+                    </otherwise>
+                </choice>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="SUBSCRIBER_LOOKUP_ITUNE">
+        <from uri="direct:SUBSCRIBER_LOOKUP_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <setBody>
+            <simple>&lt;cp_request&gt;
+	&lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+	&lt;application&gt;7&lt;/application&gt;
+	&lt;action&gt;0&lt;/action&gt;
+	&lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+	&lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+	&lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+	&lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+	&lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+	&lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+	&lt;categoryid&gt;000004&lt;/categoryid&gt;
+	&lt;contentid&gt;0000000001&lt;/contentid&gt;
+	&lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+	&lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+&lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <choice>
+            <when>
+                <description/>
+                <simple>${body} contains "CPS-0000"</simple>
+                <to uri="cbs-result:?code=OK"/>
+            </when>
+            <when>
+                <simple>${body} contains "CPS-1007"</simple>
+                <to uri="cbs-result:?code=USER_UNKNOWN"/>
+            </when>
+            <otherwise>
+                <to uri="cbs-result:?code=INTERNAL_SERVER_ERROR"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="CHECK_ELIGIBILITY_ITUNE">
+        <from uri="direct:CHECK_ELIGIBILITY_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException>
+            <exception>java.lang.Exception</exception>
+            <to uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <setBody>
+            <description/>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.sub_delta_active_date} &lt; 90</simple>
+                <to uri="cbs-throw-cbexception:?code=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+            </when>
+        </choice>
+        <to uri="cbs-check-access:?name=ISDN-WHITELIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <to uri="cbs-check-access:?name=ISDN-BLACKLIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <to uri="cbs-check-access:?name=VASGATE-BLACKLIST&amp;errorCode=USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("anti_profit")} != 'DISABLE'</simple>
+                <setBody>
+                    <simple>command=check,msisdn=${exchangeProperty.msisdn}</simple>
+                </setBody>
+                <to uri="queue:?id=ANTI_PROFIT"/>
+                <choice>
+                    <when>
+                        <simple>${body} contains "result=1"</simple>
+                        <to uri="cbs-result:?code=OK"/>
+                    </when>
+                    <otherwise>
+                        <to uri="cbs-result:?code=USER_BARRED"/>
+                    </otherwise>
+                </choice>
+            </when>
+            <otherwise>
+                <to uri="cbs-result:?code=OK"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route customId="true" id="ACCOUNT_PROFILE_ITUNE">
+        <from uri="direct:ACCOUNT_PROFILE_ITUNE"/>
+        <onCompletion>
+            <to uri="cbs-request-update"/>
+        </onCompletion>
+        <onException customId="false">
+            <exception>java.lang.Exception</exception>
+            <to customId="false" uri="cbs-exception"/>
+            <stop/>
+        </onException>
+        <to uri="cbs-generate-id"/>
+        <log customId="false" logName="MESSAGE" loggingLevel="INFO" message="${header.cb_request_id}: Receive a message ${body}"/>
+        <to customId="false" uri="cbs-extract-input"/>
+        <to uri="cbs-request-insert"/>
+        <doTry>
+            <pipeline>
+                <to uri="cbs-check-access:?name=ISDN-WHITELIST&amp;errorCode=USER_BARRED"/>
+                <to uri="cbs-check-access:?name=ISDN-BLACKLIST&amp;errorCode=USER_BARRED"/>
+                <to uri="cbs-check-access:?name=VASGATE-BLACKLIST&amp;errorCode=USER_BARRED"/>
+                <choice>
+                    <when>
+                        <simple>${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("anti_profit")} != 'DISABLE'</simple>
+                        <setBody>
+                            <simple>command=check,msisdn=${exchangeProperty.msisdn}</simple>
+                        </setBody>
+                        <to uri="queue:?id=ANTI_PROFIT"/>
+                        <choice>
+                            <when>
+                                <simple>${body} contains "result=0"</simple>
+                                <to uri="cbs-throw-cbexception:?code=USER_BARRED"/>
+                            </when>
+                            <otherwise/>
+                        </choice>
+                    </when>
+                </choice>
+            </pipeline>
+            <doCatch>
+                <exception>com.telsoft.cbs.domain.CBException</exception>
+                <setProperty name="eligibility">
+                    <simple>false</simple>
+                </setProperty>
+            </doCatch>
+            <doFinally/>
+        </doTry>
+        <setBody>
+            <description/>
+            <simple>&lt;cp_request&gt;
+                &lt;user_id type="MSISDN"&gt;${exchangeProperty.msisdn}&lt;/user_id&gt;
+                &lt;application&gt;7&lt;/application&gt;
+                &lt;action&gt;0&lt;/action&gt;
+                &lt;cp_id&gt;dcbsystem&lt;/cp_id&gt;
+                &lt;cp_transaction_id&gt;dcbsystem&lt;/cp_transaction_id&gt;
+                &lt;op_transaction_id&gt;&lt;/op_transaction_id&gt;
+                &lt;transaction_description&gt;dcbsystem&lt;/transaction_description&gt;
+                &lt;spid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("sp")}&lt;/spid&gt;
+                &lt;cpid&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("cp")}&lt;/cpid&gt;
+                &lt;categoryid&gt;000001&lt;/categoryid&gt;
+                &lt;contentid&gt;0000000001&lt;/contentid&gt;
+                &lt;shortcode&gt;${exchangeProperty.CBMsgContext.getProperty("store").getAttributes().getProperty("shortcode")}&lt;/shortcode&gt;
+                &lt;b_isdn&gt;${exchangeProperty.msisdn}&lt;/b_isdn&gt;
+                &lt;/cp_request&gt;</simple>
+        </setBody>
+        <to uri="queue:?id=CPS_RTEC"/>
+        <to uri="cbs-read-ppm-display-result"/>
+        <choice>
+            <when>
+                <simple>${exchangeProperty.sub_delta_active_date} &lt; 90</simple>
+                <setProperty name="eligibility">
+                    <simple>false</simple>
+                </setProperty>
+            </when>
+        </choice>
+        <to uri="cbs-get-profile"/>
+        <to uri="cbs-result-account-profile:?code=OK"/>
+    </route>
+</routes>

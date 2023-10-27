@@ -1,0 +1,47 @@
+ThreadName==CPS_Diameter Dispatcher
+ClassName==com.telsoft.cbs.modules.cps_diameter.CpsDiameterDispatcher
+StartupType==1
+Parameter
+	OwnDiameterURI==aaa://127.0.0.1
+	OwnProductName==CarrierBilling
+	OwnVendorID==10415
+	OwnRealm==pay.mobifone.vn
+	ServerRealm==cps.mobifone.vn
+	ServerHost==10.11.10.144
+	ServerPort==3868
+	TimeOut==30
+	DictionaryEnabled==Y
+	ApplicationId=^
+		0=^
+			0==10415
+			1==4
+			2==0
+	Username==khanhnc
+	Password==thienha123
+	ServerName==CPS_DIAMETER
+	SplitNumber==1
+	ChannelSpeed==0
+	IdleInterval==10
+	Attribute
+	ExtParameters
+	Translator=^
+		0=^
+			0==com.telsoft.cbs.modules.cps_diameter.DiameterTranslator
+			1
+	KeepAliveInterval==60
+	KeepAliveCommand
+	SuccessfulSignal
+	ExceptionFilter
+	LogDir==log/cpsdiameter
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	logging-command-process==y
+	MaxDelay==30
+	LogDefinition
+Status==1
+Schedule

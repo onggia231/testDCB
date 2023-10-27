@@ -1,0 +1,17 @@
+ThreadName==Member Check Alive
+ClassName==com.telsoft.cbs.module.fortumo.hazelcast.MemberCheckAlive
+StartupType==1
+Parameter
+	HazelcastConfigFile==/Volumes/DATA/source_mbf/source_new/SOURCE/run/fortumo/configuration/hazelcast-client.xml
+	HazelcastClusterName==dev
+	HazelcastMapName==test-map
+	LogDir==log/member-check
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==5
+	NotificationInterval
+	NotificationString
+Status==1
+Schedule

@@ -1,0 +1,30 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "cbs-result-account-profile",
+    "syntax": "cbs-result-account-profile:",
+    "title": "Build response message for Account Profile request",
+    "description": "The Account Profile Component build the get profile response message",
+    "label": "cbs,endpoint",
+    "deprecated": false,
+    "deprecationNote": "",
+    "async": false,
+    "consumerOnly": false,
+    "producerOnly": true,
+    "lenientProperties": false,
+    "javaType": "com.telsoft.cbs.camel.component.BuildAccountProfileResultComponent",
+    "firstVersion": "1.0.0",
+    "groupId": "@@@GROUPID@@@",
+    "artifactId": "@@@ARTIFACTID@@@",
+    "version": "@@@VERSIONID@@@"
+  },
+  "componentProperties": {
+    "basicPropertyBinding": { "kind": "property", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the component should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" },
+    "lazyStartProducer": { "kind": "property", "displayName": "Lazy Start Producer", "group": "producer", "label": "producer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing." },
+    "bridgeErrorHandler": { "kind": "property", "displayName": "Bridge Error Handler", "group": "consumer", "label": "consumer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored." }
+  },
+  "properties": {
+    "code": { "kind": "parameter", "displayName": "Code", "group": "producer", "required": false, "type": "object", "javaType": "com.telsoft.cbs.domain.CBCode", "enum": [ "OK", "PARAMETER_ERROR", "AUTHENTICATION_ERROR", "INTERNAL_SERVER_ERROR", "UNKNOWN", "INSUFFICIENT_FUNDS", "USER_IN_INACTIVE_STATE", "USER_UNKNOWN", "CHARGE_ALREADY_REVERSED", "TRANSACTION_NOT_FOUND", "CHARGE_EXCEEDS_TRANSACTION_LIMIT", "SPEND_LIMIT_REACHED", "REFUND_WINDOW_EXPIRED", "REVERSE_WINDOW_EXPIRED", "TRANSACTION_ALREADY_REFUNDED", "REFUND_AMOUNT_EXCEEDS_ORIGINAL", "TRANSACTION_HAS_BEEN_REVERSED", "GLOBAL_RATE_LIMIT_REACHED", "USER_RATE_LIMIT_REACHED", "USER_IN_STATE_OF_INELIGIBILITY", "USER_NOT_ELIGIBLE_FOR_CARRIER_BILLING", "USER_RELATED_FAILURE", "BAD_DEBT", "USER_BARRED", "USER_SELF_BARRED", "IN_PROGRESS", "PAYMENT_IS_NOT_SUCCESS", "CARRIER_MAINTENANCE", "IN_OTHER_PROGRESS", "CONTENT_IS_BLOCKED", "UNKNOWN_COMMAND", "STORE_UNKNOWN", "USER_EXISTED", "SPEND_LIMIT_REACHED_YEAR", "SPEND_LIMIT_REACHED_MONTH", "SPEND_LIMIT_REACHED_WEEK", "SPEND_LIMIT_REACHED_DAY", "USER_BARRED_ANTI_PROFIT", "PROCESS_TIMEOUT", "EXTERNAL_RESOURCE_ERROR", "STORE_ATTRIBUTE_ERROR" ], "deprecated": false, "secret": false, "description": "Result Code" }
+  }
+}
+

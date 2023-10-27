@@ -1,0 +1,30 @@
+ThreadName==Dispatcher Logger
+ClassName==com.telsoft.cbs.cdr.DBDispatcherLogger
+Parameter
+	DBDriver==oracle.jdbc.driver.OracleDriver
+	DBUrl==jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.10.154) (PORT=1521))(CONNECT_DATA=(SERVICE_NAME=cbs)))
+	DBUserName==CBS
+	DBPassword==cbs
+	MaxConnections==5
+	IdleConnections==2
+	DBProperties
+	StorageLevel==1
+	CheckEmptyFrom==00:00:00
+	CheckEmptyUntil==23:59:59
+	EmptyDuration==3000
+	FailureAction==Attach record to next level storage
+	SuccessAction==Attach record to next level storage
+	DisplayStackTrace==Y
+	ReloadCommand==0
+	LoggerClasses=^
+	LogDir==log/dispatcher_logger
+	Alert==N
+	Debug==N
+	SingleSession==Y
+	ThreadGroup
+	DelayTime==30
+	NotificationInterval==300
+	NotificationString==Logger is running
+StartupType==1
+Status==1
+Schedule

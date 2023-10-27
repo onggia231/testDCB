@@ -1,0 +1,38 @@
+26/10 14:52:31 Fortumo started
+26/10 14:52:31 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:52:41 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:52:51 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:53:01 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:53:11 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:53:21 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:53:31 Error occured: Value of 'Jetty-MaxQueueSize' ('') must be a number
+Context: ManageableThread.loadInteger
+Additional info: Jetty-MaxQueueSize
+26/10 14:53:42 Forturmo started at port: 6969
+26/10 14:53:44 Fortumo stopped
+26/10 14:53:44 Fortumo started
+26/10 14:53:44 Forturmo started at port: 6969
+26/10 14:53:49 Fortumo stopped
+26/10 14:53:50 Fortumo started
+26/10 14:53:50 Forturmo started at port: 6969
+26/10 14:56:07 Fortumo stopped
+26/10 14:56:08 Fortumo started
+26/10 14:56:08 Forturmo started at port: 6969
+26/10 15:49:11 Fortumo stopped
+26/10 15:49:11 Fortumo started
+26/10 15:49:11 [NOTIFICATION] THREAD : Is running
+26/10 15:49:11 Forturmo started at port: 6969
+26/10 16:30:12 Fortumo started
+26/10 16:30:13 Forturmo started at port: 6969

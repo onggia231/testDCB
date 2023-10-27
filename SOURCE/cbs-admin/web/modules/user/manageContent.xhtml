@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+    <title>#{PP_MANAGE_CONTENT.title}</title>
+</h:head>
+<h:body>
+    <ui:composition>
+        <script type="text/javascript">
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+        </script>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel header="#{PP_MANAGE_CONTENT.header}" styleClass="box-primary">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="contentDescription" value="#{PP_MANAGE_CONTENT.contentDescription}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:inputText id="contentDescription" maxlength="100" required="true"
+                                             requiredMessage="#{PP_MANAGE_CONTENT.contentDescription}#{PP_COMMONS.can_not_be_empty}"
+                                             value="#{manageContentController.mcontent.contentDescription}"
+                                             disabled="#{not manageContentController.isDisplayBtnConfirm}"/>
+                                <p:message for="contentDescription"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="status" value="#{PP_COMMONS.status}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="status"
+                                                 value="#{manageContentController.mcontent.status}"
+                                                 disabled="#{not manageContentController.isDisplayBtnConfirm}">
+                                    <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                </p:selectOneMenu>
+                                <p:message for="status"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel value="#{PP_MANAGE_CONTENT.contentRecognize}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <p:panel id="pnl_content_recog">
+                                <h:panelGroup rendered="#{manageContentController.renderRecog eq '0'}">
+                                    <h:panelGroup id="pnl_control_recog">
+                                        <div class="ui-g">
+                                            <div class="ui-g-6 ui-md-3 ui-lg-10"></div>
+                                            <div class="ui-g-6 ui-md-3 ui-lg-2">
+                                                <p:commandButton id="btnAddContentRecog" process="@this"
+                                                                 value="#{PP_COMMONS.add}"
+                                                                 actionListener="#{manageContentController.onAddRecognize}"
+                                                                 styleClass="btn-info" icon="fa fa-plus"
+                                                                 disabled="#{not manageContentController.isDisplayBtnConfirm}"
+                                                                 update=":form_main:pnl_content_recog :form_main:panelButton">
+                                                </p:commandButton>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <p:dataTable id="table_recognize" var="recognize"
+                                                 value="#{manageContentController.listContentRecognize}"
+                                                 rowKey="#{recognize.keyWord}-#{recognize.matchingType}"
+                                                 filteredValue="#{manageContentController.listContentRecognizeFiltered}"
+                                                 selection="#{manageContentController.listContentRecognizeSelected}"
+                                                 widgetVar="table_recognize" rowIndexVar="rowIndex"
+                                                 selectionMode="multiple" filterDelay="500"
+                                                 emptyMessage="#{PP_COMMONS.empty_message}"
+                                                 paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" paginator="true" rows="5"
+                                                 styleClass="no-border">
+
+                                        <p:ajax global="true" event="filter" ignoreAutoUpdate="true"/>
+                                        <p:ajax global="false" event="sort"/>
+                                        <p:ajax global="false" event="page"/>
+
+                                        <p:column headerText="#{PP_MANAGE_CONTENT.matchingType}" width="160"
+                                                  sortBy="#{recognize.matchingType}"
+                                                  filterBy="#{recognize.matchingType}"
+                                                  filterMatchMode="equals">
+                                            <f:facet name="filter">
+                                                <p:selectOneMenu onchange="PF('table_recognize').filter()">
+                                                    <f:selectItem itemLabel="#{PP_LOGACCESS.all}" itemValue=""
+                                                                  noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.contains}"
+                                                                  itemValue="CONTAINS"/>
+                                                    <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.equals}"
+                                                                  itemValue="EQUALS"/>
+                                                    <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.startWith}"
+                                                                  itemValue="START_WITH"/>
+                                                    <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.endWith}"
+                                                                  itemValue="END_WITH"/>
+                                                    <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.matchRegex}"
+                                                                  itemValue="MATCH_REGEX"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{PP_MANAGE_CONTENT.contains}"
+                                                          rendered="#{recognize.matchingType eq 'CONTAINS'}"/>
+                                            <h:outputText value="#{PP_MANAGE_CONTENT.equals}"
+                                                          rendered="#{recognize.matchingType eq 'EQUALS'}"/>
+                                            <h:outputText value="#{PP_MANAGE_CONTENT.startWith}"
+                                                          rendered="#{recognize.matchingType eq 'START_WITH'}"/>
+                                            <h:outputText value="#{PP_MANAGE_CONTENT.endWith}"
+                                                          rendered="#{recognize.matchingType eq 'END_WITH'}"/>
+                                            <h:outputText value="#{PP_MANAGE_CONTENT.matchRegex}"
+                                                          rendered="#{recognize.matchingType eq 'MATCH_REGEX'}"/>
+                                        </p:column>
+                                        <p:column headerText="#{PP_MANAGE_CONTENT.keyWord}"
+                                                  sortBy="#{recognize.keyWord}" filterBy="#{recognize.keyWord}"
+                                                  filterMatchMode="contains">
+                                            <h:outputText value="#{recognize.keyWord}"
+                                                          title="#{recognize.keyWord}"/>
+                                        </p:column>
+                                        <p:column headerText="#{PP_MANAGE_CONTENT.caseSensitive}" width="180"
+                                                  sortBy="#{recognize.caseSensitive}"
+                                                  filterBy="#{recognize.caseSensitive}"
+                                                  filterMatchMode="exact">
+                                            <f:facet name="filter">
+                                                <p:selectOneMenu onchange="PF('table_recognize').filter()">
+                                                    <f:selectItem itemLabel="#{PP_LOGACCESS.all}" itemValue=""
+                                                                  noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="#{PP_COMMONS.yes}" itemValue="1"/>
+                                                    <f:selectItem itemLabel="#{PP_COMMONS.no}" itemValue="0"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{PP_COMMONS.yes}"
+                                                          rendered="#{recognize.caseSensitive eq '1'}"/>
+                                            <h:outputText value="#{PP_COMMONS.no}"
+                                                          rendered="#{recognize.caseSensitive eq '0'}"/>
+                                        </p:column>
+                                        <p:column headerText="#{PP_COMMONS.action}" width="80"
+                                                  style="text-align: center!important;">
+                                            <p:commandLink id="btn_delete"
+                                                           actionListener="#{manageContentController.deleteRecognize(recognize)}"
+                                                           process="@this"
+                                                           disabled="#{not manageContentController.isDisplayBtnConfirm}"
+                                                           styleClass="fa fa-trash"
+                                                           oncomplete="PF('table_recognize').clearFilters();"
+                                                           update=":form_main:pnl_content_recog">
+                                                <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                           message="#{PP_COMMONS.confirm_delete}"/>
+                                            </p:commandLink>
+                                            <p:tooltip for="btn_delete" value="#{PP_COMMONS.del}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{manageContentController.renderRecog eq '1'}">
+                                    <div class="ui-g no-padding">
+                                        <div class="ui-g-6 ui-md-3 ui-lg-8"></div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-2">
+                                            <p:commandButton id="btnAcceptRecog" process="@this pnl_content_recog"
+                                                             value="#{PP_COMMONS.ok}"
+                                                             actionListener="#{manageContentController.onAcceptRecognize}"
+                                                             styleClass="btn-success" icon="fa fa-check-circle"
+                                                             resetValues="true"
+                                                             update=":form_main:pnl_content_recog :form_main:panelButton">
+                                            </p:commandButton>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-2">
+                                            <p:commandButton id="btnCancelRecog" process="@this"
+                                                             value="#{PP_COMMONS.back}"
+                                                             actionListener="#{manageContentController.onCancelRecognize}"
+                                                             icon="fa fa-undo"
+                                                             update=":form_main:pnl_content_recog :form_main:panelButton">
+                                            </p:commandButton>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-4">
+                                            <p:outputLabel for="matchingType"
+                                                           value="#{PP_MANAGE_CONTENT.matchingType}"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-8">
+                                            <p:selectOneMenu filter="true" filterMatchMode="contains"
+                                                             id="matchingType"
+                                                             value="#{manageContentController.mcontentRecognize.matchingType}">
+                                                <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.contains}"
+                                                              itemValue="CONTAINS"/>
+                                                <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.equals}"
+                                                              itemValue="EQUALS"/>
+                                                <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.startWith}"
+                                                              itemValue="START_WITH"/>
+                                                <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.endWith}"
+                                                              itemValue="END_WITH"/>
+                                                <f:selectItem itemLabel="#{PP_MANAGE_CONTENT.matchRegex}"
+                                                              itemValue="MATCH_REGEX"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="matchingType"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-4">
+                                            <p:outputLabel for="keyWord"
+                                                           value="#{PP_MANAGE_CONTENT.keyWord}"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-8">
+                                            <p:inputText id="keyWord" maxlength="300" required="true"
+                                                         requiredMessage="#{PP_MANAGE_CONTENT.keyWord}#{PP_COMMONS.can_not_be_empty}"
+                                                         value="#{manageContentController.mcontentRecognize.keyWord}"/>
+                                            <p:message for="keyWord"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-4">
+                                            <p:outputLabel for="caseSensitive"
+                                                           value="#{PP_MANAGE_CONTENT.caseSensitive}"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-3 ui-lg-8">
+                                            <p:selectOneMenu filter="true" filterMatchMode="contains"
+                                                             id="caseSensitive"
+                                                             value="#{manageContentController.mcontentRecognize.caseSensitive}">
+                                                <f:selectItem itemLabel="#{PP_COMMONS.no}" itemValue="0"/>
+                                                <f:selectItem itemLabel="#{PP_COMMONS.yes}" itemValue="1"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="caseSensitive"/>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+                            </p:panel>
+                        </div>
+                    </div>
+                </p:panel>
+            </h:panelGroup>
+            <h:panelGroup id="panelButton">
+                <div class="ui-g">
+                    <h:panelGroup rendered="#{not manageContentController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_add" actionListener="#{manageContentController.onAdd}"
+                                             value="#{PP_COMMONS.add}"
+                                             rendered="#{manageContentController.isAllowInsert}"
+                                             process="@this" resetValues="true"
+                                             oncomplete="scrollToTop();"
+                                             styleClass="btn-info" icon="fa fa-plus"
+                                             update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table "/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{manageContentController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_save" actionListener="#{manageContentController.handleOK}"
+                                             value="#{PP_COMMONS.ok}"
+                                             process="@this :form_main:panel_center"
+                                             disabled="#{manageContentController.renderRecog eq '1'}"
+                                             styleClass="btn-success" icon="fa fa-check-circle"
+                                             update=":form_main:panel_center :form_main:pnl_table :form_main:panelButton"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_cancel" actionListener="#{manageContentController.onCancel}"
+                                             value="#{PP_COMMONS.back}"
+                                             process="@this"
+                                             icon="fa fa-undo" resetValues="true"
+                                             update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table "/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                    </h:panelGroup>
+                </div>
+            </h:panelGroup>
+            <p:panel header="#{PP_MANAGE_CONTENT.headerList}" id="pnl_table" styleClass="box-info">
+                <p:dataTable id="table_content" var="content"
+                             value="#{manageContentController.lazyData}" rowKey="#{content.contentId}"
+                             selection="#{manageContentController.mcontentSelected}"
+                             widgetVar="table_content" rowIndexVar="rowIndex"
+                             lazy="true"
+                             selectionMode="single" filterDelay="1000"
+                             emptyMessage="#{PP_COMMONS.empty_message}"
+                             paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30" paginator="true" rows="10"
+                             styleClass="no-border">
+
+                    <p:ajax global="false" event="rowSelect" listener="#{manageContentController.onRowSelect}"
+                            disabled="#{manageContentController.isDisplayBtnConfirm}"
+                            oncomplete="PF('table_recognize').clearFilters();"
+                            process="table_content" update=":form_main:panel_center"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{manageContentController.onRowUnselect}"
+                            oncomplete="PF('table_recognize').clearFilters();"
+                            process="table_content" update=":form_main:panel_center"/>
+                    <p:ajax global="true" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page" process="table_content"
+                            listener="#{manageContentController.onPageChangeLazy}"/>
+
+                    <p:column headerText="#{PP_MANAGE_CONTENT.contentDescription}"
+                              sortBy="#{content.contentDescription}"
+                              filterBy="#{content.contentDescription}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{content.contentDescription}" title="#{content.contentDescription}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_COMMONS.status}" sortBy="#{content.status}" filterBy="#{content.status}"
+                              filterMatchMode="equals">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('table_content').filter()">
+                                <f:selectItem itemLabel="#{PP_LOGACCESS.all}" itemValue="" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText styleClass="label label-success" rendered="#{content.status eq '1'}"
+                                      value="#{PP_COMMONS.enable}"/>
+                        <h:outputText styleClass="label label-warning" rendered="#{content.status eq '0'}"
+                                      value="#{PP_COMMONS.disable}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_COMMONS.action}" width="80" style="text-align: center !important;">
+                        <p:commandLink id="btn_edit1" oncomplete="scrollToTop();"
+                                       disabled="#{manageContentController.isDisplayBtnConfirm}"
+                                       actionListener="#{manageContentController.changeStateEdit(content)}"
+                                       rendered="#{manageContentController.isAllowUpdate}" process="@this"
+                                       styleClass="fa fa-pencil" resetValues="true"
+                                       update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table"/>&nbsp;&nbsp;
+                        <p:tooltip for="btn_edit1" value="#{PP_COMMONS.edit}"/>
+
+                        <p:commandLink id="btn_del1" actionListener="#{manageContentController.handleDelete(content)}"
+                                       rendered="#{manageContentController.isAllowDelete}" process="@this"
+                                       disabled="#{manageContentController.isDisplayBtnConfirm}"
+                                       styleClass="fa fa-trash"
+                                       update=":form_main:panel_center  :form_main:pnl_table">
+                            <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                       message="#{PP_MANAGE_CONTENT.confirm_delete_content}"/>
+                        </p:commandLink>
+                        <p:tooltip for="btn_del1" value="#{PP_COMMONS.del}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

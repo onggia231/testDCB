@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <p:panel header="#{PP_LOGCHANGE.filter_option}" styleClass="box-primary">
+                <h:panelGroup id="panel_filter_options" layout="grid" columns="6" styleClass="ui-panelgrid-blank">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="start_date" value="#{PP_COMMONS.sta_date}"/>
+                                <p:calendar value="#{logChangeController.mdStartDate}" pattern="dd/MM/yyyy" mask="true" id="start_date" mode="popup" navigator="true" required="true" requiredMessage="#{PP_COMMONS.sta_date}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="start_date"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="end_date" value="#{PP_COMMONS.end_date}"/>
+                                <p:calendar value="#{logChangeController.mdEndDate}" pattern="dd/MM/yyyy" mask="true" id="end_date" mode="popup" navigator="true" required="true" requiredMessage="#{PP_COMMONS.end_date}#{PP_COMMONS.can_not_be_empty}"/>
+                                <p:message for="end_date"/>
+                                <o:validateOrder type="lte" components="start_date end_date" message="#{PP_COMMONS.sta_end_date_error}" showMessageFor="start_date" />
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="cb_user" value="#{PP_LOGCHANGE.user}"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="cb_user" value="#{logChangeController.mstrSelectedUser}">
+                                    <f:selectItem itemLabel="" itemValue="all"/>
+                                    <f:selectItems value="#{logChangeController.mlistUser}" var="user" itemLabel="#{user.user.userName}" itemValue="#{user.user.userId}"/>
+                                </p:selectOneMenu>
+                                <p:message for="cb_user"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="access_type" value="#{PP_LOGCHANGE.access_type}"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="access_type" value="#{logChangeController.mstrSelectedRight}">
+                                    <f:selectItem itemLabel="" itemValue="all"/>
+                                    <f:selectItems value="#{logChangeController.mlistRight}" var="right" itemLabel="#{right.rightCode} - #{right.name}" itemValue="#{right.rightCode}"/>
+                                </p:selectOneMenu>
+                                <p:message for="access_type"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="app" value="#{PP_MNGAPP.app_name}"/>
+                                <p:selectOneMenu id="app" value="#{logChangeController.miSelectedApp}" filter="true" filterMatchMode="contains">
+                                    <f:selectItem itemLabel="" itemValue="0"/>
+                                    <f:selectItems value="#{logChangeController.mlistApp}" var="app" itemLabel="#{app.name}" itemValue="#{app.appId}"/>
+                                    <p:ajax global="false" event="change" listener="#{logChangeController.onAppChange}" update=":form_main:module"/>
+                                </p:selectOneMenu>
+                                <p:message for="app"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="material">
+                                <p:outputLabel for="module" value="#{PP_MNGMODULE.module_name}"/>
+                                <p:selectOneMenu id="module" value="#{logChangeController.miSelectedModule}" filter="true" filterMatchMode="contains">
+                                    <f:selectItem itemLabel="" itemValue="0"/>
+                                    <f:selectItems value="#{logChangeController.mlistModule}" var="module" itemLabel="#{module.name}" itemValue="#{module.objectId}"/>
+                                </p:selectOneMenu>
+                                <p:message for="module"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <center>
+                    <p:commandButton process="@this :form_main:panel_filter_options" id="btn_search" actionListener="#{logChangeController.handSearch}" update="panel_filter_options, table_log_object, table_log_data_history, table_log_sub_data_history, panel_control," value="#{PP_LOGCHANGE.search}" icon="fa fa-search" styleClass="btn-primary" style="width: auto;"
+                     oncomplete="clearFilters('tableLogObject');clearFilters('tableLogDataHistory');clearFilters('tableLogSubDataHistory');" />
+                </center>
+            </p:panel>
+            <p:watermark for="start_date" value="#{PP_COMMONS.click_to_choose}"/>
+            <p:watermark for="end_date" value="#{PP_COMMONS.click_to_choose}"/>
+
+            <p:panel header="#{PP_LOGCHANGE.list_action}" styleClass="box-info">
+                <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_log_object" widgetVar="tableLogObject"
+                             value="#{logChangeController.mlistLogObject}" filteredValue="#{logChangeController.mlistLogObjectFiltered}" var="logObject"
+                             emptyMessage="#{PP_COMMONS.empty_message}" selectionMode="multiple" rowKey="#{logObject.logId}" selection="#{logChangeController.mselectedLogObject}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,#{logChangeController.mlistLogObject.size()}" paginator="true" rows="10" styleClass="no-border">
+
+                    <p:ajax global="false" event="rowSelect" listener="#{logChangeController.onLogChangeSelect}" update=":form_main:table_log_data_history :form_main:table_log_sub_data_history :form_main:panel_control" oncomplete="clearFilters('tableLogDataHistory');clearFilters('tableLogSubDataHistory');"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{logChangeController.onLogChangeSelect}" update=":form_main:table_log_data_history :form_main:table_log_sub_data_history :form_main:panel_control" oncomplete="clearFilters('tableLogDataHistory');clearFilters('tableLogSubDataHistory');"/>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column headerText="#{PP_LOGCHANGE.action_date}" sortBy="#{logObject.logDate}" filterBy="#{logObject.logDate}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.logDate}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.user}" sortBy="#{logObject.userName}" filterBy="#{logObject.userName}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.userName}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.full_name}" sortBy="#{logChangeController.removeSign(logObject.fullName)}" filterBy="#{logObject.fullName}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.fullName}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.ip_address}" sortBy="#{logObject.clientAddress}" filterBy="#{logObject.clientAddress}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.clientAddress}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_MNGMODULE.module_name}" sortBy="#{logChangeController.removeSign(logObject.objectName)}" filterBy="#{logObject.objectName}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.objectName}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.access_type}" sortBy="#{logObject.actionType}" filterBy="#{logObject.actionType}" filterMatchMode="contains">
+                        <h:outputText value="#{logObject.actionType}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <p:panel header="#{PP_LOGCHANGE.log_table_change}" styleClass="box-info">
+                <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_log_data_history" widgetVar="tableLogDataHistory"
+                             value="#{logChangeController.mlistLogDataHistory}" filteredValue="#{logChangeController.mlistLogDataHistoryFiltered}" var="logDataHistory"
+                             emptyMessage="#{PP_COMMONS.empty_message}" selectionMode="multiple" rowKey="#{logDataHistory.changeId}" selection="#{logChangeController.mselectedLogDataHistory}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,#{logChangeController.mlistLogDataHistory.size()}" paginator="true" rows="10" styleClass="no-border">
+
+                    <p:ajax global="false" event="rowSelect" listener="#{logChangeController.onLogDataHistorySelect}" update=":form_main:table_log_sub_data_history :form_main:panel_control" oncomplete="clearFilters('tableLogSubDataHistory');"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{logChangeController.onLogDataHistorySelect}" update=":form_main:table_log_sub_data_history :form_main:panel_control" oncomplete="clearFilters('tableLogSubDataHistory');"/>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column headerText="#{PP_LOGCHANGE.access_type}" sortBy="#{logDataHistory.action}" filterBy="#{logDataHistory.action}" filterMatchMode="contains">
+                        <h:outputText value="#{logDataHistory.action}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.row_id}" sortBy="#{logDataHistory.rowId}" filterBy="#{logDataHistory.rowId}" filterMatchMode="contains">
+                        <h:outputText value="#{logDataHistory.rowId}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.table_name}" sortBy="#{logDataHistory.tableName}" filterBy="#{logDataHistory.tableName}" filterMatchMode="contains">
+                        <h:outputText value="#{logDataHistory.tableName}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <p:panel header="#{PP_LOGCHANGE.log_field_change}" styleClass="box-info">
+                <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_log_sub_data_history" widgetVar="tableLogSubDataHistory"
+                             value="#{logChangeController.mlistLogSubDataHistory}" filteredValue="#{logChangeController.mlistLogSubDataHistoryFiltered}" var="logSubDataHistory"
+                             emptyMessage="#{PP_COMMONS.empty_message}" selectionMode="multiple" rowKey="#{logSubDataHistory.columnName}" selection="#{logChangeController.mselectedLogSubDataHistory}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,#{logChangeController.mlistLogSubDataHistory.size()}" paginator="true" rows="10">
+
+                    <p:ajax global="false" event="rowSelect" listener="#{logChangeController.onLogSubDataHistorySelect}" update=":form_main:panel_control"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{logChangeController.onLogSubDataHistorySelect}" update=":form_main:panel_control"/>>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column headerText="#{PP_LOGCHANGE.column}" sortBy="#{logSubDataHistory.columnName}" filterBy="#{logSubDataHistory.columnName}" filterMatchMode="contains">
+                        <h:outputText value="#{logSubDataHistory.columnName}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.old_value}" sortBy="#{logSubDataHistory.oldValue}" filterBy="#{logSubDataHistory.oldValue}" filterMatchMode="contains">
+                        <h:outputText value="#{logSubDataHistory.oldValue}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_LOGCHANGE.new_value}" sortBy="#{logSubDataHistory.newValue}" filterBy="#{logSubDataHistory.newValue}" filterMatchMode="contains">
+                        <h:outputText value="#{logSubDataHistory.newValue}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <h:panelGroup id="panel_control">
+                <p:commandButton id="btn_del" disabled="#{not logChangeController.isSelected}" rendered="false" process="@this" value="#{PP_COMMONS.del}" update="table_log_object, table_log_data_history, table_log_sub_data_history" actionListener="#{logChangeController.handDelete}" icon="fa fa-trash" styleClass="btn-danger" style="width: auto;">
+                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                </p:commandButton>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

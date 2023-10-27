@@ -1,0 +1,9 @@
+ThreadName==Report Generator
+ClassName==com.telsoft.reporting.service.ReportThread
+StartupType==2
+Parameter
+	LogDir==log/report_generator
+	DelayTime==10
+Status==2
+Schedule
+	Schedule==ScheduleType==0\r\nExecutionTime==1\r\nAdditionValue==1\r\nStartTime==04:00:00\r\nEndTime==08:00:00\r\nExpectedDate==02/01/2020\r\nWeekDay\r\nMonthDay\r\nYearMonth\r\nScheduleID==1\r\n

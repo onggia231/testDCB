@@ -1,0 +1,204 @@
+package com.telsoft.cbs.camel.component;
+
+import com.telsoft.cbs.camel.CbsContansts;
+import com.telsoft.cbs.domain.*;
+import com.telsoft.cbs.utils.CbsLog;
+import com.telsoft.cbs.utils.CbsUtils;
+import com.telsoft.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
+import org.apache.camel.spi.UriEndpoint;
+import org.apache.camel.spi.UriParam;
+import org.apache.camel.spi.annotations.Component;
+import telsoft.gateway.core.log.MessageContext;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
+/**
+ * The Get Payment information Component
+ * <p>
+ */
+
+@Slf4j
+@Component("cbs-get-payment-info")
+@UriEndpoint(
+        firstVersion = "1.0.0",
+        scheme = "cbs-get-payment-info",
+        title = "Get subscriber information",
+        syntax = "cbs-get-payment-info:",
+        label = "cbs,endpoint",
+        producerOnly = true,
+        generateConfigurer = false
+)
+
+public class GetPaymentInfoComponent extends ProcessorComponent {
+    @UriParam(name = "reverseMaxTime", displayName = "ReverseMaxTime", description = "Max duration for reverse/capture in hours")
+    int reverseMaxTime;
+
+    @UriParam(name = "refundMaxTime", displayName = "RefundMaxTime", description = "Max duration for refund in hours")
+    int refundMaxTime;
+
+    @Override
+    public void process(CBRequest request, Exchange exchange, Map<String, Object> parameters, MessageContext messageContext) throws CBException {
+        int reverseMaxTime = Integer.parseInt(StringUtil.nvl((String) parameters.get("reverseMaxTime"), "0"));
+        int refundMaxTime = Integer.parseInt(StringUtil.nvl((String) parameters.get("refundMaxTime"), "0"));
+
+        CBCommand command = (CBCommand) exchange.getProperty(CbsContansts.COMMAND);
+        CBStore store = (CBStore) messageContext.getProperty(CbsContansts.STORE);
+        Map mapFullRequest = (ConcurrentHashMap) messageContext.getProperty(CbsContansts.MAP_FULL_REQUEST);
+        String storeTransactionID = (String) mapFullRequest.get(CbsContansts.STORE_TRANSACTION_ID);
+
+        String sql = "SELECT * from (" +
+                "SELECT a.request_time, a.response_time, a.isdn, a.status, a.command,\n" +
+                "       a.amount, a.req_content, a.res_content, a.address, a.store_code,\n" +
+                "       a.transaction_id, a.client_transaction_id,\n" +
+                "       a.store_transaction_id, a.request_id, a.result_code,\n" +
+                "       a.content_id, a.amount_full_tax, a.content_description,\n" +
+                "       a.channel_type, a.refer_idempotent_id, a.sub_id, a.store_id,\n" +
+                "       a.payment_status, a.refund_info, a.cps_transaction_id, \n" +
+                "       row_number() over (order by request_time desc) as rn " +
+                "  FROM cb_request_charge a \n" +
+                "  where a.request_time >= TO_TIMESTAMP(?, 'YYYYMMDDHH24miss')  - 10/24/60 \n" + //for ntp dif
+                "    and a.request_time <= TO_TIMESTAMP(?, 'YYYYMMDDHH24miss')  + " + reverseMaxTime + "/24\n" +
+                "    and a.store_transaction_id = ? \n" +
+                "    and a.store_code = ? " +
+                ") where rn = 1";
+
+        try (Connection connection = getManager().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            String strPaymentDate = new SimpleDateFormat(CbsContansts.PURCHASE_TIME_FORMAT).format((Date) messageContext.getProperty(CbsContansts.PAYMENT_DATE));
+            stmt.setString(1, strPaymentDate);
+            stmt.setString(2, strPaymentDate);
+            stmt.setString(3, storeTransactionID);
+            stmt.setString(4, store.getStoreCode());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Timestamp payment_request_time = rs.getTimestamp("request_time");
+                    String msisdn = rs.getString("isdn");
+                    String status = rs.getString("status");
+                    String payment_command = rs.getString("command");
+                    String paymentAmount = StringUtil.nvl(rs.getString("amount"),"");
+                    String paymentTransId = rs.getString("transaction_id");
+                    String result_code = rs.getString("result_code");
+                    Long amount_full_tax = rs.getLong("amount_full_tax");
+                    String content_description = rs.getString("content_description");
+                    String sub_id = rs.getString("sub_id");
+                    String payment_status = rs.getString("payment_status");
+                    String refund_info = rs.getString("refund_info");
+                    String cps_transaction_id = rs.getString("cps_transaction_id");
+
+                    //msisdn
+                    exchange.setProperty(CbsContansts.MSISDN, msisdn);
+                    messageContext.setIsdn(msisdn);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.MSISDN, msisdn);
+
+                    //amount
+                    if(mapFullRequest.get(CbsContansts.AMOUNT) == null ) {
+                        exchange.setProperty(CbsContansts.AMOUNT, paymentAmount);
+                        messageContext.setAmount(Long.parseLong(paymentAmount));
+                        CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.AMOUNT, paymentAmount);
+
+                        exchange.setProperty(CbsContansts.AMOUNT_FULL_TAX, amount_full_tax);
+                        exchange.setProperty(CbsContansts.AMOUNT_FULL_TAX, amount_full_tax);
+                        CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.AMOUNT_FULL_TAX, amount_full_tax);
+                    }
+
+                    exchange.setProperty(CbsContansts.PAYMENT_AMOUNT, paymentAmount);
+                    messageContext.setProperty(CbsContansts.PAYMENT_AMOUNT,Long.parseLong(paymentAmount));
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_AMOUNT, paymentAmount);
+
+                    exchange.setProperty(CbsContansts.PAYMENT_AMOUNT_FULL_TAX, amount_full_tax);
+                    messageContext.setProperty(CbsContansts.PAYMENT_AMOUNT_FULL_TAX,amount_full_tax);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_AMOUNT, amount_full_tax);
+
+                    //paymentTransId
+                    messageContext.setProperty(CbsContansts.PAYMENT_TRANSACTION_ID, paymentTransId);
+                    exchange.setProperty(CbsContansts.PAYMENT_TRANSACTION_ID, paymentTransId);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_TRANSACTION_ID, paymentTransId);
+
+                    //refund_info
+                    messageContext.setProperty(CbsContansts.CPS_R_REFUND_INFORMATION, refund_info);
+                    exchange.setProperty(CbsContansts.CPS_R_REFUND_INFORMATION, refund_info);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.CPS_R_REFUND_INFORMATION, refund_info);
+
+                    //cps_transaction_id
+                    messageContext.setProperty(CbsContansts.CPS_CONTENTID, cps_transaction_id);
+                    exchange.setProperty(CbsContansts.CPS_CONTENTID, cps_transaction_id);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.CPS_CONTENTID, cps_transaction_id);
+
+                    //sub_id
+                    messageContext.setProperty(CbsContansts.SUB_ID, sub_id);
+                    exchange.setProperty(CbsContansts.SUB_ID, sub_id);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.SUB_ID, sub_id);
+
+                    //result_code
+                    messageContext.setProperty(CbsContansts.PAYMENT_RESULT_CODE, result_code);
+                    exchange.setProperty(CbsContansts.PAYMENT_RESULT_CODE, result_code);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_RESULT_CODE, result_code);
+
+                    //status
+                    messageContext.setProperty(CbsContansts.PAYMENT_REQUEST_STATUS, status);
+                    exchange.setProperty(CbsContansts.PAYMENT_REQUEST_STATUS, status);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_REQUEST_STATUS, status);
+
+                    //payment_status
+                    messageContext.setProperty(CbsContansts.PAYMENT_STATUS, payment_status);
+                    exchange.setProperty(CbsContansts.PAYMENT_STATUS, payment_status);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_STATUS, payment_status);
+
+                    //payment_command
+                    messageContext.setProperty(CbsContansts.PAYMENT_COMMAND, payment_command);
+                    exchange.setProperty(CbsContansts.PAYMENT_COMMAND, payment_command);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_COMMAND, payment_command);
+
+                    //content_description
+                    messageContext.setProperty(CbsContansts.CONTENT_DESCRIPTION, content_description);
+                    exchange.setProperty(CbsContansts.CONTENT_DESCRIPTION, content_description);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.CONTENT_DESCRIPTION, content_description);
+
+
+                    messageContext.setProperty(CbsContansts.PAYMENT_REQUEST_TIME, payment_request_time);
+                    exchange.setProperty(CbsContansts.PAYMENT_REQUEST_TIME, payment_request_time);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_REQUEST_TIME, payment_request_time);
+
+                    //check charge/reverse window expire
+                    Timestamp currentTime = new Timestamp(messageContext.getClientRequestDate().getTime());
+                    Long deltaHours = CbsUtils.compareTwoTimeStampsByHours(currentTime, payment_request_time);
+
+                    messageContext.setProperty(CbsContansts.PAYMENT_DELTA_HOURS, deltaHours);
+                    exchange.setProperty(CbsContansts.PAYMENT_DELTA_HOURS, deltaHours);
+                    CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.PAYMENT_DELTA_HOURS, deltaHours);
+
+                    if (deltaHours > reverseMaxTime) {
+                        messageContext.setProperty(CbsContansts.CAPTURE_IS_EXPIRED, deltaHours);
+                        exchange.setProperty(CbsContansts.CAPTURE_IS_EXPIRED, deltaHours);
+                        CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.CAPTURE_IS_EXPIRED, deltaHours);
+                    }
+
+                    //check refund window expire
+                    if (deltaHours > refundMaxTime) {
+                        messageContext.setProperty(CbsContansts.REFUND_IS_EXPIRED, deltaHours);
+                        exchange.setProperty(CbsContansts.REFUND_IS_EXPIRED, deltaHours);
+                        CbsUtils.putValueIntoMapCheckNullValue(mapFullRequest, CbsContansts.REFUND_IS_EXPIRED, deltaHours);
+                    }
+                } else {
+                    throw new CBException(CBCode.TRANSACTION_NOT_FOUND);
+                }
+            }
+        } catch (CBException cbe) {
+            throw cbe;
+        } catch (Exception e) {
+            CbsLog.error(messageContext, "GetPaymentInfoComponent", CBCode.INTERNAL_SERVER_ERROR, "", e.getMessage());
+            throw new CBException(CBCode.INTERNAL_SERVER_ERROR,e);
+        }
+    }
+}

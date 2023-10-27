@@ -1,0 +1,13 @@
+ID : mobifone
+Email : pay@mobifone.vn
+Comment : Mobifone Carrier Billing System
+Password: mobifone
+
+
+#ssh-keygen
+
+#ssh-keygen -f id_rsa -m pem -p
+
+#ssh-copy-id root@210.211.98.86 -p 444
+
+ref:https://serverpilot.io/docs/how-to-use-ssh-public-key-authentication/

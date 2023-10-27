@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:sticky target="pnl_control"/>
+                <h:panelGroup id="pnl_control">
+                    <h:panelGroup rendered="#{not mngAppsController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_add" rendered="#{mngAppsController.isAllowInsert}" actionListener="#{mngAppsController.changeStateAdd()}" process="@this" styleClass="btn-primary" value="#{PP_COMMONS.add}" update="panel_center" icon="fa fa-plus"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_del" rendered="#{mngAppsController.isAllowDelete and not mngAppsController.isDisplayBtnConfirm}" actionListener="#{mngAppsController.handleDelete()}" disabled="#{not mngAppsController.isSelectedApp}" process="@this" styleClass=" btn-danger" value="#{PP_COMMONS.del}" update="panel_center" icon="fa fa-trash">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{mngAppsController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel" rendered="#{mngAppsController.isDisplayBtnConfirm}" actionListener="#{mngAppsController.handleCancel()}" process="@this" value="#{PP_COMMONS.back}" update="panel_center" icon="fa fa-undo">
+                                    <p:resetInput target="panel_add_app"/>
+                                </p:commandButton>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok" rendered="#{mngAppsController.isDisplayBtnConfirm}" actionListener="#{mngAppsController.handleOK()}" process="@this :form_main:panel_add_app" styleClass=" btn-success" value="#{PP_COMMONS.ok}" update="panel_center" icon="fa fa-check-circle"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="grid-padding">
+                    <p:panel header="#{PP_MNGAPP.app_list}" styleClass="box-info" rendered="#{not mngAppsController.isDisplayBtnConfirm}">
+                        <p:dataTable id="table_app" widgetVar="tableApp" value="#{mngAppsController.mlistApp}" var="app"
+                                     emptyMessage="#{PP_COMMONS.empty_message}" disabledSelection="#{mngAppsController.isDisplayBtnConfirm}" rowKey="#{app.appId}"
+                                     selection="#{mngAppsController.mselectedApp}" rowSelectMode="checkbox"
+                                     styleClass="no-border">
+
+                            <p:ajax global="false" event="rowSelectCheckbox" process="table_app" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="rowUnselectCheckbox" process="table_app" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="toggleSelect" process="table_app" update=":form_main:pnl_control"/>
+                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                            <p:ajax global="false" event="sort"/>
+                            <p:ajax global="false" event="page"/>
+
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                            <p:column headerText="#{PP_MNGAPP.app_code}">
+                                #{app.code}
+                            </p:column>
+
+                            <p:column headerText="#{PP_MNGAPP.app_name}" priority="1">
+                                #{app.name}
+                            </p:column>
+
+                            <p:column headerText="#{PP_MNGAPP.app_ord}" priority="3">
+                                #{app.ord}
+                            </p:column>
+
+                            <p:column headerText="#{PP_MNGAPP.app_status}" priority="2">
+                                <h:outputText styleClass="label label-success" rendered="#{app.status eq '1'}" value="#{PP_COMMONS.enable}"/>
+                                <h:outputText styleClass="label label-warning" rendered="#{app.status ne '1'}" value="#{PP_COMMONS.disable}"/>
+                            </p:column>
+
+                            <p:column width="80" style="text-align: center !important;">
+                                <p:commandLink id="btn_edit" rendered="#{mngAppsController.isAllowUpdate}" actionListener="#{mngAppsController.changeStateEdit(app)}" process="@this" styleClass="fa fa-pencil" update=":form_main:panel_center"/>&nbsp;&nbsp;
+                                <p:tooltip for="btn_edit" value="#{PP_COMMONS.edit}"/>
+
+                                <p:commandLink id="btn_copy" rendered="#{mngAppsController.isAllowInsert and not mngAppsController.isDisplayBtnConfirm}" actionListener="#{mngAppsController.changeStateCopy(app)}" process="@this" styleClass="fa fa-clone" update=":form_main:panel_center"/>&nbsp;&nbsp;
+                                <p:tooltip for="btn_copy" value="#{PP_COMMONS.copy}"/>
+
+                                <p:commandLink id="btn_del" rendered="#{mngAppsController.isAllowDelete and not mngAppsController.isDisplayBtnConfirm}" actionListener="#{mngAppsController.handleDelete(app)}" process="@this" styleClass="fa fa-trash" update=":form_main:panel_center">
+                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}" message="#{PP_COMMONS.confirm_delete}"/>
+                                </p:commandLink>
+                                <p:tooltip for="btn_del" value="#{PP_COMMONS.del}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel header="#{PP_MNGAPP.app_info}" styleClass="box-primary" rendered="#{mngAppsController.isDisplayBtnConfirm}">
+                        <p:focus context=":form_main:panel_add_app"/>
+                        <h:panelGroup id="panel_add_app">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="app_name" value="#{PP_MNGAPP.app_name}"/>
+                                        <p:inputText maxlength="255" id="app_name" value="#{mngAppsController.mtmpApp.name}" disabled="#{mngAppsController.isDISABLE}" required="true" />
+                                        <p:message for="app_name"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="app_code" value="#{PP_MNGAPP.app_code}"/>
+                                        <p:inputText maxlength="50" id="app_code" value="#{mngAppsController.mtmpApp.code}" validator="ValidatorAlphaNum" validatorMessage="#{PP_MNGAPP.app_code}#{PP_COMMONS.is_not_valid}" disabled="#{mngAppsController.isDISABLE}" required="true" style="text-transform: uppercase">
+                                            <p:keyFilter regEx="/[a-z0-9_]/i" />
+                                        </p:inputText>
+                                        <p:message for="app_code"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="ord" value="#{PP_MNGAPP.app_ord}"/>
+                                        <p:inputText maxlength="5" id="ord" value="#{mngAppsController.mtmpApp.ord}" disabled="#{mngAppsController.isDISABLE}">
+                                            <p:keyFilter regEx="/[0-9_]/i" />
+                                        </p:inputText>
+                                        <p:message for="ord"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                    <div class="ui-material">
+                                        <p:outputLabel for="app_status" value="#{PP_MNGAPP.app_status}"/>
+                                        <p:selectOneMenu id="app_status" value="#{mngAppsController.mtmpApp.status}" disabled="#{mngAppsController.isDISABLE}">
+                                            <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="app_status"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </p:panel>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

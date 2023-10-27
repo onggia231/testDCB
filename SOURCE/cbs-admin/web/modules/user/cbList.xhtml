@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel header="#{PP_CBLIST.header}" styleClass="box-primary">
+                    <p:focus context="panel_center"/>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="listName" value="#{PP_CBLIST.listName}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:inputText id="listName" maxlength="50" required="true"
+                                             value="#{cbListController.mtmpCbList.listName}"
+                                             disabled="#{not cbListController.isDisplayBtnConfirm}"/>
+                                <p:message for="listName"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="description" value="#{PP_CBLIST.description}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:inputText id="description" maxlength="100"
+                                             value="#{cbListController.mtmpCbList.description}"
+                                             disabled="#{not cbListController.isDisplayBtnConfirm}"/>
+                                <p:message for="description"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="accessType" value="#{PP_CBLIST.accessType}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="accessType"
+                                                 value="#{cbListController.mtmpCbList.accessType}"
+                                                 disabled="#{not cbListController.isDisplayBtnConfirm}">
+                                    <f:selectItem itemLabel="#{PP_CBLIST.accessType0}" itemValue="0"/>
+                                    <f:selectItem itemLabel="#{PP_CBLIST.accessType1}" itemValue="1"/>
+                                </p:selectOneMenu>
+                                <p:message for="accessType"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="listType" value="#{PP_CBLIST.listType}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="listType"
+                                                 value="#{cbListController.mtmpCbList.listType}"
+                                                 disabled="#{not cbListController.isDisplayBtnConfirm}">
+                                    <f:selectItem itemLabel="#{PP_CBLIST.listType0}" itemValue="0"/>
+                                    <f:selectItem itemLabel="#{PP_CBLIST.listType1}" itemValue="1"/>
+                                </p:selectOneMenu>
+                                <p:message for="listType"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="cached" value="#{PP_CBLIST.cached}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="cached"
+                                                 value="#{cbListController.mtmpCbList.cached}"
+                                                 disabled="#{not cbListController.isDisplayBtnConfirm}">
+                                    <f:selectItem itemLabel="#{PP_COMMONS.yes}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{PP_COMMONS.no}" itemValue="0"/>
+                                </p:selectOneMenu>
+                                <p:message for="cached"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-2">
+                            <p:outputLabel for="status" value="#{PP_COMMONS.status}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-10">
+                            <div class="material">
+                                <p:selectOneMenu filter="true" filterMatchMode="contains" id="status"
+                                                 value="#{cbListController.mtmpCbList.status}"
+                                                 disabled="#{not cbListController.isDisplayBtnConfirm}">
+                                    <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                </p:selectOneMenu>
+                                <p:message for="status"/>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
+            </h:panelGroup>
+            <!--           END panel -->
+            <h:panelGroup id="panelButton">
+                <div class="ui-g">
+                    <h:panelGroup rendered="#{not cbListController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_add" actionListener="#{cbListController.changeStateAdd}"
+                                             rendered="#{cbListController.isAllowInsert}"
+                                             process="@form "
+                                             styleClass="btn-info" icon="fa fa-plus" value="#{PP_COMMONS.add}"
+                                             update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table"
+                                             resetValues="true"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{cbListController.isDisplayBtnConfirm}">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_save" actionListener="#{cbListController.handleOK}"
+                                             process="@this :form_main:panel_center"
+                                             styleClass="btn-success" icon="fa fa-check-circle" value="#{PP_COMMONS.ok}"
+                                             update=":form_main:panel_center :form_main:pnl_table :form_main:panelButton"
+                                             oncomplete="PF('tbl_cbList').clearFilters();"
+                                             resetValues="true"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                            <p:commandButton id="btn_cancel" actionListener="#{cbListController.handleCancel}"
+                                             process="@this" value="#{PP_COMMONS.back}"
+                                             icon="fa fa-undo"
+                                             update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table"
+                                             resetValues="true"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                    </h:panelGroup>
+                </div>
+            </h:panelGroup>
+            <!--database-->
+            <p:panel header="#{PP_CBLIST.list}" id="pnl_table" styleClass="box-info">
+                <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="tbl_cbList"
+                             widgetVar="tbl_cbList"
+                             disabledSelection="#{cbListController.isDisplayBtnConfirm}"
+                             value="#{cbListController.mList}" filteredValue="#{cbListController.mFilter}" var="cbList"
+                             selectionMode="single" rowKey="#{cbList.listId}"
+                             emptyMessage="#{PP_COMMONS.empty_message}" selection="#{cbListController.mselectedList}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,#{cbListController.mList.size()}" paginator="true" rows="10"
+                             styleClass="no-border">
+
+                    <p:ajax global="false" event="rowSelect" listener="#{cbListController.onRowSelect}"
+                            disabled="#{cbListController.isDisplayBtnConfirm}"
+                            process="tbl_cbList" update=":form_main:panel_center"/>
+                    <p:ajax global="false" event="rowUnselect" listener="#{cbListController.onRowSelect}"
+                            process="tbl_cbList" update=":form_main:panel_center"/>
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column headerText="#{PP_CBLIST.listName}" sortBy="#{cbList.listName}">
+                        <h:outputText value="#{cbList.listName}"/>
+                    </p:column>
+                    <p:column headerText="#{PP_COMMONS.status}" sortBy="#{cbList.status}">
+                        <h:outputText styleClass="label label-success" rendered="#{cbList.status eq '1'}"
+                                      value="#{PP_COMMONS.enable}"/>
+                        <h:outputText styleClass="label label-warning" rendered="#{cbList.status ne '1'}"
+                                      value="#{PP_COMMONS.disable}"/>
+                    </p:column>
+                    <p:column width="80" style="text-align: center !important;">
+                        <p:commandLink id="btn_edit" actionListener="#{cbListController.changeStateEdit(cbList)}"
+                                       rendered="#{cbListController.isAllowUpdate}"
+                                       disabled="#{cbListController.isDisplayBtnConfirm}"
+                                       process="@this"
+                                       styleClass="fa fa-pencil"
+                                       update=":form_main:panel_center :form_main:panelButton :form_main:pnl_table"/>&nbsp;&nbsp;
+                        <p:tooltip for="btn_edit" value="#{PP_COMMONS.edit}"/>
+
+                        <p:commandLink id="btn_del" actionListener="#{cbListController.handleDelete(cbList)}"
+                                       rendered="#{cbListController.isAllowDelete}"
+                                       disabled="#{cbListController.isDisplayBtnConfirm}"
+                                       process="@this"
+                                       styleClass="fa fa-trash"
+                                       oncomplete="PF('tbl_cbList').clearFilters();"
+                                       resetValues="true"
+                                       update=":form_main:panel_center :form_main:pnl_table">
+                            <p:confirm header="#{PP_COMMONS.delete_dialog_header} #{cbList.listName}"
+                                       message="#{PP_CBLIST.valueConfirm}"/>&nbsp;&nbsp;
+                        </p:commandLink>
+                        <p:tooltip for="btn_del" value="#{PP_COMMONS.del}"/>
+
+                        <p:commandLink id="btn_item"
+                                       process="@this"
+                                       actionListener="#{cbListController.getItem(cbList)}"
+                                       disabled="#{cbListController.isDisplayBtnConfirm or cbList.status ne 1}"
+                                       styleClass="fa fa-link">
+                            <f:param name="cbListId" value="#{cbList.listId}"/>
+                        </p:commandLink>
+                        <p:tooltip for="btn_item" value="#{PP_CBLIST.item}"/>
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:panel>
+
+        </div>
+    </ui:composition>
+</h:body>
+</html>

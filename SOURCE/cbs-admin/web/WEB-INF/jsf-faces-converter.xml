@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <converter> 
+        <converter-id>ConverterDate</converter-id> 
+        <converter-class>com.faplib.lib.converter.ConverterDate</converter-class> 
+    </converter>
+    <converter> 
+        <converter-id>ConverterReportParam</converter-id>
+        <converter-class>com.faplib.lib.converter.ConverterReportParam</converter-class>
+    </converter>
+    <converter>
+        <converter-id>ConverterAccessRight</converter-id>
+        <converter-class>com.faplib.lib.converter.ConverterAccessRight</converter-class>
+    </converter>
+</faces-config>

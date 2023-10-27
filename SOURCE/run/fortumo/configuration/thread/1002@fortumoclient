@@ -1,0 +1,36 @@
+ThreadName==Fortumo Client
+ClassName==com.telsoft.cbs.module.fortumo.client.FortumoClientStarter
+StartupType==1
+Parameter
+	LogDir==log/fortumo-client
+	Alert
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ContextPath==/fortumoclient
+	ServletContext==/*
+	Port==8006
+	Tcp-Acceptors==3
+	Tcp-SoLingerTime==-1
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath==../../key/2ssl/server.jks
+	KeyStorePassword==mobifone
+	KeyManagerPassword==mobifone
+	TrustStorePath==../../key/2ssl/trust.jks
+	TrustStorePassword==mobifone
+	FortumoUrl==https://mobifone-vn-a2147b3223a7-pca.fortumo.io/api/mobifone/v2
+	ApiList
+		SubmitMOApiPath==/mo
+		AccountChangeApiPath==/accountchange
+	Fortumo-KeyStorePath==/Users/tuanla/Downloads/mbf_client_keystore.p12
+	Fortumo-KeyStorePassword==123456
+	Fortumo-TrustStorePath==/Users/tuanla/Downloads/mbf_client_trustore.jks
+	Fortumo-TrustStorePassword==123456
+Status==1
+Schedule

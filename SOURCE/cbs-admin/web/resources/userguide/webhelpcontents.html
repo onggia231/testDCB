@@ -1,0 +1,293 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<title>Hướng dẫn sử dụng - Quản trị hệ thống</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css"> 
+<!--
+body{margin: 5px;} 
+.selected {font-weight: normal;background-color: #E2E2E2;padding:0px,2px,0px,2px;}
+.unselected { font-weight: normal;padding:0px,2px,0px,2px;}
+.hand { cursor: hand; }
+.p {height: 16px;width: 16px;vertical-align: middle;border: 0;}
+div,body { font-family: Tahoma, Verdana; font-size: 11px; }
+A:link {text-decoration: none; color:#000000}
+A:visited {text-decoration: none; color: #000000}
+A:active {text-decoration: none; color: #000000 }
+A:hover {text-decoration: none; color: #FF0000 }
+
+-->
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var cl,pn,pm,bl;
+var path = 'icons/';
+var pos = 0;
+var icon;
+var tar = 'content';
+var display;
+var imgi;
+var AutoCollapse;
+var LastSelected = -1;
+var loaded = false;
+var max;
+var divlist;
+
+function SetEnv(v,a){
+
+if(v==0){ 
+	pn = [['daplus.gif','daminus.gif'],['tplus.gif','tminus.gif'],['uaplus.gif','uaminus.gif'],['splus.gif','sminus.gif']];
+	PreloadImg('downangle.gif','tshaped.gif','upangle.gif','sline.gif','daplus.gif','daminus.gif','tplus.gif','tminus.gif','uaplus.gif','uaminus.gif','splus.gif','sminus.gif','blank.gif','line.gif');
+}else{
+	pn = [['plus.gif','minus.gif']];
+	PreloadImg('plus.gif','minus.gif','blank.gif');
+
+}
+AutoCollapse = a;
+}
+
+ function PreloadImg(){
+if (document.images) { 
+	var imgs = PreloadImg.arguments; 
+	var pload = new Array();
+	for (var i=0; i<imgs.length; i++) { 
+		pload[i] = new Image; 
+		pload[i].src = path + imgs[i]; 
+	} 
+} 
+ } 
+
+function get(o){
+var x;
+if(document.all) x=document.all[o]; 
+if(document.getElementById) x=document.getElementById(o);
+
+return x;
+}
+
+
+function pnImg(img){
+var i,j;
+for(i=0;i<=3;i++){
+	for(j=0;j<=1;j++){
+	if(img.substr(img.lastIndexOf('/') + 1)== pn[i][j]){
+		return i;
+	}
+	}
+}
+}
+function icon(img){
+var f;
+f = img.substr(img.lastIndexOf('/') + 1);
+if( f=='1.gif' || f=='2.gif'){
+	return ['1.gif','2.gif'];
+}
+if( f=='3.gif' || f=='4.gif'){
+	return ['3.gif','4.gif'];
+}
+if( f=='5.gif' || f=='6.gif'){
+	return ['5.gif','6.gif'];
+}
+if( f=='7.gif' || f=='8.gif'){
+	return ['7.gif','8.gif'];
+}
+return [f,f];
+}
+
+function show(id){
+get('d' + id).style.display='block';
+if(get('imgn' + id )) get('imgn' + id ).src= path + pn[pnImg(get('imgn' + id ).src)][1];
+get('img' + id ).src= path + icon(get('img' + id ).src)[1];
+
+}
+
+function collapse(id){
+get('d' + id ).style.display='none';
+if(get('imgn' + id )) get('imgn' + id ).src= path + pn[pnImg(get('imgn' + id ).src)][0];
+get('img' + id ).src= path + icon(get('img' + id ).src)[0];
+
+}
+
+function collapseAll(){
+var i;
+var o;
+for(i=0;i<=divlist.length-1;i++){
+	if(o=get('d' + divlist[i])){
+		if(o.style.display!='none'){ 
+			collapse(divlist[i]);
+		}
+	}
+}
+}
+
+function showAll(){
+var i;
+var o;
+for(i=0;i<=divlist.length-1;i++){
+	if(o=get('d' + divlist[i])){
+		if(o.style.display!='block'){ 
+			show(divlist[i]);
+		}
+	}
+}
+}
+
+function unselectAll(){
+var i=0;
+while(get("l" + i)){
+	get("l" + i).className = "unselected";
+	i++;
+}
+}
+
+function clickNode(index){
+var e;
+
+e = get("l" + index);
+if(e==null) return;
+e = e.parentNode;
+if(e.nodeName == 'A'){
+	if(e.href!= window.location.href + '#'){
+		parent.parent.content.location.href = e.href;
+	}else{
+		selectNode(index);
+	}
+	e.onclick;
+}
+}
+
+function showParent(ele){
+var e;
+e = ele.parentNode;
+
+if(e==null) return;
+
+if(e.nodeName == 'DIV'){
+	if(e.id!='') show(e.id.substring(1,e.id.length ));
+}else if(e.nodeName == 'A'){
+
+}
+showParent(e);
+}
+
+function showNode(index){
+showParent(get("l" + index));
+LinkClick(index);
+}
+
+function selectNode(index){
+if(LastSelected!=index){
+//collapseAll();
+showParent(get("l" + index));
+LinkClick(index);
+get('l' + index).scrollIntoView(true);
+
+
+//alert(get('l' + index).offsetHeight + '|' + document.body.clientHeight + '|' + document.body.offsetHeight);
+window.scrollTo(0,document.body.scrollTop); // - document.body.clientHeight /3);
+}
+}
+
+
+function NodeClick(id){
+if(get('d' + id ).style.display=='none'){
+	show(id);
+}else{
+	collapse(id);
+}
+return false;
+}
+
+function LinkDblClick(id){
+if(!AutoCollapse){
+	if(get('d' + id ).style.display=='none'){
+		show(id);
+	}else{
+		collapse(id);
+	}
+}
+return false;
+}
+
+function LinkClick(index,hasChild,r){
+if(AutoCollapse && hasChild){
+	if(get('d' + index ).style.display=='none'){
+		collapseAll()
+		showParent(get('l' + index));
+		show(index);
+	}else{
+		collapseAll()
+		showParent(get('l' + index));	
+		collapse(index);
+	}
+}
+if(LastSelected!=-1){
+	get('l' + LastSelected).className = "unselected";
+}
+get('l' + index).className = "selected";
+LastSelected = index;
+return r;
+}
+
+function body_onmousemove(event){
+if(typeof(document.body.scrollTop)!='undefined'){
+if(parseInt(event.clientX)<5){
+window.scroll(0,document.body.scrollTop);}}
+if(typeof(window.scrollY)!='undefined'){
+if(parseInt(event.clientX)<5){
+window.scrollTo(0,window.scrollY);}}
+}
+
+window.defaultStatus = '';
+
+function body_onload(){
+get('loading').style.display='none';
+loaded = true;
+if(parent.parent.content.document.readyState){
+	if(parent.parent.content.document.readyState == 'complete'){
+		try{parent.parent.content.syn();}catch(e){};
+	}
+}else{
+	if(parent.parent.contentLoaded){
+		try{parent.parent.content.syn();}catch(e){};
+	}
+}
+}
+
+//-->
+</SCRIPT>
+<script language="JavaScript" src="languages.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" onmousemove="body_onmousemove(event);" onload="body_onload();">
+<div id="loading"><font color="#FF0000" size="1"> Loading table of contents... 
+</font><br><br></div>
+<script>SetEnv(0,false)</script><div><nobr><a href="#" onClick="return NodeClick('0')"><img id="imgn0" src="icons/daplus.gif" class="p"></a><a href="#" onclick="return LinkClick('0',true,false)" onDblClick="return LinkDblClick('0')" target="content" title="GIỚI THIỆU" onmousemove="window.status='GIỚI THIỆU'"><img id="img0" src="icons/1.gif" class="p"> <span id="l0" class="unselected">GIỚI THIỆU</span></a></nobr></div>
+<div id="d0" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/moc-dich-va-y-nghia-coa-tai-lieu.html" onclick="return LinkClick('1',false,true)" target="content" title="Mục đích và ý nghĩa của tài liệu" onmousemove="window.status='Mục đích và ý nghĩa của tài liệu'"><img src="icons/11.gif" class="p"> <span id="l1" class="unselected">Mục đích và ý nghĩa của tài liệu</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/pham-vi-tai-lieu.html" onclick="return LinkClick('2',false,true)" target="content" title="Phạm vi tài liệu" onmousemove="window.status='Phạm vi tài liệu'"><img src="icons/11.gif" class="p"> <span id="l2" class="unselected">Phạm vi tài liệu</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/cac-thuat-ngu-va-chu-viet-tat.html" onclick="return LinkClick('3',false,true)" target="content" title="Các thuật ngữ và chữ viết tắt." onmousemove="window.status='Các thuật ngữ và chữ viết tắt.'"><img src="icons/11.gif" class="p"> <span id="l3" class="unselected">Các thuật ngữ và chữ viết tắt.</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/cau-truc-tai-lieu.html" onclick="return LinkClick('4',false,true)" target="content" title="Cấu trúc tài liệu" onmousemove="window.status='Cấu trúc tài liệu'"><img src="icons/11.gif" class="p"> <span id="l4" class="unselected">Cấu trúc tài liệu</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('5')"><img id="imgn5" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('5',true,false)" onDblClick="return LinkDblClick('5')" target="content" title="TỔNG QUAN" onmousemove="window.status='TỔNG QUAN'"><img id="img5" src="icons/1.gif" class="p"> <span id="l5" class="unselected">TỔNG QUAN</span></a></nobr></div>
+<div id="d5" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/gioi-thieu-tong-quan-chuong-trinh-hoac-phan-hemodule-hien-hanh.html" onclick="return LinkClick('6',false,true)" target="content" title="Giới thiệu tổng quan chương trình (hoặc Phân hệ/Module hiện hành)" onmousemove="window.status='Giới thiệu tổng quan chương trình (hoặc Phân hệ/Module hiện hành)'"><img src="icons/11.gif" class="p"> <span id="l6" class="unselected">Giới thiệu tổng quan chương trình (hoặc Phân hệ/Module hiện hành)</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/cac-ni-dung-khac.html" onclick="return LinkClick('7',false,true)" target="content" title="Các nội dung khác:" onmousemove="window.status='Các nội dung khác:'"><img src="icons/11.gif" class="p"> <span id="l7" class="unselected">Các nội dung khác:</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('8')"><img id="imgn8" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('8',true,false)" onDblClick="return LinkDblClick('8')" target="content" title="GiỚI THIỆU CÁC CHỨC NĂNG HỆ THỐNG" onmousemove="window.status='GiỚI THIỆU CÁC CHỨC NĂNG HỆ THỐNG'"><img id="img8" src="icons/1.gif" class="p"> <span id="l8" class="unselected">GiỚI THIỆU CÁC CHỨC NĂNG HỆ THỐNG</span></a></nobr></div>
+<div id="d8" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/cac-choc-nang-trong-phan-he-quan-tri-he-thong.html" onclick="return LinkClick('9',false,true)" target="content" title="Các chức năng trong Phân hệ Quản trị hệ thống" onmousemove="window.status='Các chức năng trong Phân hệ Quản trị hệ thống'"><img src="icons/11.gif" class="p"> <span id="l9" class="unselected">Các chức năng trong Phân hệ Quản trị hệ thống</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('10')"><img id="imgn10" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('10',true,false)" onDblClick="return LinkDblClick('10')" target="content" title="HƯỚNG DẪN SỬ DỤNG CÁC CHỨC NĂNG HỆ THỐNG" onmousemove="window.status='HƯỚNG DẪN SỬ DỤNG CÁC CHỨC NĂNG HỆ THỐNG'"><img id="img10" src="icons/1.gif" class="p"> <span id="l10" class="unselected">HƯỚNG DẪN SỬ DỤNG CÁC CHỨC NĂNG HỆ THỐNG</span></a></nobr></div>
+<div id="d10" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><a href="#" onClick="return NodeClick('11')"><img id="imgn11" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('11',true,false)" onDblClick="return LinkDblClick('11')" target="content" title="Đăng nhập hệ thống" onmousemove="window.status='Đăng nhập hệ thống'"><img id="img11" src="icons/1.gif" class="p"> <span id="l11" class="unselected">Đăng nhập hệ thống</span></a></nobr></div>
+<div id="d11" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/dang-nhap-he-thong1.html" onclick="return LinkClick('12',false,true)" target="content" title=" Đăng nhập hệ thống:" onmousemove="window.status=' Đăng nhập hệ thống:'"><img src="icons/11.gif" class="p"> <span id="l12" class="unselected"> Đăng nhập hệ thống:</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/doi-mat-khau.html" onclick="return LinkClick('13',false,true)" target="content" title="Đổi mật khẩu:" onmousemove="window.status='Đổi mật khẩu:'"><img src="icons/11.gif" class="p"> <span id="l13" class="unselected">Đổi mật khẩu:</span></a></nobr></div>
+</div><div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-choc-nang-he-thong.html" onclick="return LinkClick('14',false,true)" target="content" title="Quản lý chức năng hệ thống" onmousemove="window.status='Quản lý chức năng hệ thống'"><img src="icons/11.gif" class="p"> <span id="l14" class="unselected">Quản lý chức năng hệ thống</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-nsd-va-nhom-nsd.html" onclick="return LinkClick('15',false,true)" target="content" title="Quản lý NSD và nhóm NSD" onmousemove="window.status='Quản lý NSD và nhóm NSD'"><img src="icons/11.gif" class="p"> <span id="l15" class="unselected">Quản lý NSD và nhóm NSD</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-dia-chi.html" onclick="return LinkClick('16',false,true)" target="content" title="Quản lý địa chỉ" onmousemove="window.status='Quản lý địa chỉ'"><img src="icons/11.gif" class="p"> <span id="l16" class="unselected">Quản lý địa chỉ</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-thoi-gian-truy-cap.html" onclick="return LinkClick('17',false,true)" target="content" title="Quản lý thời gian truy cập" onmousemove="window.status='Quản lý thời gian truy cập'"><img src="icons/11.gif" class="p"> <span id="l17" class="unselected">Quản lý thời gian truy cập</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-thay-doi-he-thong.html" onclick="return LinkClick('18',false,true)" target="content" title="Quản lý thay đổi hệ thống" onmousemove="window.status='Quản lý thay đổi hệ thống'"><img src="icons/11.gif" class="p"> <span id="l18" class="unselected">Quản lý thay đổi hệ thống</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-truy-cap-he-thong.html" onclick="return LinkClick('19',false,true)" target="content" title="Quản lý truy cập hệ thống" onmousemove="window.status='Quản lý truy cập hệ thống'"><img src="icons/11.gif" class="p"> <span id="l19" class="unselected">Quản lý truy cập hệ thống</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-log-he-thong.html" onclick="return LinkClick('20',false,true)" target="content" title="Quản lý log hệ thống" onmousemove="window.status='Quản lý log hệ thống'"><img src="icons/11.gif" class="p"> <span id="l20" class="unselected">Quản lý log hệ thống</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/quan-ly-chinh-sach.html" onclick="return LinkClick('21',false,true)" target="content" title="Quản lý chính sách" onmousemove="window.status='Quản lý chính sách'"><img src="icons/11.gif" class="p"> <span id="l21" class="unselected">Quản lý chính sách</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/quan-ly-ong-dong.html" onclick="return LinkClick('22',false,true)" target="content" title="Quản lý ứng dụng" onmousemove="window.status='Quản lý ứng dụng'"><img src="icons/11.gif" class="p"> <span id="l22" class="unselected">Quản lý ứng dụng</span></a></nobr></div>
+</div><div><nobr><img src="icons/upangle.gif" class="p"><a href="pages/pho-loc.html" onclick="return LinkClick('23',false,true)" target="content" title="PHỤ LỤC " onmousemove="window.status='PHỤ LỤC '"><img src="icons/11.gif" class="p"> <span id="l23" class="unselected">PHỤ LỤC </span></a></nobr></div>
+<script>divlist = [0,5,8,10,11]</script>
+</body>
+</html>

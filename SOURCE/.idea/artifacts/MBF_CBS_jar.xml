@@ -1,0 +1,55 @@
+<component name="ArtifactManager">
+  <artifact name="MBF-CBS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MBF_CBS_jar</output-path>
+    <root id="root">
+      <element id="archive" name="cbs-core.jar">
+        <element id="module-output" name="MBF-CBS" />
+        <element id="module-output" name="cbs-commons" />
+        <element id="module-output" name="cbs-rest" />
+        <element id="module-output" name="HttpService" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="bc" />
+        <element id="library" level="project" name="camel-3.0.0" />
+        <element id="library" level="project" name="commons-codec-1.9" />
+        <element id="library" level="project" name="commons-dbutils-1.7" />
+        <element id="library" level="project" name="commons-discovery-0.2" />
+        <element id="library" level="project" name="commons-httpclient-3.0.1" />
+        <element id="library" level="project" name="commons-io-2.6" />
+        <element id="library" level="project" name="commons-lang3-3.9" />
+        <element id="library" level="project" name="DBPool-4.9.3-JDBC3" />
+        <element id="library" level="project" name="diameter" />
+        <element id="library" level="project" name="guava-11.0.2" />
+        <element id="library" level="project" name="gw_core" />
+        <element id="library" level="project" name="jackson-2.8.0" />
+        <element id="library" level="project" name="jersey-all-2.22.2" />
+        <element id="library" level="project" name="jetty-all-9.4.24.v20191120-uber" />
+        <element id="library" level="project" name="jsmpp-2.1.0" />
+        <element id="library" level="project" name="log4j" />
+        <element id="library" level="project" name="lombok-1.16.16" />
+        <element id="library" level="project" name="objenesis-3.1" />
+        <element id="library" level="project" name="ojdbc8" />
+        <element id="library" level="project" name="picocontainer-1.2" />
+        <element id="library" level="project" name="reflections-0.9.10" />
+        <element id="library" level="project" name="slf4j" />
+        <element id="library" level="project" name="telsoft-lib-v1-requirements" />
+        <element id="library" level="project" name="telsoft_srv_v1" />
+        <element id="library" level="project" name="commons-logging" />
+        <element id="library" level="project" name="trilead-ssh2-build213" />
+        <element id="library" level="project" name="commons-net-3.4" />
+        <element id="library" level="project" name="axis" />
+        <element id="library" level="project" name="opencsv-3.8" />
+        <element id="library" level="project" name="edtftpj" />
+        <element id="library" level="project" name="commons-email" />
+        <element id="library" level="project" name="poi" />
+        <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.63" />
+        <element id="library" level="project" name="uuid-creator-5.0.0" />
+      </element>
+      <element id="directory" name="configuration">
+        <element id="file-copy" path="$PROJECT_DIR$/run/cbs-charge.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/run/cbs2.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/run/cbs-nt.xml" />
+      </element>
+    </root>
+  </artifact>
+</component>

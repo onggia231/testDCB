@@ -1,0 +1,23 @@
+ThreadName==Queue Monitor
+ClassName==telsoft.gateway.core.queue.QueueMonitorThread
+Parameter
+	MonitorMessageQueue==N
+	Process Queue In Size==5000
+	Process Queue Out Size==5000
+	Reset Process Queue In==N
+	Reset Process Queue Out==N
+	MonitorLoggingQueue==Y
+	LoggingQueue-Warn==30
+	LoggingQueue-RejectMessage==N
+	LogDir==log/qm
+	Alert==N
+	Debug==N
+	DelayTime==10
+	LogDefinition
+	NotificationInterval
+	NotificationString
+	SingleSession
+	ThreadGroup
+StartupType==1
+Status==1
+Schedule

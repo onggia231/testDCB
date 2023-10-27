@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="telsoft-lib-v1-requirements">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/telsoft-lib-v1-requirements/commons-compiler-3.0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/telsoft-lib-v1-requirements/disruptor-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/telsoft-lib-v1-requirements/hessian-4.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/telsoft-lib-v1-requirements/janino-3.0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/telsoft-lib-v1-requirements/jcl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

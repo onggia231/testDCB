@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <div class="ui-fluid">
+            <p:panel header="#{PP_SEARCHISDN.header}" styleClass="box-primary">
+                <p:focus context="pnSearchIsdn"/>
+                <h:panelGroup id="pnSearchIsdn">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="ui-material">
+                                <p:outputLabel for="search_isdn" value="#{PP_SEARCHISDN.isdn}"/>
+                                <p:inputText id="search_isdn" value="#{bean[isdn]}"
+                                             maxlength="20" required="true"
+                                             requiredMessage="#{PP_SEARCHISDN.isdn}#{PP_COMMONS.can_not_be_empty}">
+                                    <!--                                    <p:keyFilter regEx="/[\d\-]/"/>-->
+                                </p:inputText>
+                                <p:message for="search_isdn"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <center>
+                    <p:commandButton icon="fa fa-search" process="@this :form_main:pnSearchIsdn"
+                                     update="#{update}"
+                                     actionListener="#{bean[actionView]}"
+                                     value="#{PP_COMMONS.search}"
+                                     styleClass="btn-primary" style="width:auto"/>
+                </center>
+            </p:panel>
+            <p:panel id="pnListSubscriber" header="#{PP_SEARCHISDN.listISDN}" styleClass="box-primary">
+                <h:panelGroup rendered="#{updateISDNController.bDISPLAYSearchISDN}">
+                    <p:dataTable id="dataSubscriber" value="#{bean[listISDN]}" var="subScriber"
+                                 rowKey="#{subScriber.id}" selectionMode="single" selection="#{bean[isdnSelected]}"
+                                 paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                 widgetVar="dataSubscriber"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 paginator="true" rows="10"
+                                 rowsPerPageTemplate="5,10,15" styleClass="no-border">
+
+                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                        <p:ajax global="false" event="sort"/>
+                        <p:ajax global="false" event="page"/>
+                        <p:ajax process="@this" event="rowSelect" listener="#{bean[actionSelect]}"
+                                update="#{updateView}"/>
+                        <p:ajax process="@this" event="rowUnselect" listener="#{bean[actionUnSelect]}"
+                                update="#{updateView}"/>
+
+                        <p:column headerText="#{PP_INFOISDN.isdn}" sortBy="#{subScriber.isdn}">
+                            <h:outputText value="#{subScriber.isdn}"/>
+                        </p:column>
+                        <p:column headerText="#{PP_INFOISDNTRANS.regDate}"
+                                  sortBy="#{subScriber.regDate}">
+                            <h:outputText value="#{bean[convertDateTime](subScriber.regDate)}"/>
+                        </p:column>
+                        <p:column headerText="#{PP_INFOISDN.status}" sortBy="#{subScriber.status}">
+                            <h:outputText styleClass="label label-success" rendered="#{subScriber.status eq '1'}"
+                                          value="#{PP_COMMONS.enable}"/>
+                            <h:outputText styleClass="label label-warning" rendered="#{subScriber.status ne '1'}"
+                                          value="#{PP_COMMONS.disable}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </p:panel>
+        </div>
+    </ui:composition>
+</h:body>
+</html>

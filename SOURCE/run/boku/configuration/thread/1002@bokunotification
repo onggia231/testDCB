@@ -1,0 +1,33 @@
+ThreadName==Boku Notification
+ClassName==com.telsoft.cbs.module.boku.client.BokuClientStarter
+StartupType==1
+Parameter
+	LogDir==log/boku-notif
+	Alert
+	Debug
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	ContextPath==/notification
+	ServletContext==/*
+	Port==8886
+	Tcp-Acceptors==3
+	Tcp-SoLingerTime==-1
+	Tcp-MaxIdleTime==60000
+	Tcp-MaxThread==200
+	Tcp-MinThread==10
+	HTTPS==N
+	KeyStorePath
+	KeyStorePassword
+	KeyManagerPassword
+	TrustStorePath
+	TrustStorePassword
+	BokuUrl==https://127.0.0.1:8885
+	Boku-KeyStorePath==../../key/2ssl/client.jks
+	Boku-KeyStorePassword==mobifone
+	Boku-TrustStorePath==../../key/2ssl/trust.jks
+	Boku-TrustStorePassword==mobifone
+Status==1
+Schedule

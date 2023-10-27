@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+
+        <style type="text/css">
+            .columndefault {
+                width: 160px;
+            }
+        </style>
+        <script type="text/javascript">
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+        </script>
+
+        <div class="ui-fluid">
+            <h:panelGroup id="panel_center">
+                <p:panel id="panel_store" header="#{PP_APPSTOREDATA.header}" styleClass="box-primary">
+                    <h:panelGroup>
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_APPSTOREDATA.code}" for="code"/>
+                                    <p:inputText id="code" maxlength="255"
+                                                 value="#{appStoreDataController.appStoreDataEntity.cbStore.storeCode}"
+                                                 required="true"
+                                                 requiredMessage="#{PP_APPSTOREDATA.code}#{PP_COMMONS.can_not_be_empty}"
+                                                 disabled="#{appStoreDataController.disableInput eq 0}"/>
+                                    <p:message for="code"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_APPSTOREDATA.name}" for="name"/>
+                                    <p:inputText id="name" maxlength="255"
+                                                 value="#{appStoreDataController.appStoreDataEntity.cbStore.name}"
+                                                 required="true"
+                                                 requiredMessage="#{PP_APPSTOREDATA.name}#{PP_COMMONS.can_not_be_empty}"
+                                                 disabled="#{appStoreDataController.disableInput eq 0}"/>
+                                    <p:message for="name"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                <div class="material">
+                                    <p:outputLabel for="prepaid_limit_profile"
+                                                   value="#{PP_APPSTOREDATA.prepaid_limit_profile}"/>
+                                    <p:selectOneMenu id="prepaid_limit_profile"
+                                                     required="true"
+                                                     requiredMessage="#{PP_APPSTOREDATA.prepaid_limit_profile}#{PP_COMMONS.can_not_be_empty}"
+                                                     disabled="#{appStoreDataController.disableInput eq 0}"
+                                                     value="#{appStoreDataController.appStoreDataEntity.cbStore.prepaidLimitProfile}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{appStoreDataController.listLimitProfile}"
+                                                       var="prepaid_lp" itemValue="#{prepaid_lp.limitProfileId}"
+                                                       itemLabel="#{prepaid_lp.limitProfileCode} - #{prepaid_lp.limitProfileName}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="prepaid_limit_profile"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                <div class="material">
+                                    <p:outputLabel for="postpaid_limit_profile"
+                                                   value="#{PP_APPSTOREDATA.postpaid_limit_profile}"/>
+                                    <p:selectOneMenu id="postpaid_limit_profile"
+                                                     required="true"
+                                                     requiredMessage="#{PP_APPSTOREDATA.postpaid_limit_profile}#{PP_COMMONS.can_not_be_empty}"
+                                                     disabled="#{appStoreDataController.disableInput eq 0}"
+                                                     value="#{appStoreDataController.appStoreDataEntity.cbStore.postpaidLimitProfile}">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{appStoreDataController.listLimitProfile}"
+                                                       var="postpaid_lp" itemValue="#{postpaid_lp.limitProfileId}"
+                                                       itemLabel="#{postpaid_lp.limitProfileCode} - #{postpaid_lp.limitProfileName}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="postpaid_limit_profile"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                <div class="material">
+                                    <p:outputLabel for="status" value="#{PP_COMMONS.status}"/>
+                                    <p:selectOneMenu id="status" disabled="#{appStoreDataController.disableInput eq 0}"
+                                                     value="#{appStoreDataController.appStoreDataEntity.cbStore.status}">
+                                        <f:selectItem itemLabel="#{PP_APPSTOREDATA.active}" itemValue="1"/>
+                                        <f:selectItem itemLabel="#{PP_APPSTOREDATA.inactive}" itemValue="0"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="status"/>
+                                </div>
+                            </div>
+                            <!--                            <div class="ui-g-12 ui-md-12 ui-lg-6">-->
+                            <!--                                <div class="ui-material">-->
+                            <!--                                    <p:outputLabel value="#{PP_APPSTOREDATA.yearlimit}" for="year_limit"/>-->
+                            <!--                                    <p:inputNumber id="year_limit"-->
+                            <!--                                                   value="#{appStoreDataController.appStoreDataEntity.cbStore.yearlyLimit}"-->
+                            <!--                                                   maxlength="10" maxValue="9999999999"-->
+                            <!--                                                   decimalPlaces="0" minValue="0"-->
+                            <!--                                                   padControl="false"-->
+                            <!--                                                   disabled="#{appStoreDataController.disableInput eq 0}"/>-->
+                            <!--                                    <p:message for="year_limit"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="ui-g-12 ui-md-12 ui-lg-6">-->
+                            <!--                                <div class="ui-material">-->
+                            <!--                                    <p:outputLabel value="#{PP_APPSTOREDATA.monthlimit}" for="month_limit"/>-->
+                            <!--                                    <p:inputNumber id="month_limit"-->
+                            <!--                                                   value="#{appStoreDataController.appStoreDataEntity.cbStore.monthlyLimit}"-->
+                            <!--                                                   maxlength="10" maxValue="9999999999"-->
+                            <!--                                                   decimalPlaces="0" minValue="0"-->
+                            <!--                                                   padControl="false"-->
+                            <!--                                                   disabled="#{appStoreDataController.disableInput eq 0}"/>-->
+                            <!--                                    <p:message for="month_limit"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="ui-g-12 ui-md-12 ui-lg-6">-->
+                            <!--                                <div class="ui-material">-->
+                            <!--                                    <p:outputLabel value="#{PP_APPSTOREDATA.weeklimit}" for="week_limit"/>-->
+                            <!--                                    <p:inputNumber id="week_limit"-->
+                            <!--                                                   value="#{appStoreDataController.appStoreDataEntity.cbStore.weeklyLimit}"-->
+                            <!--                                                   maxlength="10" maxValue="9999999999"-->
+                            <!--                                                   decimalPlaces="0" minValue="0"-->
+                            <!--                                                   padControl="false"-->
+                            <!--                                                   disabled="#{appStoreDataController.disableInput eq 0}"/>-->
+                            <!--                                    <p:message for="week_limit"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="ui-g-12 ui-md-12 ui-lg-6">-->
+                            <!--                                <div class="ui-material">-->
+                            <!--                                    <p:outputLabel value="#{PP_APPSTOREDATA.daylimit}" for="day_limit"/>-->
+                            <!--                                    <p:inputNumber id="day_limit"-->
+                            <!--                                                   value="#{appStoreDataController.appStoreDataEntity.cbStore.dailyLimit}"-->
+                            <!--                                                   maxlength="10" maxValue="9999999999"-->
+                            <!--                                                   decimalPlaces="0" minValue="0"-->
+                            <!--                                                   padControl="false"-->
+                            <!--                                                   disabled="#{appStoreDataController.disableInput eq 0}"/>-->
+                            <!--                                    <p:message for="day_limit"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="ui-g-12 ui-md-12 ui-lg-6">-->
+                            <!--                                <div class="ui-material">-->
+                            <!--                                    <p:outputLabel value="#{PP_APPSTOREDATA.translimit}" for="trans_limit"/>-->
+                            <!--                                    <p:inputNumber id="trans_limit"-->
+                            <!--                                                   value="#{appStoreDataController.appStoreDataEntity.cbStore.transLimit}"-->
+                            <!--                                                   maxlength="10" maxValue="9999999999"-->
+                            <!--                                                   decimalPlaces="0" minValue="0"-->
+                            <!--                                                   padControl="false"-->
+                            <!--                                                   disabled="#{appStoreDataController.disableInput eq 0}"/>-->
+                            <!--                                    <p:message for="trans_limit"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-material">
+                                    <p:outputLabel value="#{PP_COMMONS.description}" for="description"/>
+                                    <p:inputText id="description" maxlength="255"
+                                                 value="#{appStoreDataController.appStoreDataEntity.cbStore.description}"
+                                                 disabled="#{appStoreDataController.disableInput eq 0}"/>
+                                    <p:message for="description"/>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:outputLabel value="#{PP_APPSTOREDATA.attribute}"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-10">
+                                <p:panel id="pnl_attr" header="#{PP_APPSTOREDATA.ls_attribute}"
+                                         styleClass="box-primary">
+                                    <h:panelGroup rendered="#{appStoreDataController.renderAttr eq 0}">
+                                        <h:panelGroup id="pnlControlAttr">
+                                            <div class="ui-g no-padding">
+                                                <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                                                <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                                    <p:commandButton id="btnAddAttr" process="@this pnl_attr_input"
+                                                                     actionListener="#{appStoreDataController.onAddAttr}"
+                                                                     styleClass="btn-info"
+                                                                     value="#{PP_COMMONS.add}"
+                                                                     icon="fa fa-plus-square"
+                                                                     update=":form_main:pnl_attr :form_main:btn_ok_store"
+                                                                     resetValues="true"
+                                                                     disabled="#{appStoreDataController.disableInput eq 0}"/>
+
+                                                </div>
+                                                <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                                    <p:commandButton id="btn_del_group"
+                                                                     disabled="#{empty appStoreDataController.lsAttrSelected or appStoreDataController.disableInput eq 0}"
+                                                                     actionListener="#{appStoreDataController.onMulDeleteAttr()}"
+                                                                     process="@this" styleClass="btn-danger"
+                                                                     update=":form_main:pnl_attr :form_main:btn_ok_store"
+                                                                     icon="fa fa-trash"
+                                                                     oncomplete="PF('tableAttr').clearFilters();"
+                                                                     value="#{PP_COMMONS.del}">
+                                                        <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                                   message="#{PP_COMMONS.confirm_delete}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                            </div>
+
+                                        </h:panelGroup>
+
+                                        <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                                     id="tableAttr"
+                                                     widgetVar="tableAttr"
+                                                     filterDelay="500" value="#{appStoreDataController.lsAttr}"
+                                                     filteredValue="#{appStoreDataController.lsAttrFiltered}"
+                                                     var="attr"
+                                                     emptyMessage="#{PP_COMMONS.empty_message}" rowSelectMode="checkbox"
+                                                     selection="#{appStoreDataController.lsAttrSelected}"
+                                                     rowKey="#{attr.cbStoreAttr.name}"
+                                                     paginator="true" rows="3"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="3,10,20,50,#{appStoreDataController.lsAttr.size()}"
+                                                     styleClass="no-border">
+
+                                            <p:ajax global="false" event="rowSelectCheckbox" process="tableAttr"
+                                                    update=":form_main:pnlControlAttr"/>
+                                            <p:ajax global="false" event="rowUnselectCheckbox" process="tableAttr"
+                                                    update=":form_main:pnlControlAttr"/>
+                                            <p:ajax global="false" event="toggleSelect" process="tableAttr"
+                                                    update=":form_main:pnlControlAttr"/>
+                                            <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                            <p:ajax global="false" event="sort"/>
+                                            <p:ajax global="false" event="page"/>
+
+                                            <p:column headerText="&nbsp;" selectionMode="multiple"
+                                                      style="width:16px;text-align:center"/>
+                                            <p:column headerText="#{PP_APPSTOREDATA.name_attr}"
+                                                      sortBy="#{attr.cbStoreAttr.name}"
+                                                      filterBy="#{attr.cbStoreAttr.name}" filterMatchMode="contains">
+                                                <h:outputText title="#{attr.cbStoreAttr.name}"
+                                                              value="#{attr.cbStoreAttr.name}"/>
+
+                                            </p:column>
+                                            <p:column headerText="#{PP_APPSTOREDATA.value}"
+                                                      sortBy="#{attr.cbStoreAttr.value}"
+                                                      filterBy="#{attr.cbStoreAttr.value}" filterMatchMode="contains">
+                                                <h:outputText title="#{attr.cbStoreAttr.value}"
+                                                              value="#{attr.cbStoreAttr.value}"/>
+
+                                            </p:column>
+                                            <p:column width="100" headerText="#{PP_APPSTOREDATA.action}">
+                                                <p:commandLink id="btn_edit_attr"
+                                                               actionListener="#{appStoreDataController.onEditAttr(attr.cbStoreAttr)}"
+                                                               process="@this" styleClass="fa fa-pencil"
+                                                               update=":form_main:pnl_attr :form_main:tableAttr :form_main:btn_ok_store"
+                                                               disabled="#{appStoreDataController.disableInput eq 0}"
+                                                               resetValues="true"/>&nbsp;&nbsp;
+                                                <p:tooltip for="btn_edit_attr" value="#{PP_COMMONS.edit}"/>
+
+                                                <p:commandLink id="btn_copy_attr"
+                                                               rendered="#{appStoreDataController.renderButton eq 4}"
+                                                               actionListener="#{appStoreDataController.onCopyAttr(attr.cbStoreAttr)}"
+                                                               process="@this" styleClass="fa fa-clone"
+                                                               update=":form_main:pnl_attr :form_main:tableAttr :form_main:btn_ok_store"
+                                                               disabled="#{appStoreDataController.disableInput eq 0}"
+                                                               resetValues="true"/>&nbsp;&nbsp;
+                                                <p:tooltip for="btn_copy_attr" value="#{PP_COMMONS.copy}"/>
+
+                                                <p:commandLink id="btn_del_attr"
+                                                               actionListener="#{appStoreDataController.onDeleteAttr(attr)}"
+                                                               process="@this" styleClass="fa fa-trash"
+                                                               update=":form_main:pnl_attr :form_main:tableAttr :form_main:btn_ok_store"
+                                                               disabled="#{appStoreDataController.disableInput eq 0}"
+                                                               oncomplete="PF('tableAttr').clearFilters();">
+                                                    <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                               message="#{PP_COMMONS.confirm_delete}"/>
+                                                </p:commandLink>
+                                                <p:tooltip for="btn_del_attr" value="#{PP_COMMONS.del}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="pnl_attr_input"
+                                                  rendered="#{appStoreDataController.renderAttr eq 1}">
+                                        <p:focus context="pnl_attr_input"/>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                            <p:commandButton id="btn_ok_attr"
+                                                             actionListener="#{appStoreDataController.onAcceptAttr()}"
+                                                             process="@this pnl_attr_input"
+                                                             styleClass="btn-success" value="#{PP_COMMONS.ok}"
+                                                             update=":form_main:pnl_attr :form_main:tableAttr :form_main:btn_ok_store"
+                                                             icon="ui-icon fa fa-check-circle"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-3">
+                                            <p:commandButton id="btn_cancel_attr"
+                                                             actionListener="#{appStoreDataController.onCancelAttr()}"
+                                                             process="@this" value="#{PP_COMMONS.back}"
+                                                             update=":form_main:pnl_attr :form_main:tableAttr :form_main:btn_ok_store"
+                                                             icon="fa fa-undo"/>
+                                        </div>
+                                        <p:defaultCommand target="btn_ok_attr" id="default1"/>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <div class="material">
+                                                <p:outputLabel value="#{PP_APPSTOREDATA.name_attr}"
+                                                               for="name_attr"/>
+                                                <p:autoComplete id="name_attr" maxlength="255"
+                                                                cache="false"
+                                                                onclick="this.select();"
+                                                                minQueryLength="2" effect="fade"
+                                                                required="true"
+                                                                requiredMessage="#{PP_APPSTOREDATA.name_attr}#{PP_COMMONS.can_not_be_empty}"
+                                                                dropdown="true"
+                                                                value="#{appStoreDataController.appStoreDataEntity.cbStoreAttr.name}"
+                                                                queryDelay="1000"
+                                                                completeMethod="#{appStoreDataController.completeName}"
+                                                                scrollHeight="250">
+
+                                                    <p:ajax event="blur" global="flase" process="@this name_attr"
+                                                            update=""/>
+
+                                                </p:autoComplete>
+                                                <!--<p:inputText id="name_attr" maxlength="255" rendered="false"-->
+                                                <!--value="#{appStoreDataController.appStoreDataEntity.cbStoreAttr.name}"-->
+                                                <!--required="true"-->
+                                                <!--requiredMessage="#{PP_APPSTOREDATA.name_attr}#{PP_COMMONS.can_not_be_empty}"/>-->
+                                                <p:message for="name_attr"/>
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <div class="material">
+                                                <p:outputLabel value="#{PP_APPSTOREDATA.value}" for="value"/>
+                                                <p:autoComplete id="value" maxlength="255"
+                                                                cache="false"
+                                                                onclick="this.select();"
+                                                                minQueryLength="2" effect="fade"
+                                                                dropdown="true" queryDelay="1000"
+                                                                value="#{appStoreDataController.appStoreDataEntity.cbStoreAttr.value}"
+                                                                completeMethod="#{appStoreDataController.completeValue}"
+                                                                scrollHeight="250">
+
+                                                </p:autoComplete>
+                                                <!--<p:inputText id="value" maxlength="255"-->
+                                                <!--value="#{appStoreDataController.appStoreDataEntity.cbStoreAttr.value}"/>-->
+                                                <p:message for="value"/>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                </p:panel>
+                            </div>
+
+
+                        </div>
+                    </h:panelGroup>
+                </p:panel>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <h:panelGroup id="pnlControl">
+                        <h:panelGroup rendered="#{appStoreDataController.renderButton eq 0}">
+                            <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btnAddStore" process="@this"
+                                                 rendered="#{appStoreDataController.isAllowInsert}"
+                                                 actionListener="#{appStoreDataController.onAdd}"
+                                                 styleClass="btn-info"
+                                                 value="#{PP_COMMONS.add}"
+                                                 icon="fa fa-plus-square"
+                                                 update=":form_main:panel_store :form_main:tableStore :form_main:pnlControl"
+                                                 oncomplete="PF('tableAttr').clearFilters(); scrollToTop();"
+                                                 resetValues="true"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-5"></div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{appStoreDataController.renderButton eq 1}">
+                            <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok_store"
+                                                 disabled="#{empty appStoreDataController.lsAttr or appStoreDataController.renderAttr eq 1}"
+                                                 actionListener="#{appStoreDataController.onAccept()}"
+                                                 process="@this panel_store,tableAttr"
+                                                 styleClass="btn-success" value="#{PP_COMMONS.ok}"
+                                                 update=":form_main:panel_store :form_main:tableStore :form_main:tableAttr :form_main:pnlControl "
+                                                 icon="ui-icon fa fa-check-circle"
+                                                 oncomplete="scrollToTop();"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel_store"
+                                                 actionListener="#{appStoreDataController.onCancel()}"
+                                                 process="@this" value="#{PP_COMMONS.back}" resetValues="true"
+                                                 update=":form_main:panel_store :form_main:tableStore :form_main:tableAttr :form_main:pnlControl"
+                                                 icon="fa fa-undo"
+                                                 oncomplete="scrollToTop();"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-4"></div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </div>
+                <p:panel id="panel_store_list" header="#{PP_APPSTOREDATA.header1}" styleClass="box-primary">
+                    <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                 id="tableStore" disabledSelection="#{appStoreDataController.disableTable eq 1}"
+                                 widgetVar="tableStore"
+                                 filterDelay="500" value="#{appStoreDataController.lsStore}"
+                                 filteredValue="#{appStoreDataController.lsStoreFiltered}"
+                                 var="store"
+                                 emptyMessage="#{PP_COMMONS.empty_message}"
+                                 selection="#{appStoreDataController.storeEntity}"
+                                 rowKey="#{store.cbStore.id}"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,20,50,#{appStoreDataController.lsStore.size()}"
+                                 styleClass="no-border" selectionMode="single">
+
+                        <p:ajax global="false" event="rowSelect" process="tableStore"
+                                listener="#{appStoreDataController.onRowselect}"
+                                oncomplete="PF('tableAttr').clearFilters();"
+                                update=":form_main:panel_store :form_main:pnlControl"/>
+                        <p:ajax global="false" event="rowUnselect" process="tableStore"
+                                update=":form_main:panel_store :form_main:pnlControl"
+                                listener="#{appStoreDataController.onRowUnselect}"/>
+                        <p:ajax global="false" event="rowSelectCheckbox" process="tableStore"
+                                update=":form_main:panel_store :form_main:pnlControl"/>
+                        <p:ajax global="false" event="rowUnselectCheckbox" process="tableStore"
+                                update=":form_main:pnlControl"/>
+                        <p:ajax global="false" event="toggleSelect" process="tableStore"
+                                update=":form_main:pnlControl"/>
+                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                        <p:ajax global="false" event="sort"/>
+                        <p:ajax global="false" event="page"/>
+
+                        <p:column headerText="#{PP_APPSTOREDATA.code}"
+                                  sortBy="#{store.cbStore.storeCode}"
+                                  filterBy="#{store.cbStore.storeCode}" filterMatchMode="contains"
+                                  styleClass="columndefault">
+                            <h:outputText title="#{store.cbStore.storeCode}"
+                                          value="#{store.cbStore.storeCode}"/>
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.name}"
+                                  sortBy="#{store.cbStore.name}"
+                                  filterBy="#{store.cbStore.name}" filterMatchMode="contains"
+                                  styleClass="columndefault">
+                            <h:outputText title="#{store.cbStore.name}"
+                                          value="#{store.cbStore.name}"/>
+
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.status}"
+                                  sortBy="#{store.cbStore.status}"
+                                  filterBy="#{store.cbStore.status}" filterMatchMode="exact" styleClass="columndefault">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('tableStore').filter();">
+                                    <f:selectItem itemValue="" itemLabel="#{PP_APPSTOREDATA.all}"/>
+                                    <f:selectItem itemValue="1" itemLabel="#{PP_APPSTOREDATA.active}"/>
+                                    <f:selectItem itemValue="0" itemLabel="#{PP_APPSTOREDATA.inactive}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText styleClass="label label-success"
+                                          rendered="#{store.cbStore.status eq '1'}"
+                                          title="#{PP_APPSTOREDATA.active}"
+                                          value="#{PP_APPSTOREDATA.active}"/>
+                            <h:outputText styleClass="label label-warning"
+                                          rendered="#{store.cbStore.status eq '0'}"
+                                          title="#{PP_APPSTOREDATA.inactive}"
+                                          value="#{PP_APPSTOREDATA.inactive}"/>
+
+                        </p:column>
+                        <p:column headerText="#{PP_COMMONS.description}"
+                                  sortBy="#{store.cbStore.description}"
+                                  filterBy="#{store.cbStore.description}" filterMatchMode="contains"
+                                  styleClass="columndefault">
+                            <h:outputText title="#{store.cbStore.description}"
+                                          value="#{store.cbStore.description}"/>
+
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.yearlimit}"
+                                  sortBy="#{store.cbStore.yearlyLimit}"
+                                  filterBy="#{store.cbStore.yearlyLimit}" filterMatchMode="contains"
+                                  styleClass="columndefault"
+                                  rendered="false">
+                            <h:outputText style="float: right"
+                                          title="#{store.cbStore.yearlyLimit}"
+                                          value="#{store.cbStore.yearlyLimit}">
+                                <f:convertNumber pattern="###,###.###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.monthlimit}"
+                                  sortBy="#{store.cbStore.monthlyLimit}"
+                                  filterBy="#{store.cbStore.monthlyLimit}" filterMatchMode="contains"
+                                  styleClass="columndefault"
+                                  rendered="false">
+                            <h:outputText style="float: right"
+                                          title="#{store.cbStore.monthlyLimit}"
+                                          value="#{store.cbStore.monthlyLimit}">
+                                <f:convertNumber pattern="###,###.###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.weeklimit}"
+                                  sortBy="#{store.cbStore.weeklyLimit}"
+                                  filterBy="#{store.cbStore.weeklyLimit}" filterMatchMode="contains"
+                                  styleClass="columndefault"
+                                  rendered="false">
+                            <h:outputText style="float: right"
+                                          title="#{store.cbStore.weeklyLimit}"
+                                          value="#{store.cbStore.weeklyLimit}">
+                                <f:convertNumber pattern="###,###.###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.daylimit}"
+                                  sortBy="#{store.cbStore.dailyLimit}"
+                                  filterBy="#{store.cbStore.dailyLimit}" filterMatchMode="contains"
+                                  styleClass="columndefault"
+                                  rendered="false">
+                            <h:outputText style="float: right"
+                                          title="#{store.cbStore.dailyLimit}"
+                                          value="#{store.cbStore.dailyLimit}">
+                                <f:convertNumber pattern="###,###.###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{PP_APPSTOREDATA.translimit}"
+                                  sortBy="#{store.cbStore.transLimit}"
+                                  filterBy="#{store.cbStore.transLimit}" filterMatchMode="contains"
+                                  styleClass="columndefault"
+                                  rendered="false">
+                            <h:outputText style="float: right"
+                                          title="#{store.cbStore.transLimit}"
+                                          value="#{store.cbStore.transLimit}">
+                                <f:convertNumber pattern="###,###.###"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="100" headerText="#{PP_APPSTOREDATA.action}">
+                            <p:commandLink id="btn_edit_store"
+                                           actionListener="#{appStoreDataController.onEdit(store)}"
+                                           rendered="#{appStoreDataController.isAllowUpdate}"
+                                           process="@this" styleClass="fa fa-pencil"
+                                           disabled="#{appStoreDataController.disableTable eq 1}"
+                                           update=":form_main:panel_store, :form_main:tableStore :form_main:pnlControl :form_main:btn_ok_store"
+                                           oncomplete="PF('tableAttr').clearFilters(); scrollToTop();"
+                                           resetValues="true"/>&nbsp;&nbsp;
+                            <p:tooltip for="btn_edit_store" value="#{PP_COMMONS.edit}"/>
+                            <p:commandLink id="btn_copy_store"
+                                           actionListener="#{appStoreDataController.onCopy(store)}"
+                                           rendered="#{appStoreDataController.isAllowInsert and appStoreDataController.renderButton eq 4}"
+                                           process="@this" styleClass="fa fa-clone"
+                                           disabled="#{appStoreDataController.disableTable eq 1}"
+                                           update=":form_main:panel_store, :form_main:tableStore :form_main:pnlControl :form_main:btn_ok_store"
+                                           oncomplete="PF('tableAttr').clearFilters();"
+                                           resetValues="true"/>&nbsp;&nbsp;
+                            <p:tooltip for="btn_copy_store" value="#{PP_COMMONS.copy}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:panelGroup>
+
+        </div>
+
+    </ui:composition>
+</h:body>
+</html>

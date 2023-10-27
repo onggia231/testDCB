@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="gw_core">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/gw_core/ext_xml_log.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gw_core/gw_commons.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gw_core/gw_core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gw_core/mod_gw_rtec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gw_core/mod_in_rtec.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

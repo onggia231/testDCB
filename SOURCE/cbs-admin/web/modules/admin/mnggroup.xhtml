@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition>
+        <!--Style-->
+        <style type="text/css">
+            .level-space {
+                height: 13px;
+                background: transparent;
+                float: left;
+            }
+
+            .group-module-row-color {
+                background: #fff6ea;
+            }
+
+            .table-module-right .ui-chkbox {
+                cursor: pointer;
+            }
+
+            .ui-tree-container {
+                height: 300px;
+                border: 0;
+            }
+
+            #chk-right-description {
+                border: 1px solid #e7f4ff;
+                padding: 5px 5px 1px 5px;
+                float: right;
+                background: #f6fbff;
+                border-radius: 3px;
+                color: #61a3c9;
+            }
+        </style>
+        <!--End Style-->
+
+        <!--Javascript-->
+        <script type="text/javascript">
+            function clearFiltersLazyTableUserGroup() {
+                try {
+                    PF('tableLazyUser').clearFilters();
+                    PF('tableLazyUserSelected').clearFilters();
+                } catch (err) {
+
+                }
+            }
+        </script>
+        <!--End Javascript-->
+
+        <div class="ui-fluid">
+            <h:panelGroup id="pnl_content_center">
+                <p:sticky target="panel_control"/>
+                <h:panelGroup id="panel_control">
+                    <h:panelGroup rendered="#{not systemGroupController.isDisplayBtnConfirm}">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:menuButton id="btn_add" value="#{PP_COMMONS.add}"
+                                              rendered="#{systemGroupController.getPermission('I')}"
+                                              styleClass="btn-primary">
+                                    <p:menuitem actionListener="#{systemGroupController.changeStateAddUser()}"
+                                                process="@this" update="pnl_content_center, table_pick_group"
+                                                value="#{PP_MNGGROUP.add_user}" icon="fa fa-user" resetValues="true"/>
+                                    <p:menuitem actionListener="#{systemGroupController.changeStateAddGroup()}"
+                                                process="@this"
+                                                update="pnl_content_center, table_pick_group, table_pick_parent_group"
+                                                value="#{PP_MNGGROUP.add_group}" icon="fa fa-users"
+                                                oncomplete="clearFiltersLazyTableUserGroup(); clearFilters('tablePickParentGroup');"
+                                                resetValues="true"/>
+                                </p:menuButton>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-10"></div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{systemGroupController.isDisplayBtnConfirm}">
+                        <div class="ui-g pnl-control">
+                            <div class="ui-g-12 ui-md-12 ui-lg-8"></div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_cancel"
+                                                 actionListener="#{systemGroupController.handleCancel()}"
+                                                 process="@this" value="#{PP_COMMONS.back}" update="pnl_content_center"
+                                                 icon="fa fa-undo" oncomplete="clearFilters('tableGroupUser');"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                <p:commandButton id="btn_ok" actionListener="#{systemGroupController.handleOK()}"
+                                                 rendered="#{not systemGroupController.isVIEW}"
+                                                 process="@this pnl_user_add, pnl_group_add, table_user, table_module_right"
+                                                 styleClass="btn-success" value="#{PP_COMMONS.ok}"
+                                                 update="pnl_content_center" icon="ui-icon fa fa-check-circle"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <div class="ui-g #{systemGroupController.isDisplayBtnConfirm ? 'hide' : ''}">
+                    <div class="ui-g-12 ui-md-12 ui-lg-4 no-pad-y">
+                        <!--Tree Group-->
+                        <p:panel id="pnl_group" styleClass="box-primary"
+                                 rendered="#{not systemGroupController.isDisplayBtnConfirm}">
+                            <f:facet name="header">
+                                <h:panelGroup id="pnl_btn_group">
+                                    <div class="ui-g pnl-control">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                                            #{PP_MNGGROUP.group_user}
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                            <p:commandButton id="btn_view_group"
+                                                             actionListener="#{systemGroupController.changeStateViewGroup()}"
+                                                             process="@this" styleClass="btn-info btn-xs"
+                                                             update="pnl_content_center table_pick_group, table_pick_parent_group"
+                                                             icon="fa fa-eye"
+                                                             oncomplete="clearFiltersLazyTableUserGroup(); clearFilters('tablePickParentGroup');"
+                                                             resetValues="true"/>
+                                            <p:tooltip for="btn_view_group" value="#{PP_COMMONS.view}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                            <p:commandButton id="btn_edit_group"
+                                                             disabled="#{systemGroupController.isRootTree}"
+                                                             actionListener="#{systemGroupController.changeStateEditGroup()}"
+                                                             rendered="#{systemGroupController.isAllowUpdate}"
+                                                             process="@this" styleClass="btn-warning btn-xs"
+                                                             update="pnl_content_center table_pick_group, table_pick_parent_group"
+                                                             icon="fa fa-pencil"
+                                                             oncomplete="clearFiltersLazyTableUserGroup(); clearFilters('tablePickParentGroup');"
+                                                             resetValues="true"/>
+                                            <p:tooltip for="btn_edit_group" value="#{PP_COMMONS.edit}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                            <p:commandButton id="btn_copy_group"
+                                                             disabled="#{systemGroupController.isRootTree}"
+                                                             actionListener="#{systemGroupController.changeStateCopyGroup()}"
+                                                             rendered="#{systemGroupController.getPermission('I')}"
+                                                             process="@this" styleClass="btn-info btn-xs"
+                                                             update="pnl_content_center table_pick_group, table_pick_parent_group"
+                                                             icon="fa fa-clone"
+                                                             oncomplete="clearFiltersLazyTableUserGroup(); clearFilters('tablePickParentGroup');"
+                                                             resetValues="true"/>
+                                            <p:tooltip for="btn_copy_group" value="#{PP_COMMONS.copy}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-2">
+                                            <p:commandButton id="btn_del_group"
+                                                             disabled="#{systemGroupController.isRootTree}"
+                                                             actionListener="#{systemGroupController.handDeleteGroup()}"
+                                                             rendered="#{systemGroupController.isAllowDelete}"
+                                                             process="@this" styleClass="btn-danger btn-xs"
+                                                             update="pnl_content_center" icon="fa fa-trash"
+                                                             oncomplete="PF('tableGroupUser').clearFilters();">
+                                                <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                           message="#{PP_COMMONS.confirm_delete}"/>
+                                            </p:commandButton>
+                                            <p:tooltip for="btn_del_group" value="#{PP_COMMONS.del}"/>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+                            </f:facet>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:autoComplete id="group_search" minQueryLength="1" maxResults="10"
+                                                    queryDelay="500" value="#{systemGroupController.mstrGroupSearch}"
+                                                    completeMethod="#{systemGroupController.completeGroupSearch}"
+                                                    onfocus="this.select();" onmouseup="return false;">
+                                        <p:ajax event="itemSelect"
+                                                listener="#{systemGroupController.onGroupSearchSelect}"
+                                                process="@this, group_search"
+                                                update=":form_main:tree_group, :form_main:pnl_btn_group, :form_main:table_group_user, :form_main:action"
+                                                oncomplete="PF('tableGroupUser').clearFilters();"/>
+                                    </p:autoComplete>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p:selectBooleanCheckbox id="child_group_user"
+                                                             value="#{systemGroupController.mbIsIncludeChild}"
+                                                             label="child_group_user"
+                                                             itemLabel="#{PP_MNGGROUP.child_group_user}">
+                                        <p:ajax global="true" event="change" process="@this :form_main:child_group_user"
+                                                listener="#{systemGroupController.onCheckChildGroupUser}"
+                                                update=":form_main:panel_control, :form_main:table_group_user, :form_main:action"
+                                                oncomplete="PF('tableGroupUser').clearFilters();"/>
+                                    </p:selectBooleanCheckbox>
+                                </div>
+                            </div>
+
+                            <p:tree id="tree_group" value="#{systemGroupController.mtreeGroup}" var="nodeGroup"
+                                    animate="true" dynamic="true"
+                                    style="border: 0;" widgetVar="treeModule"
+                                    selection="#{systemGroupController.mselectedGroupNode}" selectionMode="single">
+
+                                <p:ajax global="true" event="select"
+                                        listener="#{systemGroupController.onGroupNodeSelect}"
+                                        update=":form_main:table_group_user, :form_main:pnl_btn_group, :form_main:action"
+                                        oncomplete="PF('tableGroupUser').clearFilters();"/>
+
+                                <p:treeNode icon="fa fa-building-o" styleClass="group_#{nodeGroup.group.groupId}">
+                                    <span id="group_#{nodeGroup.group.groupId}">#{nodeGroup.group.name}</span>
+                                </p:treeNode>
+                            </p:tree>
+
+                            <p:watermark for="group_search" value="#{PP_MNGGROUP.type_keyword}"/>
+                        </p:panel>
+                        <!--End Tree Group-->
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-8  no-pad-y">
+                        <!--List User-->
+                        <p:panel rendered="#{not systemGroupController.isDisplayBtnConfirm}" styleClass="box-info"
+                                 style="min-height: 483px;">
+                            <f:facet name="header">
+                                <div class="ui-g no-padding">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-11">
+                                        #{PP_MNGGROUP.user_list}
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12 ui-lg-1">
+                                        <p:commandButton id="btn_del_users"
+                                                         rendered="#{systemGroupController.isAllowDelete}"
+                                                         disabled="#{empty systemGroupController.mselectedUser}"
+                                                         actionListener="#{systemGroupController.handDeleteUser(null)}"
+                                                         process="@this" styleClass="btn-danger btn-xs"
+                                                         icon="fa fa-trash"
+                                                         update=":form_main:table_group_user, :form_main:btn_del_users"
+                                                         oncomplete="PF('tableGroupUser').clearFilters();">
+                                            <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                       message="#{PP_COMMONS.confirm_delete}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </f:facet>
+
+                            <p:dataTable paginatorPosition="bottom" paginatorAlwaysVisible="true" id="table_group_user"
+                                         widgetVar="tableGroupUser"
+                                         filterDelay="500" value="#{systemGroupController.mtmpGroupGUI.listUser}"
+                                         var="userGUI"
+                                         emptyMessage="#{PP_COMMONS.empty_message}" rowSelectMode="checkbox"
+                                         selection="#{systemGroupController.mselectedUser}"
+                                         rowKey="#{userGUI.user.userId}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="10,20,50,#{systemGroupController.mtmpGroupGUI.listUser.size()}"
+                                         styleClass="no-border">
+
+                                <p:ajax global="false" event="rowSelectCheckbox" process="table_group_user"
+                                        update=":form_main:btn_del_users"/>
+                                <p:ajax global="false" event="rowUnselectCheckbox" process="table_group_user"
+                                        update=":form_main:btn_del_users"/>
+                                <p:ajax global="false" event="toggleSelect" process="table_group_user"
+                                        update=":form_main:btn_del_users"/>
+                                <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                <p:ajax global="false" event="sort"/>
+                                <p:ajax global="false" event="page"/>
+
+                                <p:column headerText="&nbsp;" selectionMode="multiple"
+                                          style="width:16px;text-align:center"/>
+                                <p:column headerText="#{PP_MNGGROUP.login_name}" sortBy="#{userGUI.user.userName}"
+                                          filterBy="#{userGUI.user.userName}" filterMatchMode="contains">
+                                    <p:commandLink id="btn_view_user_info"
+                                                   actionListener="#{systemGroupController.onRowExpand(userGUI)}"
+                                                   process="table_group_user" update=":form_main:dialog_user_info"
+                                                   oncomplete="PF('dialogUserInfo').show();"
+                                                   styleClass="fa fa-info-circle" resetValues="true"/>&nbsp;&nbsp;
+                                    <p:tooltip for="btn_view_user_info" value="#{PP_MNGGROUP.view_info}"/>
+                                    #{userGUI.user.userName}
+                                </p:column>
+                                <p:column headerText="#{PP_MNGGROUP.full_name}"
+                                          sortBy="#{systemGroupController.removeSign(userGUI.user.fullName)}"
+                                          filterBy="#{userGUI.user.fullName}" filterMatchMode="contains" priority="2">
+                                    #{userGUI.user.fullName}
+                                </p:column>
+                                <p:column headerText="#{PP_MNGGROUP.status}" sortBy="#{userGUI.user.status}"
+                                          filterBy="#{userGUI.user.status}" filterMatchMode="contains" priority="1">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('tableGroupUser').filter()"
+                                                         styleClass="custom-filter">
+                                            <f:selectItem itemLabel="" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                            <f:selectItem itemLabel="#{PP_COMMONS.system}" itemValue="2"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                    <h:outputText styleClass="label label-success"
+                                                  rendered="#{userGUI.user.status eq 1}"
+                                                  value="#{systemGroupController.getUserStatus(userGUI.user.status)}"/>
+                                    <h:outputText styleClass="label label-warning"
+                                                  rendered="#{userGUI.user.status eq 0}"
+                                                  value="#{systemGroupController.getUserStatus(userGUI.user.status)}"/>
+                                    <h:outputText styleClass="label label-primary"
+                                                  rendered="#{userGUI.user.status eq 2}"
+                                                  value="#{systemGroupController.getUserStatus(userGUI.user.status)}"/>
+                                </p:column>
+                                <p:column headerText="#{PP_MNGGROUP.pwd_status}" sortBy="#{userGUI.user.expireStatus}"
+                                          filterBy="#{userGUI.user.expireStatus}" priority="3">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('tableGroupUser').filter()"
+                                                         styleClass="custom-filter">
+                                            <f:selectItem itemLabel="" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="#{PP_MNGGROUP.pwd_expire}" itemValue="0"/>
+                                            <f:selectItem itemLabel="#{PP_MNGGROUP.pwd_not_expire}" itemValue="1"/>
+                                            <f:selectItem itemLabel="#{PP_MNGGROUP.pwd_never_expire}" itemValue="2"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                    <h:outputText styleClass="label label-warning"
+                                                  rendered="#{userGUI.user.expireStatus eq 0}"
+                                                  value="#{systemGroupController.getUserExpireStatus(userGUI.user.expireStatus)}"/>
+                                    <h:outputText styleClass="label label-success"
+                                                  rendered="#{userGUI.user.expireStatus eq 1}"
+                                                  value="#{systemGroupController.getUserExpireStatus(userGUI.user.expireStatus)}"/>
+                                    <h:outputText styleClass="label label-primary"
+                                                  rendered="#{userGUI.user.expireStatus eq 2}"
+                                                  value="#{systemGroupController.getUserExpireStatus(userGUI.user.expireStatus)}"/>
+                                </p:column>
+                                <p:column width="100">
+                                    <p:commandLink id="btn_view_user"
+                                                   actionListener="#{systemGroupController.changeStateViewUser(userGUI)}"
+                                                   process="@this" styleClass="fa fa-eye"
+                                                   update=":form_main:pnl_content_center, :form_main:table_pick_group"
+                                                   resetValues="true"/>&nbsp;&nbsp;
+                                    <p:tooltip for="btn_view_user" value="#{PP_COMMONS.view}"/>
+
+                                    <p:commandLink id="btn_edit_user"
+                                                   rendered="#{systemGroupController.isAllowEditUser(userGUI)}"
+                                                   actionListener="#{systemGroupController.changeStateEditUser(userGUI)}"
+                                                   process="@this" styleClass="fa fa-pencil"
+                                                   update=":form_main:pnl_content_center, :form_main:table_pick_group"
+                                                   resetValues="true"/>&nbsp;&nbsp;
+                                    <p:tooltip for="btn_edit_user" value="#{PP_COMMONS.edit}"/>
+
+                                    <p:commandLink id="btn_copy_user"
+                                                   rendered="#{systemGroupController.isAllowCopyUser(userGUI)}"
+                                                   actionListener="#{systemGroupController.changeStateCopyUser(userGUI)}"
+                                                   process="@this" styleClass="fa fa-clone"
+                                                   update=":form_main:pnl_content_center, :form_main:table_pick_group"
+                                                   oncomplete="clearFiltersLazyTableUserGroup();" resetValues="true"/>&nbsp;&nbsp;
+                                    <p:tooltip for="btn_copy_user" value="#{PP_COMMONS.copy}"/>
+
+                                    <p:commandLink id="btn_del_user"
+                                                   rendered="#{systemGroupController.isAllowDeleteUser(userGUI)}"
+                                                   actionListener="#{systemGroupController.handDeleteUser(userGUI)}"
+                                                   process="@this" styleClass="fa fa-trash"
+                                                   update=":form_main:pnl_content_center"
+                                                   oncomplete="PF('tableGroupUser').clearFilters();">
+                                        <p:confirm header="#{PP_COMMONS.delete_dialog_header}"
+                                                   message="#{PP_COMMONS.confirm_delete}"/>
+                                    </p:commandLink>
+                                    <p:tooltip for="btn_del_user" value="#{PP_COMMONS.del}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                        <!--End List User-->
+                    </div>
+                </div>
+
+
+                <div class="ui-g">
+                    <div class="'ui-g-12 ui-md-12 ui-lg-12  no-pad-y">
+                        <!--View Add Edit User-->
+                        <h:panelGroup id="pnl_user_add"
+                                      rendered="#{systemGroupController.isDisplayBtnConfirm and systemGroupController.action eq 1}">
+                            <p:inputText id="password" type="password"
+                                         style="opacity: 0;position: absolute; right: 0;"/>
+                            <p:inputText id="email" style="opacity: 0;position: absolute;right: 0;"/>
+
+                            <p:panel header="#{PP_MNGGROUP.user_info}" styleClass="box-primary">
+                                <p:focus context="pnl_user_add"/>
+                                <div class="ui-g">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="us3r_name" value="#{PP_MNGGROUP.user_name}"/>
+                                            <p:inputText
+                                                    disabled="#{systemGroupController.isDISABLE or systemGroupController.isEDIT}"
+                                                    maxlength="50" required="true" id="us3r_name"
+                                                    value="#{systemGroupController.mtmpUserGUI.user.userName}"
+                                                    validator="ValidatorUserName"
+                                                    validatorMessage="#{PP_MNGGROUP.user_name_not_valid}"
+                                                    style="text-transform: uppercase;" autocomplete="off">
+                                                <p:keyFilter regEx="/[a-z0-9_\.\-@]/i" preventPaste="false"/>
+                                            </p:inputText>
+                                            <p:message for="us3r_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="full_name" value="#{PP_MNGGROUP.full_name}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="30"
+                                                         id="full_name"
+                                                         value="#{systemGroupController.mtmpUserGUI.user.fullName}"
+                                                         required="true" autocomplete="off"/>
+                                            <p:message for="full_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="passw0rd" value="#{PP_MNGGROUP.new_password}"/>
+                                            <p:password disabled="#{systemGroupController.isDISABLE}" maxlength="100"
+                                                        id="passw0rd"
+                                                        value="#{systemGroupController.mstrUserNewPassword}"
+                                                        required="#{systemGroupController.isADD or systemGroupController.isCOPY}"
+                                                        autocomplete="off"/>
+                                            <p:message for="passw0rd"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="repassw0rd" value="#{PP_MNGGROUP.re_new_password}"/>
+                                            <p:password disabled="#{systemGroupController.isDISABLE}" maxlength="100"
+                                                        id="repassw0rd"
+                                                        value="#{systemGroupController.mstrUserReNewPassword}"
+                                                        required="#{systemGroupController.isADD or systemGroupController.isCOPY}"
+                                                        autocomplete="off"/>
+                                            <p:message for="repassw0rd"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="pwd_expire_status"
+                                                           value="#{PP_MNGGROUP.pwd_expire_status}"/>
+                                            <p:selectOneMenu disabled="#{systemGroupController.isDISABLE}"
+                                                             id="pwd_expire_status"
+                                                             value="#{systemGroupController.mtmpUserGUI.user.expireStatus}">
+                                                <f:selectItem itemLabel="#{PP_MNGGROUP.not_expire}" itemValue="1"/>
+                                                <f:selectItem itemLabel="#{PP_MNGGROUP.expire}" itemValue="0"/>
+                                                <f:selectItem itemLabel="#{PP_MNGGROUP.never_expire}" itemValue="2"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="pwd_expire_status"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="phone" value="#{PP_MNGGROUP.phone}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="10"
+                                                         id="phone"
+                                                         value="#{systemGroupController.mtmpUserGUI.user.phone}"
+                                                         validator="ValidatorNumber"
+                                                         validatorMessage="#{PP_MNGGROUP.phone_is_not_valid}"
+                                                         autocomplete="off">
+                                                <p:keyFilter regEx="/[\d\-]/"/>
+                                            </p:inputText>
+                                            <p:message for="phone"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="mobile" value="#{PP_MNGGROUP.mobile}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="11"
+                                                         id="mobile"
+                                                         value="#{systemGroupController.mtmpUserGUI.user.mobile}"
+                                                         validator="ValidatorNumber"
+                                                         validatorMessage="#{PP_MNGGROUP.mobile_is_not_valid}"
+                                                         required="false" autocomplete="off">
+                                                <p:keyFilter regEx="/[\d\-]/"/>
+                                            </p:inputText>
+                                            <p:message for="mobile"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="fax" value="#{PP_MNGGROUP.fax}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="10"
+                                                         id="fax" value="#{systemGroupController.mtmpUserGUI.user.fax}"
+                                                         validator="ValidatorNumber"
+                                                         validatorMessage="#{PP_MNGGROUP.fax_is_not_valid}"
+                                                         autocomplete="off">
+                                                <p:keyFilter regEx="/[\d\-]/"/>
+                                            </p:inputText>
+                                            <p:message for="fax"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="emeo" value="#{PP_MNGGROUP.email}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="50"
+                                                         id="emeo"
+                                                         value="#{systemGroupController.mtmpUserGUI.user.email}"
+                                                         validator="ValidatorUserEmail"
+                                                         validatorMessage="#{PP_MNGGROUP.email_is_not_valid}"
+                                                         autocomplete="off">
+                                                <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>
+                                            </p:inputText>
+                                            <p:message for="emeo"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="address" value="#{PP_MNGGROUP.address}"/>
+                                            <p:inputText disabled="#{systemGroupController.isDISABLE}" maxlength="100"
+                                                         id="address"
+                                                         value="#{systemGroupController.mtmpUserGUI.user.address}"
+                                                         autocomplete="off"/>
+                                        </div>
+                                        <p:message for="address"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="user_status" value="#{PP_COMMONS.status}"/>
+                                            <p:selectOneMenu disabled="#{systemGroupController.isDISABLE}"
+                                                             id="user_status"
+                                                             value="#{systemGroupController.mtmpUserGUI.user.status}">
+                                                <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                                <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                                <f:selectItem itemLabel="#{PP_MNGGROUP.system}" itemValue="2"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="user_status"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel for="pick_group_txt" value="#{PP_MNGGROUP.user_group}"/>
+                                            <p:inputText id="pick_group_txt"
+                                                         disabled="#{systemGroupController.isDISABLE}" required="true"
+                                                         requiredMessage="#{PP_MNGGROUP.user_group}#{PP_COMMONS.can_not_be_empty}"
+                                                         value="#{systemGroupController.strUserGroupList}"
+                                                         style="cursor: pointer"
+                                                         onclick="PF('dialogPickGroup').show();">
+                                                <p:keyFilter regEx="/[]/i"/>
+                                            </p:inputText>
+                                            <p:message for="pick_group_txt"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel rendered="false" for="branch" value="#{PP_MNGGROUP.branch}"/>
+                                            <p:selectOneMenu filter="true" filterMatchMode="contains" rendered="false"
+                                                             value="#{systemGroupController.mselectedBranch}"
+                                                             id="branch">
+                                                <f:selectItem itemLabel="" itemValue=""/>
+                                                <f:selectItems value="#{systemGroupController.mlistBranch}" var="branch"
+                                                               itemLabel="#{branch.branchCode} - #{branch.branchName}"
+                                                               itemValue="#{branch.branchCode}"/>
+                                                <p:ajax global="false" event="change"
+                                                        listener="#{systemGroupController.onBranchChange}"
+                                                        update="district"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="branch"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="ui-material">
+                                            <p:outputLabel rendered="false" for="district"
+                                                           value="#{PP_MNGGROUP.district}"/>
+                                            <p:selectOneMenu filter="true" filterMatchMode="contains" rendered="false"
+                                                             value="#{systemGroupController.mselectedDistrict}"
+                                                             id="district">
+                                                <f:selectItem itemLabel="" itemValue=""/>
+                                                <f:selectItems value="#{systemGroupController.mlistDistrict}"
+                                                               var="district"
+                                                               itemLabel="#{district.districtCode} - #{district.name}"
+                                                               itemValue="#{district.districtCode}"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="district"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                            <p:watermark for="pick_group_txt" value="#{PP_COMMONS.click_to_choose}"/>
+                        </h:panelGroup>
+                        <!--End View Add Edit User-->
+
+                        <!--View Add Edit Group-->
+                        <h:panelGroup id="pnl_group_add"
+                                      rendered="#{systemGroupController.isDisplayBtnConfirm and systemGroupController.action eq 2}">
+                            <p:panel header="#{PP_MNGGROUP.group_info}" styleClass="box-primary">
+                                <p:focus context="pnl_group_add"/>
+                                <div class="ui-g">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="group_name" value="#{PP_MNGGROUP.group_name}"/>
+                                            <p:inputText maxlength="50" required="true"
+                                                         disabled="#{systemGroupController.isDISABLE}" id="group_name"
+                                                         value="#{systemGroupController.mtmpGroupGUI.group.name}"
+                                                         style="text-transform: uppercase;"/>
+                                            <p:message for="group_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="group_parent" value="#{PP_MNGGROUP.parent_group}"/>
+                                            <p:inputText id="group_parent" disabled="#{systemGroupController.isDISABLE}"
+                                                         value="#{systemGroupController.mselectedPickParentGroupGUI.group.name}"
+                                                         required="true"
+                                                         requiredMessage="#{PP_MNGGROUP.parent_group}#{PP_COMMONS.can_not_be_empty}"
+                                                         style="cursor: pointer"
+                                                         onclick="PF('dialogPickParentGroup').show();">
+                                                <p:keyFilter regEx="/[]/i"/>
+                                            </p:inputText>
+                                            <p:message for="group_parent"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="group_status" value="#{PP_COMMONS.status}"/>
+                                            <p:selectOneMenu disabled="#{systemGroupController.isDISABLE}"
+                                                             id="group_status"
+                                                             value="#{systemGroupController.mtmpGroupGUI.group.status}">
+                                                <f:selectItem itemLabel="#{PP_COMMONS.enable}" itemValue="1"/>
+                                                <f:selectItem itemLabel="#{PP_COMMONS.disable}" itemValue="0"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="group_status"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div class="material">
+                                            <p:outputLabel for="description" value="#{PP_COMMONS.description}"/>
+                                            <p:inputText id="description" disabled="#{systemGroupController.isDISABLE}"
+                                                         maxlength="100"
+                                                         value="#{systemGroupController.mtmpGroupGUI.group.description}"/>
+                                            <p:message for="description"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </h:panelGroup>
+
+                        <h:panelGroup
+                                rendered="#{systemGroupController.isDisplayBtnConfirm and systemGroupController.action eq 2}">
+                            <p:panel id="table_user" header="#{PP_MNGGROUP.add_user_to_group}" styleClass="box-info">
+                                <p:panelGrid layout="grid" columns="2">
+                                    <p:dataTable paginatorPosition="top" paginatorAlwaysVisible="true"
+                                                 id="table_lazy_user" widgetVar="tableLazyUser" lazy="true"
+                                                 value="#{systemGroupController.mlistUserGroup}" var="userLazyItem"
+                                                 emptyMessage="#{PP_COMMONS.empty_message}"
+                                                 rowKey="#{userLazyItem.user.userId}"
+                                                 selection="#{systemGroupController.mselectedUserLazy}"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15,20" paginator="true" rows="10"
+                                                 styleClass="material"
+                                                 disabledSelection="#{systemGroupController.isDISABLE}"
+                                                 rowSelectMode="checkbox">
+
+                                        <p:ajax process="@this" global="false" event="rowSelectCheckbox"
+                                                listener="#{systemGroupController.onSelectedUser}"/>
+                                        <p:ajax process="@this" global="false" event="rowUnselectCheckbox"
+                                                listener="#{systemGroupController.onSelectedUser}"/>
+                                        <p:ajax process="@this" global="false" event="toggleSelect"
+                                                listener="#{systemGroupController.onSelectedUser}"/>
+                                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                        <p:ajax global="false" event="sort"/>
+                                        <p:ajax global="false" event="page"/>
+
+                                        <f:facet name="header">
+                                            #{PP_MNGGROUP.all_user} (#{systemGroupController.mlistUserGroup.size()})
+                                        </f:facet>
+
+                                        <p:column selectionMode="multiple" headerText="&nbsp;"/>
+
+                                        <p:column headerText="#{PP_MNGGROUP.user_name}"
+                                                  filterBy="#{userLazyItem.user.userName}" filterMatchMode="contains">
+                                            #{userLazyItem.user.userName}
+                                        </p:column>
+                                        <p:column headerText="#{PP_MNGGROUP.full_name}"
+                                                  filterBy="#{userLazyItem.user.fullName}" filterMatchMode="contains">
+                                            #{userLazyItem.user.fullName}
+                                        </p:column>
+
+                                        <f:facet name="footer">
+                                            <p:commandButton process="@this" value="#{PP_MNGGROUP.move_user}"
+                                                             actionListener="#{systemGroupController.handMoveUser}"
+                                                             disabled="#{systemGroupController.isDISABLE}"
+                                                             update=":form_main:table_lazy_user :form_main:table_lazy_user_selected"
+                                                             oncomplete="PF('tableLazyUser').clearFilters(); PF('tableLazyUserSelected').clearFilters();"
+                                                             icon="fa fa-arrow-right" iconPos="right"/>
+                                        </f:facet>
+                                    </p:dataTable>
+
+                                    <p:dataTable paginatorPosition="top" paginatorAlwaysVisible="true"
+                                                 id="table_lazy_user_selected" widgetVar="tableLazyUserSelected"
+                                                 lazy="true"
+                                                 value="#{systemGroupController.mlistUserGroupSelected}"
+                                                 var="userLazyItemSelected"
+                                                 emptyMessage="#{PP_COMMONS.empty_message}"
+                                                 rowKey="#{userLazyItemSelected.user.userId}"
+                                                 selection="#{systemGroupController.mselectedUserLazySelected}"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15,20" paginator="true" rows="10"
+                                                 styleClass="material"
+                                                 disabledSelection="#{systemGroupController.isDISABLE}"
+                                                 rowSelectMode="checkbox">
+
+                                        <p:ajax process="@this" global="false" event="rowSelectCheckbox"
+                                                listener="#{systemGroupController.onSelectedUserSelected}"/>
+                                        <p:ajax process="@this" global="false" event="rowUnselectCheckbox"
+                                                listener="#{systemGroupController.onSelectedUserSelected}"/>
+                                        <p:ajax process="@this" global="false" event="toggleSelect"
+                                                listener="#{systemGroupController.onSelectedUserSelected}"/>
+                                        <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                                        <p:ajax global="false" event="sort"/>
+                                        <p:ajax global="false" event="page"/>
+
+                                        <f:facet name="header">
+                                            #{PP_MNGGROUP.user_in_group}(#{systemGroupController.mlistUserGroupSelected.size()})
+                                        </f:facet>
+
+                                        <p:column selectionMode="multiple" headerText="&nbsp;"/>
+
+                                        <p:column headerText="#{PP_MNGGROUP.user_name}"
+                                                  filterBy="#{userLazyItemSelected.user.userName}"
+                                                  filterMatchMode="contains">
+                                            #{userLazyItemSelected.user.userName}
+                                        </p:column>
+                                        <p:column headerText="#{PP_MNGGROUP.full_name}"
+                                                  filterBy="#{userLazyItemSelected.user.fullName}"
+                                                  filterMatchMode="contains">
+                                            #{userLazyItemSelected.user.fullName}
+                                        </p:column>
+
+                                        <f:facet name="footer">
+                                            <p:commandButton process="@this" value="#{PP_MNGGROUP.move_user}"
+                                                             actionListener="#{systemGroupController.handMoveUserSelected}"
+                                                             disabled="#{systemGroupController.isDISABLE}"
+                                                             update=":form_main:table_lazy_user :form_main:table_lazy_user_selected"
+                                                             oncomplete="PF('tableLazyUser').clearFilters(); PF('tableLazyUserSelected').clearFilters();"
+                                                             icon="fa fa-arrow-left"/>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:panelGrid>
+                            </p:panel>
+                        </h:panelGroup>
+
+                        <!--Module right-->
+                        <p:panel id="panel_module_right" header="#{PP_MNGGROUP.permission}"
+                                 rendered="#{systemGroupController.isDisplayBtnConfirm}" styleClass="box-warning">
+                            <div class="ui-g">
+                                <div class="ui-g-3">
+                                    <div class="material">
+                                        <p:selectOneMenu filter="true" filterMatchMode="contains" id="app_code"
+                                                         value="#{systemGroupController.mstrAppCode}">
+                                            <f:selectItems value="#{systemGroupController.mlistAppGUI}" var="app"
+                                                           itemLabel="#{app.name}" itemValue="#{app.code}"/>
+                                            <p:ajax process="@this :form_main:app_code" event="change"
+                                                    listener="#{systemGroupController.onAppChange}"
+                                                    update=":form_main:panel_module_right"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="ui-g-9">
+                                    <div id="chk-right-description">
+                                        <div class="fa fa-info-circle">&nbsp;&nbsp;&nbsp;</div>
+                                        <p:triStateCheckbox itemLabel="#{PP_COMMONS.deny}" value="#{2}"
+                                                            disabled="true"/>
+                                        <p:triStateCheckbox itemLabel="#{PP_COMMONS.allow}" value="#{1}"
+                                                            disabled="true"/>
+                                        <p:triStateCheckbox itemLabel="#{PP_COMMONS.inherit}" value="#{0}"
+                                                            disabled="true"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:dataTable id="table_module_right" widgetVar="tableModuleRight"
+                                         value="#{systemGroupController.mlistModuleRight}"
+                                         var="module"
+                                         rowStyleClass="#{module.objType eq 'G' ? 'group-module-row-color' : ''}"
+                                         style="margin-top: 5px;"
+                                         styleClass="table-module-right">
+
+                                <f:facet name="header">
+                                    #{PP_MNGGROUP.access_right}
+                                </f:facet>
+
+                                <p:column headerText="#{PP_MNGMODULE.module_name}">
+                                    <div style="width: #{(module.level - 1) * 30}px;" class="level-space"/>
+                                    <div class="left">
+                                        #{module.moduleName}
+                                    </div>
+                                    <div class="clear"/>
+                                </p:column>
+
+                                <p:column style="width: 10%">
+                                    <f:facet name="header" class="check-all">
+                                        <div style="margin-bottom: 5px">Check all</div>
+                                        <p:triStateCheckbox value="0" disabled="true" styleClass="check-all left"/>
+                                    </f:facet>
+                                    <p:triStateCheckbox disabled="#{systemGroupController.isDISABLE}"
+                                                        rendered="#{systemGroupController.mlistModuleRight.get(module.index).listAccess.size() != 0}"
+                                                        value="0" onchange="checkAllCollumns(this.id, this.value);"
+                                                        styleClass="check-col"/>
+                                </p:column>
+
+                                <p:columns
+                                        value="#{systemGroupController.mlistModuleRight.get(module.index).listAccess}"
+                                        var="rightItem" columnIndexVar="colIndex" style="width: 10%">
+                                    <f:facet name="header">
+                                        <div style="margin-bottom: 5px">#{rightItem.name}</div>
+                                        <p:triStateCheckbox value="#{0}" disabled="true"
+                                                            styleClass="check-row right-chkbox left"/>
+                                    </f:facet>
+                                    <p:triStateCheckbox disabled="#{systemGroupController.isDISABLE}"
+                                                        styleClass="right-chkbox"
+                                                        value="#{systemGroupController.mlistModuleRight.get(module.index).listAccess.get(colIndex).access}"
+                                                        rendered="#{systemGroupController.mlistModuleRight.get(module.index).listAccess.get(colIndex).active}"
+                                                        converter="ConverterAccessRight"/>
+                                </p:columns>
+                            </p:dataTable>
+
+                            <h:panelGroup rendered="#{not systemGroupController.isDISABLE}">
+                                <script type="text/javascript">
+                                    initCheckBoxRight();
+                                </script>
+                            </h:panelGroup>
+                        </p:panel>
+                        <!--Module right-->
+                    </div>
+                </div>
+
+                <p:inputText id="action" type="hidden" value="#{systemGroupController.action}"/>
+            </h:panelGroup>
+
+            <p:dialog id="dialog_user_info" widgetVar="dialogUserInfo" modal="true" resizable="false" draggable="true"
+                      closeOnEscape="true" styleClass="box-info" responsive="true" style="max-width: 800px">
+                <h:panelGroup id="pnl_user_info">
+                    <div class="ui-g">
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.user_name}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.userName}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.full_name}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.fullName}"/></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.pwd_expire_status}"/>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.getUserExpireStatus(systemGroupController.mtmpUserGUI.user.expireStatus)}"/>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.phone}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.phone}"/></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.mobile}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.mobile}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.fax}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.fax}"/></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.email}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.email}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.address}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.address}"/></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.last_change_pwd}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3">
+                            <h:outputText value="#{systemGroupController.mtmpUserGUI.user.modifiedPassword}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+7"/>
+                            </h:outputText>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.last_block}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3">
+                            <h:outputText value="#{systemGroupController.mtmpUserGUI.user.lockedDate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+7"/>
+                            </h:outputText></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_COMMONS.status}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.getUserStatus(systemGroupController.mtmpUserGUI.user.status)}"/>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.login_fail_count}"/>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.mtmpUserGUI.user.failureCount}"/></div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.create_id}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.getUsername(systemGroupController.mtmpUserGUI.user.createdId)}"/>
+                        </div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.modified_id}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.getUsername(systemGroupController.mtmpUserGUI.user.modifiedId)}"/>
+                        </div>
+
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText value="#{PP_MNGGROUP.user_group}"/></div>
+                        <div class="ui-g-6 ui-md-6 ui-lg-3"><h:outputText
+                                value="#{systemGroupController.getListUserGroup(systemGroupController.mtmpUserGUI.listGroup)}"/>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </p:dialog>
+
+            <p:dialog id="dialog_pick_group" widgetVar="dialogPickGroup" header="#{PP_MNGGROUP.pick_group}" modal="true"
+                      resizable="false" draggable="true" closeOnEscape="true" styleClass="box-info" responsive="true"
+                      style="max-width: 600px">
+                <p:dataTable paginatorPosition="top" id="table_pick_group" widgetVar="tablePickGroup" paginator="true"
+                             rowSelectMode="checkbox"
+                             value="#{systemGroupController.mlistGroupGUI}" var="pickGroupItem"
+                             emptyMessage="#{PP_COMMONS.empty_message}"
+                             rowKey="#{pickGroupItem.group.groupId}"
+                             selection="#{systemGroupController.mselectedPickGroup}"
+                             rows="8"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                             styleClass="no-border"
+                >
+
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column selectionMode="multiple" headerText="&nbsp;"/>
+
+                    <p:column headerText="#{PP_MNGGROUP.group_name}" filterBy="#{pickGroupItem.group.name}"
+                              filterMatchMode="contains">
+                        <div style="width: #{(pickGroupItem.group.level - 1) * 30}px;" class="level-space"/>
+                        <div class="icon-level left">
+                            #{pickGroupItem.group.name}
+                        </div>
+                        <div class="clear"/>
+                    </p:column>
+                </p:dataTable>
+
+                <div style="margin-top: 5px;">
+                    <p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+                        <p:commandButton process="@this :form_main:table_pick_group" update="pick_group_txt"
+                                         oncomplete="PF('dialogPickGroup').hide();"
+                                         actionListener="#{systemGroupController.onPickGroup()}"
+                                         value="#{PP_COMMONS.ok}" styleClass="btn-success" icon="fa fa-check-circle"/>
+                        <p:commandButton value="#{PP_COMMONS.back}" type="button"
+                                         onclick="PF('dialogPickGroup').hide();" icon="fa fa-undo" styleClass="back "/>
+                    </p:panelGrid>
+                </div>
+            </p:dialog>
+
+            <p:dialog id="dialog_pick_parent_group" widgetVar="dialogPickParentGroup" header="#{PP_MNGGROUP.pick_group}"
+                      modal="true" resizable="false" draggable="true" styleClass="box-info" responsive="true"
+                      style="max-width: 600px">
+                <p:dataTable paginatorPosition="top" id="table_pick_parent_group" widgetVar="tablePickParentGroup"
+                             paginator="true"
+                             value="#{systemGroupController.mlistGroupGUI}" var="pickParentGroupItem"
+                             emptyMessage="#{PP_COMMONS.empty_message}"
+                             rowKey="#{pickParentGroupItem.group.groupId}"
+                             selection="#{systemGroupController.mselectedPickParentGroupGUI}"
+                             rows="8"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                             styleClass="no-border"
+                >
+
+                    <p:ajax global="false" event="filter" ignoreAutoUpdate="true"/>
+                    <p:ajax global="false" event="sort"/>
+                    <p:ajax global="false" event="page"/>
+
+                    <p:column selectionMode="single" headerText="&nbsp;"/>
+
+                    <p:column filterBy="#{pickParentGroupItem.group.name}" filterMatchMode="contains"
+                              style="width: 450px;" headerText="#{PP_MNGGROUP.group_name}">
+                        <div style="width: #{(pickParentGroupItem.group.level - 1) * 30}px;" class="level-space"/>
+                        <div class="icon-level left">
+                            #{pickParentGroupItem.group.name}
+                        </div>
+                        <div class="clear"/>
+                    </p:column>
+                </p:dataTable>
+
+                <div style="margin-top: 5px;">
+                    <p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+                        <p:commandButton process="@this :form_main:table_pick_parent_group" update="group_parent"
+                                         oncomplete="PF('dialogPickParentGroup').hide();"
+                                         actionListener="#{systemGroupController.onPickParentGroup()}"
+                                         value="#{PP_COMMONS.ok}" styleClass="btn-success" icon="fa fa-check-circle"/>
+                        <p:commandButton value="#{PP_COMMONS.back}" type="button"
+                                         onclick="PF('dialogPickParentGroup').hide();" icon="fa fa-undo"
+                                         styleClass="back "/>
+                    </p:panelGrid>
+                </div>
+            </p:dialog>
+        </div>
+
+        <h:outputScript library="js" name="module.right.js"/>
+    </ui:composition>
+</h:body>
+</html>

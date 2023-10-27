@@ -1,0 +1,35 @@
+ThreadName==Evs_Soap Dispatcher
+ClassName==com.telsoft.cbs.modules.evs_soap.EvsSoapDispatcher
+StartupType==1
+Parameter
+	URL==http://127.0.0.1:8282/services/UMarketSC
+	Timeout==30
+	Username==khanhnc
+	Password==thienha123
+	ServerName==EVS_SOAP
+	SplitNumber==1
+	ChannelSpeed==0
+	IdleInterval==10
+	Attribute
+	ExtParameters
+	Translator=^
+		0=^
+			0==com.telsoft.cbs.modules.evs_soap.EvsSoapTranslator
+			1
+	KeepAliveInterval==60
+	KeepAliveCommand
+	SuccessfulSignal
+	ExceptionFilter
+	LogDir==log/evssoap
+	Alert==Y
+	Debug==Y
+	SingleSession
+	ThreadGroup
+	DelayTime==10
+	NotificationInterval
+	NotificationString
+	logging-command-process==y
+	MaxDelay==60
+	LogDefinition
+Status==1
+Schedule
